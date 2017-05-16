@@ -1,0 +1,100 @@
+<header class = "header">
+	<div class = "datosHeader">
+		<img src = "img/osty.png" class = "logo"/>
+		<div class = "menu">
+			<ul class = "lstMenu">
+				<li><a href = "#"><span class = "fa fa-desktop"></span>¿QUÉ ES?</a></li>
+				<li><a href = "#"><span class = "fa fa-music"></span>FUNCIONALIDADES</a></li>
+				<li><a href = "#"><span class = "fa fa-group"></span>EQUIPO</a></li>
+				<li><a href = "#"><span class = "fa fa-phone"></span>CONTACTO</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<div class = "main">
+	<div class = "divWallpaper">
+		<div class = "divColor"></div>
+		<div class = "texto">
+			<div class = "ubicacionTexto">
+				<div class = "titulo">
+					¡Bienvenido a OSTy!
+				</div>
+				<p class = "descripcion">
+					La aplicación que permite obtener datos de canciones y encontrar aquellas que forman parte de la cortina musical de una serie y/o película de manera sencilla.
+				</p>
+				<button class = "btnBuscar"><span class = "fa fa-search"></span>Buscar</button>
+			</div>
+
+		</div>
+		<img src = "img/osty wallpaper.png" class = "wallpaper"/>
+
+
+	</div>
+	<div class = "funcionalidades">
+		<div class = "tituloFuncionalidades">Funcionalidades</div>
+		<div class = "funcionIngresar">
+			<img src = "img/ingreso.png" class = "imgFuncionalidades"></img>
+			<p class = "tituloIngreso">Cuenta de usuario</p>
+			<p class = "textoIngreso">¡<b>Regístrate</b> e <b>ingresa</b> a la aplicación como usuario para poder personalizar inidicar tus canciones favoritas!</p>
+			<button id="btn-ingresar" class = "btnIngresar"><span class = "fa fa-sign-in"></span>Ingresar</button>
+		</div>
+		<div class = "funcionVer">
+			<img src = "img/ver.png" class = "imgFuncionalidades"></img>
+			<p class = "tituloIngreso">Búsqueda de canciones</p>
+			<p class = "textoIngreso">Infórmate acerca de las canciones que desees (autores, año de composición, disquera, país de origen y más).</p>
+			<button id="btn-buscar" class = "btnIngresar"><span class = "fa fa-search"></span>Buscar</button>
+		</div>
+
+		<div class = "funcionVideo">
+			<img src = "img/video.png" class = "imgFuncionalidades"></img>
+			<p class = "tituloIngreso">Búsqueda de soundtrack</p>
+			<p class = "textoIngreso">Encuentra cuáles canciones que son banda sonora de tus películas y series favoritas que buscas.</p>
+			<button class = "btnIngresar"><span class = "fa fa-search"></span>Buscar</button>
+		</div>
+	</div>
+	<!--div class = "contenedorVideo"-->
+	<video autoplay loop class = "video">
+		<source class = "archivoVideo" src = "videos/osty.mp4" type = "video/mp4"></source>
+	</video>
+	<!--/div-->
+
+</div>
+<footer class = "footer">
+	<div class = "footerEquipo">
+		<div class = "equipo">Equipo</div>
+		<div class = "persona">
+			<span class = "fa fa-user-circle perfilPersona"></span>
+			<p class = "nombre">Guillermo Becker</p>
+			<p class = "tareas">Desarrollador</p>
+			<p class = "correo"><a href = "mailto:guille.becker.15@gmail.com">guille.becker.15@gmail.com</a></p>
+		</div>
+		<div class = "persona">
+			<span class = "fa fa-user-circle perfilPersona"></span>
+			<p class = "nombre">Cristian Da Silva</p>
+			<p class = "tareas">Desarrollador</p>
+			<p class = "correo"><a href = "mailto:cristiands094@gmail.com">cristiands094@gmail.com</a></p>
+		</div>
+
+		<div class = "persona">
+			<span class = "fa fa-user-circle perfilPersona"></span>
+			<p class = "nombre">Carlos Frostte</p>
+			<p class = "tareas">Desarrollador</p>
+			<p class = "correo"><a href = "mailto:carlosfrostte@gmail.com">carlosfrostte@gmail.com</a></p>
+		</div>
+		<div class = "persona">
+			<span class = "fa fa-user-circle perfilPersona"></span>
+			<p class = "nombre">Mauro Rocca</p>
+			<p class = "tareas">Desarrollador</p>
+			<p class = "correo"><a href = "mailto:mauroroccaf@gmail.com">mauroroccaf@gmail.com</a></p>
+		</div>
+	</div>
+	<div class = "footerContacto">
+		<div class = "contacto">Contacto</div>
+		<form class = "frmContacto">
+			<input type = "text" name = "correo" class = "txtCorreo" placeholder = "Correo electrónico"/>
+			<input type = "text" name = "asunto" class = "txtAsunto" placeholder = "Asunto"/>
+			<textarea class = "txtMensaje" placeholder = "Mensaje" id = "txtMensaje"></textarea>
+			<button class = "btnIngresar"><span class = "fa fa-envelope-o"></span>Enviar</button>
+		</form>
+	</div>
+</footer>
