@@ -16,9 +16,34 @@
  
   <body>
 
-		<div class="container">
-		  <%= yield %>
-		</div>
+    <div class="super-conteiner">
+
+      <center><%= image_tag "osty.png", :class => "logo-search img-responsive" %></center>
+
+        <div class="container">
+
+          <div class="search col-md-8 col-md-offset-2">
+
+            <ul class="nav">
+              <li class="col-md-3"><a href="/collaborations">Colaboraciones</a></li>
+              <li class="col-md-3"><a href="/favorites">Favoritos</a></li>
+              <li class="col-md-3"><a href="/auth/login">Perfil</a></li>
+              <li class="col-md-3"><a href="/search/index">Buscar</a></li>
+            </ul>
+
+            <!--
+            Mediante jquery se podria dejar pintado el li
+            en color dodgerblue, en funcion del path actual
+            Por ejemplo: Si esta en colaboraciones, este aparecera seleccionado 
+            -->
+
+          </div>
+
+        </div>
+
+    </div>
+
+      <div class="container search col-md-8 col-md-offset-2"><%= yield %></div>
 
   </body>
 

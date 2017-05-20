@@ -4,9 +4,6 @@ Rails.application.routes.draw do
 
   resources :favorites
   resources :collaborations
-	
-	get 'pages/index'
-	get 'pages/profile'
 
 	# root to: 'pages#index'
   root "pages#show", page: "landing"
