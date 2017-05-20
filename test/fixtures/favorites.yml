@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idUser: 1
+  idApi: MyString
+  kind: 1
+
+two:
+  idUser: 1
+  idApi: MyString
+  kind: 1

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Iduser:</strong>
+  <%= @collaboration.idUser %>
+</p>
+
+<p>
+  <strong>Idimdb:</strong>
+  <%= @collaboration.idImdb %>
+</p>
+
+<p>
+  <strong>Idspotify:</strong>
+  <%= @collaboration.idSpotify %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @collaboration.state %>
+</p>
+
+<%= link_to 'Edit', edit_collaboration_path(@collaboration) %> |
+<%= link_to 'Back', collaborations_path %>
