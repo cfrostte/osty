@@ -1,0 +1,56 @@
+.search {
+	padding-top: 25px;
+}
+
+.logo {
+	padding-bottom: 50px;
+}
+
+.nav {
+	padding-bottom: 25px;
+}
+
+.m-item {
+	text-align: center;
+}
+
+.m-item > a {
+	text-decoration: none;
+	background-color: gray;
+	color: white;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.search-input {
+	margin-top: 25px;
+	border: 1px solid transparent;
+	border-radius: 2px 0 0 2px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 50px;
+	outline: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	width: 100%;
+}
+
+#query {
+	font-size: 15px;
+	font-weight: 300;
+	padding: 0 11px 0 13px;
+	text-overflow: ellipsis;
+}
+
+#query:focus {
+	border-color: none;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+@media screen and (max-device-width: 600px) {
+
+	/*Que pasa cuando la pantalla es la de un movil?*/
+
+}
