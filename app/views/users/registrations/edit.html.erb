@@ -1,43 +1,54 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h1>Editar datos</h1>
+
+<hr>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
   <%= devise_error_messages! %>
+  
+  <div class="field">
+    <strong>Nuevo apodo</strong><br />
+    <%= f.text_field :nickname, autofocus: true %>
+  </div>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <strong>Nuevo Correo</strong><br />
+    <%= f.email_field :email %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <div>Esperando confirmacion de: <%= resource.unconfirmed_email %></div>
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <strong>Nueva Contraseña</strong><br />
+    <i>(En blanco para no cambiar)</i><br />
     <%= f.password_field :password, autocomplete: "off" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <em>(Al menos <%= @minimum_password_length %>)</em>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <strong>Confirmar contraseña</strong><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
+  <hr>
+
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <strong>***Contraseña actual***</strong><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+  <div class="actions"><%= f.submit "Modificar", :class => "btn"%></div>
+
 <% end %>
 
-<h3>Cancel my account</h3>
+<hr>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<p>
+  <span class="glyphicon glyphicon-warning-sign"></span>
+  <%= link_to "Cancelar cuenta", registration_path(resource_name), data: { confirm: "Estas segur@? No hay vuelta atras" }, method: :delete %>
+</p>
