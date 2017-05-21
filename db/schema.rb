@@ -14,19 +14,23 @@ ActiveRecord::Schema.define(version: 20170516004055) do
 
   create_table "collaborations", force: :cascade do |t|
     t.integer  "idUser"
-    t.string   "idImdb"
-    t.string   "idSpotify"
-    t.integer  "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "idImdb",     default: "", null: false
+    t.string   "idSpotify",  default: "", null: false
+    t.integer  "state",      default: 0,  null: false
+    t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["user_id"], name: "index_collaborations_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "idUser"
-    t.string   "idApi"
-    t.integer  "kind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "idApi",      default: "", null: false
+    t.integer  "kind",       default: 0,  null: false
+    t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
