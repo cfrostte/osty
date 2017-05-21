@@ -1,9 +1,9 @@
-.search {
-	padding-top: 25px;
-}
-
 body {
 	margin: 0;
+}
+
+.search {
+	padding-top: 25px;
 }
 
 .super-conteiner {
@@ -17,10 +17,6 @@ body {
 	padding-left: 25px;
 	max-width: 250px;
 }
-
-.nav {
-/*	padding-bottom: 25px;
-*/}
 
 .nav > li > a:hover, .nav > li > a:focus {
     background-color: dodgerblue;
