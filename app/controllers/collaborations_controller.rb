@@ -7,6 +7,23 @@ class CollaborationsController < ApplicationController
     @collaborations = Collaboration.all
   end
 
+  def search
+    
+    @collaborations = Collaboration.all
+  
+    @found = @collaborations.map do |c|
+      { :id => c.id,
+        :idUser => c.idUser,
+        :idImdb => c.idImdb,
+        :idSpotify => c.idSpotify,
+        :state => c.state
+      }
+    end
+
+    render :json => @found.to_json
+  
+  end
+
   # GET /collaborations/1
   # GET /collaborations/1.json
   def show

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'collaborations/search'
   get 'search/index'
   get 'users/profile'
 
