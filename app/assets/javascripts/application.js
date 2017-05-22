@@ -14,3 +14,4 @@
 //= require turbolinks
 //= require bootstrap/js/bootstrap.min
 //= require views
+//= require apis
