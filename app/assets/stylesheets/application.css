@@ -10,7 +10,9 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree ./bootstrap
+ *= require_tree ./bootstrap/css
+ *= require_tree ./bootstrap/fonts
+ *= require_tree ./bootstrap/js
  *= require scaffolds
  *= require views
  *= require_self
