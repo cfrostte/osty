@@ -73,8 +73,14 @@ function search(q) {
 			$.ajax(settings_collaboration).done(function (response) {
 				document.getElementById("found").innerHTML = "";
 				populateOsty(response);
+				console.log("response");
+				console.log(response);
 				populateSpotify(response_music);
+				console.log("response_music");
+				console.log(response_music);
 				populateThemoviedb(response_film);
+				console.log("response_film");
+				console.log(response_film);
 			});
 	
 		});
