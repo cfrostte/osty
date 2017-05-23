@@ -10,13 +10,27 @@ class CollaborationsController < ApplicationController
   def search
     
     @collaborations = Collaboration.all
-  
+
+    # Recorrer los jsons music y film y
+    # para cada uno: checkear si el par (idImdb,idSpotify)
+    # coincide con alguna colaboracion hecha.
+
+    # Si coincide: cargarla a una coleccion.
+    
+    # Cada elemento de la coleccion, debe tener
+    # toda la informacion a procesar del lado del cliente.
+
+    # La coleccion debe ser transformada a json para enviarse.
+
     @found = @collaborations.map do |c|
       { :id => c.id,
         :idUser => c.idUser,
         :idImdb => c.idImdb,
         :idSpotify => c.idSpotify,
-        :state => c.state
+        :state => c.state,
+        # Se prueba enviar lo que llega:
+        :music => params[:music], 
+        :film => params[:film]
       }
     end
 
