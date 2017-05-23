@@ -68,6 +68,12 @@ function search(q) {
 			    "contentType": 'application/json; charset=utf-8',
 			    "dataType": 'json',
 			    "async": true,
+			    error: function(error, data) {
+			    	console.log("aca esta algo mal");
+			    },
+			    success: function(data) {
+			    	console.log("anduvo bien y devuelve", data);
+			    }
 			}
 
 			$.ajax(settings_collaboration).done(function (response) {
