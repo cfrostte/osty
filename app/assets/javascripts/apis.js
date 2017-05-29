@@ -31,7 +31,7 @@ $( document ).on('turbolinks:load', function() {
 function search(q) {
 
 	var url_collaboration = protocol+"//"+host+"/collaborations/search";
-	var url_music = "http://ws.audioscrobbler.com/2.0/?method=track.search&track="+q+"&api_key="+k_lastfm+"&format=json";
+	var url_music = "https://ws.audioscrobbler.com/2.0/?method=track.search&track="+q+"&api_key="+k_lastfm+"&format=json";
 	var url_film = "https://api.themoviedb.org/3/search/movie?query="+q+"&api_key="+k_themoviedb+"";
 	
 	var queue_count = 0;
