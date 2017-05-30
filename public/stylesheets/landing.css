@@ -19,35 +19,57 @@ body{
 }
 
 .datosHeader{
-  /*border: 1px solid white;*/
+  border: 1px solid white;
   height: 100%;
   max-width: 1150px;
-  margin: auto;
+  margin: 0 auto;
 }
-
-.logo{
-  width: 17.5%;
-  height: auto;
-  margin-top: 1.75%;
+.divImagen{
+  border: 1px solid white;
+  width: 19.5%;
+  /*width: 10rem;*/
+  height: 75%;
+  top: 17%;
+  /*margin-top: 1.75%;*/
   cursor: pointer;
+  position: relative;
+  float: left;
+}
+.logo{
+  width: 100%;
+  height: 100%;
 }
 
 .menu{
   /*width: 500px;*/
   font-family: sans-serif;
-  /*border: 1px solid white;*/
+  border: 1px solid white;
   float: right;
+  position: absolutes;
+  bottom: 0;
+  height: 100%;
+
 
 }
+.divMenu{
+  border: 1px solid yellow;
 
+  position: relative;
+  height: 55%;
+  top: 45%;
+}
 .lstMenu{
   list-style: none;
+  top: 40%;
 }
 
 .lstMenu > li{
   float: left;
+
+  border: 1px solid green;
+  
   /*border: 1px solid white;*/
-  margin-top: 5.5%;
+  /*margin-top: 5.5%;*/
 }
 
 .lstMenu li a{
@@ -68,6 +90,7 @@ body{
   margin-top: 5.5%;
   display: block;
   width: 100%;
+  /*border: 1px solid yellow;*/
   /*margin-bottom: */
   /*height: 100%;*/
 }
@@ -168,6 +191,7 @@ body{
   border-radius: 10px;
   outline: 0;
   transition: all .4s;
+  width: 75.4%;
 }
 
 .btnIngresar:hover{
@@ -396,4 +420,128 @@ height: 230px;
 
 .correo a:active{
   color: grey;
+}
+
+@media screen and (max-width: 1750px){
+
+  .texto{
+    width: 1150px;
+    height: 75%;
+    margin: auto;
+    /*border: 1px solid white;*/
+    position: absolute;
+    margin-left: 20%;
+    margin-top: 1.5%;
+  }
+
+  .ubicacionTexto{
+    /*border: 1px solid black;*/
+    width: 44%;
+    height: 91%;
+    margin-left: 44%;
+    font-family: sans-serif;
+    background: rgba(0, 0, 0, .45);
+    padding: 2%;
+    border-radius: 5%;
+    margin-top: 2%;
+  }
+
+  .titulo{
+    font-weight: bold;
+    font-size: 49px;
+    color: white;
+    width: 100%;
+    /*margin-top: 10%;*/
+    margin-top: 2%;
+    text-align: center;
+    text-shadow: 5px 5px 5px #000;
+
+  }
+
+  .descripcion{
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+    /*text-shadow: 5px 5px 5px #000;*/
+    /*-webkit-text-stroke: 1px black;*/
+    margin-top: 40px;
+    text-align: justify;
+    font-weight: none;
+    width: 85%;
+    margin-left: 7.5%;
+    /*margin: auto;*/
+  }
+
+  .btnBuscar{
+    font-size: 20px;
+    padding: 10px 25px;
+    margin:auto;
+    display: block;
+    margin-top: 40px;
+    border: 3px solid #009CFD;
+    color: #009CFD;
+    font-weight: bold;
+    background: white;
+    border-radius: 10px;
+    outline: 0;
+    transition: all .4s;
+  }
+
+  .btnBuscar:hover{
+    color: white;
+    cursor: pointer;
+    background: #009CFD;
+  }
+}
+
+@media screen and (max-width: 1600px){
+
+  .texto{
+    width: 1150px;
+    height: 80%;
+    margin: auto;
+    /*border: 1px solid white;*/
+    position: absolute;
+    margin-left: 20%;
+    margin-top: 1.5%;
+  }
+
+  .ubicacionTexto{
+    /*border: 1px solid black;*/
+    width: 44%;
+    height: 91%;
+    margin-left: 44%;
+    font-family: sans-serif;
+    background: rgba(0, 0, 0, .45);
+    padding: 2%;
+    border-radius: 5%;
+    margin-top: 2%;
+  }
+  
+}
+
+@media screen and (max-width: 1500px){
+  .divWallpaper{
+    width: 107%;
+    background: green;
+  }
+  .texto{
+    width: 1150px;
+    height: 81.5%;
+    margin: auto;
+    position: absolute;
+    margin-left: 20%;
+    margin-top: 1.5%;
+  }
+
+  .ubicacionTexto{
+    width: 44%;
+    height: 91%;
+    margin-left: 44%;
+    font-family: sans-serif;
+    background: rgba(0, 0, 0, .45);
+    padding: 2%;
+    border-radius: 5%;
+    margin-top: 2%;
+  }
 }

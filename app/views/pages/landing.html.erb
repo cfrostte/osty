@@ -1,18 +1,22 @@
 <header class = "header">
 	<div class = "datosHeader">
-		<img src = "img/osty.png" class = "logo"/>
+		<div class = "divImagen">
+			<img src = "img/osty.png" class = "logo"/>			
+		</div>
 		<div class = "menu">
-			<ul class = "lstMenu">
-				<li><a href = "#"><span class = "fa fa-desktop"></span>¿QUÉ ES?</a></li>
-				<li><a href = "#"><span class = "fa fa-music"></span>FUNCIONALIDADES</a></li>
-				<li><a href = "#"><span class = "fa fa-group"></span>EQUIPO</a></li>
-				<li><a href = "#"><span class = "fa fa-phone"></span>CONTACTO</a></li>
-			</ul>
+			<div class = "divMenu">
+				<ul class = "lstMenu">
+					<li id = "quees"><a href = "#"><span class = "fa fa-desktop"></span>¿QUÉ ES?</a></li>
+					<li id = "funcionalidades"><a href = "#"><span class = "fa fa-music"></span>FUNCIONALIDADES</a></li>
+					<li id = "equipo"><a href = "#"><span class = "fa fa-group"></span>EQUIPO</a></li>
+					<li id = "contacto"><a href = "#"><span class = "fa fa-phone"></span>CONTACTO</a></li>
+				</ul>
+			</div>			
 		</div>
 	</div>
 </header>
-<div class = "main">
-	<div class = "divWallpaper">
+<div class = "main" id = "main">
+	<div class = "divWallpaper" id = "divWallpaper">
 		<div class = "divColor"></div>
 		<div class = "texto">
 			<div class = "ubicacionTexto">
@@ -27,10 +31,8 @@
 
 		</div>
 		<img src = "img/osty wallpaper.png" class = "wallpaper"/>
-
-
 	</div>
-	<div class = "funcionalidades">
+	<div class = "funcionalidades" id = "funcionalidades">
 		<div class = "tituloFuncionalidades">Funcionalidades</div>
 		<div class = "funcionIngresar">
 			<img src = "img/ingreso.png" class = "imgFuncionalidades"></img>
@@ -59,7 +61,7 @@
 	<!--/div-->
 
 </div>
-<footer class = "footer">
+<footer class = "footer" id = "footer">
 	<div class = "footerEquipo">
 		<div class = "equipo">Equipo</div>
 		<div class = "persona">
@@ -94,7 +96,7 @@
 			<input type = "text" name = "correo" class = "txtCorreo" placeholder = "Correo electrónico"/>
 			<input type = "text" name = "asunto" class = "txtAsunto" placeholder = "Asunto"/>
 			<textarea class = "txtMensaje" placeholder = "Mensaje" id = "txtMensaje"></textarea>
-			<button class = "btnIngresar"><span class = "fa fa-envelope-o"></span>Enviar</button>
+			<button class = "btnIngresar" style = "width: 105%"><span class = "fa fa-envelope-o"></span>Enviar</button>
 		</form>
 	</div>
 </footer>
