@@ -1,12 +1,6 @@
 class CollaborationsController < ApplicationController
   before_action :set_collaboration, only: [:show, :edit, :update, :destroy]
 
-  # GET /collaborations
-  # GET /collaborations.json
-  def index
-    @collaborations = Collaboration.all
-  end
-
   def search
     
     @collaborations = Collaboration.all
@@ -24,9 +18,14 @@ class CollaborationsController < ApplicationController
 
     @found = @collaborations.map do |c|
       { :id => c.id,
-        :idUser => c.idUser,
-        :idImdb => c.idImdb,
-        :idSpotify => c.idSpotify,
+        :songAlbum => c.songAlbum,
+        :songArtist => c.songArtist,
+        :songName => c.songName,
+        :songInfo => c.songInfo,
+        :movieDirector => c.movieDirector,
+        :movieYear => c.movieYear,
+        :movieName => c.movieName,
+        :idSpotify => c.movieInfo,
         :state => c.state,
         # Se prueba enviar lo que llega:
         :music => params[:music], 
@@ -36,6 +35,12 @@ class CollaborationsController < ApplicationController
 
     render :json => @found.to_json
   
+  end
+
+  # GET /collaborations
+  # GET /collaborations.json
+  def index
+    @collaborations = Collaboration.all
   end
 
   # GET /collaborations/1
@@ -100,6 +105,6 @@ class CollaborationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collaboration_params
-      params.require(:collaboration).permit(:idUser, :idImdb, :idSpotify, :state)
+      params.fetch(:collaboration, {})
     end
 end

@@ -10,26 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516004055) do
+ActiveRecord::Schema.define(version: 20170530175720) do
 
   create_table "collaborations", force: :cascade do |t|
-    t.integer  "idUser"
-    t.string   "idImdb",     default: "", null: false
-    t.string   "idSpotify",  default: "", null: false
-    t.integer  "state",      default: 0,  null: false
+    t.string   "songAlbum"
+    t.string   "songArtist"
+    t.string   "songName"
+    t.text     "songInfo"
+    t.string   "movieDirector"
+    t.integer  "movieYear"
+    t.string   "movieName"
+    t.text     "movieInfo"
+    t.integer  "state"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["user_id"], name: "index_collaborations_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.integer  "idUser"
-    t.string   "idApi",      default: "", null: false
-    t.integer  "kind",       default: 0,  null: false
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "collaboration_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["collaboration_id"], name: "index_favorites_on_collaboration_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 

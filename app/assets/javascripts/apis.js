@@ -1,8 +1,8 @@
 var protocol = window.location.protocol;
 var host = window.location.host;
 
-var k_themoviedb = "22f58faad6207b2f0dcf3068cc50bb74";
-var k_lastfm = "4268ad0746656798a6616f4bbac67dd1";
+var key_music = "4268ad0746656798a6616f4bbac67dd1"; //Last.fm
+var key_film = "22f58faad6207b2f0dcf3068cc50bb74"; //The Movie Database
 
 var response_music = null;
 var response_film = null;
@@ -31,8 +31,8 @@ $( document ).on('turbolinks:load', function() {
 function search(q) {
 
 	var url_collaboration = protocol+"//"+host+"/collaborations/search";
-	var url_music = "https://ws.audioscrobbler.com/2.0/?method=track.search&track="+q+"&api_key="+k_lastfm+"&format=json";
-	var url_film = "https://api.themoviedb.org/3/search/movie?query="+q+"&api_key="+k_themoviedb+"";
+	var url_music = "https://ws.audioscrobbler.com/2.0/?method=track.search&track="+q+"&api_key="+key_music+"&format=json";
+	var url_film = "https://api.themoviedb.org/3/search/movie?query="+q+"&api_key="+key_film+"";
 	
 	var queue_count = 0;
 
@@ -61,7 +61,7 @@ function search(q) {
 		response_music = response;
 		queue_count+=1;
 		
-		if (queue_count==2) call_server(response_music, response_film);
+		if (queue_count==2) call_osty(response_music, response_film);
 
 	});
 
@@ -70,11 +70,11 @@ function search(q) {
 		response_film = response;
 		queue_count+=1;
 
-		if (queue_count==2) call_server(response_music, response_film);
+		if (queue_count==2) call_osty(response_music, response_film);
 
 	});
 
-	function call_server(response_music, response_film) {
+	function call_osty(response_music, response_film) {
 
 		var data = { "music": response_music, "film": response_film };
 		
@@ -90,16 +90,16 @@ function search(q) {
 
 		$.ajax(settings_collaboration).done(function (response) {
 			document.getElementById("found").innerHTML = "";
-			populateOsty(response);
-			populateLastfm(response_music);
-			populateThemoviedb(response_film);
+			populateCollaboration(response);
+			populateMusic(response_music);
+			populateFilm(response_film);
 		});
 
 	}
 
 }
 
-function populateOsty(response) {
+function populateCollaboration(response) {
 
 	var content = "";
 	var array = response;
@@ -110,9 +110,14 @@ function populateOsty(response) {
 		var it = array[i];
 		
 		var info = "id="+it.id+
-		" | idUser="+it.idUser+
-		" | idImdb="+it.idImdb+
-		" | idSpotify="+it.idSpotify+
+		" | songAlbum="+it.songAlbum+
+		" | songArtist="+it.songArtist+
+		" | songName="+it.songName+
+		" | songInfo="+it.songInfo+
+		" | movieDirector="+it.movieDirector+
+		" | movieYear="+it.movieYear+
+		" | movieName="+it.movieName+
+		" | movieInfo="+it.movieInfo+
 		" | state="+it.state;
 
 		var osty = "#";
@@ -126,7 +131,7 @@ function populateOsty(response) {
 
 }
 
-function populateLastfm(response) {
+function populateMusic(response) {
 
 	var content = "";
 	var array = response.results.trackmatches.track;
@@ -148,7 +153,7 @@ function populateLastfm(response) {
 }
 
 
-function populateThemoviedb(response) {
+function populateFilm(response) {
 
 	var content = "";
 	var array = response.results;

@@ -17,7 +17,7 @@ class CollaborationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create collaboration" do
     assert_difference('Collaboration.count') do
-      post collaborations_url, params: { collaboration: { idImdb: @collaboration.idImdb, idSpotify: @collaboration.idSpotify, idUser: @collaboration.idUser, state: @collaboration.state } }
+      post collaborations_url, params: { collaboration: {  } }
     end
 
     assert_redirected_to collaboration_url(Collaboration.last)
@@ -34,7 +34,7 @@ class CollaborationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update collaboration" do
-    patch collaboration_url(@collaboration), params: { collaboration: { idImdb: @collaboration.idImdb, idSpotify: @collaboration.idSpotify, idUser: @collaboration.idUser, state: @collaboration.state } }
+    patch collaboration_url(@collaboration), params: { collaboration: {  } }
     assert_redirected_to collaboration_url(@collaboration)
   end
 

@@ -2,17 +2,16 @@ class Collaboration < ApplicationRecord
 	
 	# belongs_to :user
 
-	# validates :idImdb, presence: true
-	# validates :idSpotify, presence: true
-	# validates :state, presence: true
+	# validates :songAlbum, presence: true
+	# validates :songArtist, presence: true
+	# validates :songName, presence: true
+	# validates :songInfo, presence: true
 
-	# validates :user, :uniqueness => {:scope => :idImdb}
-	# validates :idImdb, :uniqueness => {:scope => :user}
-	
-	# validates :user, :uniqueness => {:scope => :idSpotify}
-	# validates :idSpotify, :uniqueness => {:scope => :user}
-	
-	# validates :idImdb, :uniqueness => {:scope => :idSpotify}
-	# validates :idSpotify, :uniqueness => {:scope => :idImdb}
+	# validates :movieDirector, presence: true
+	# validates :movieYear, presence: true
+	# validates :movieName, presence: true
+	# validates :movieInfo, presence: true
+
+	# validates_uniqueness_of [:songArtist, :songName], scope: [:movieYear, :movieName]
 
 end
