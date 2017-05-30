@@ -1,11 +1,9 @@
 class Favorite < ApplicationRecord
-
-	belongs_to :user
-
-	validates :idApi, presence: true
-	validates :kind, presence: true
-
-	validates :user, :uniqueness => {:scope => :idApi}
-	validates :idApi, :uniqueness => {:scope => :user}
+	
+	# belongs_to :user
+	# belongs_to :collaboration
+	
+	# validates :user, :uniqueness => {:scope => :collaboration}
+	# validates :collaboration, :uniqueness => {:scope => :user}
 
 end

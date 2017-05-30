@@ -17,7 +17,7 @@ class FavoritesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create favorite" do
     assert_difference('Favorite.count') do
-      post favorites_url, params: { favorite: { idApi: @favorite.idApi, idUser: @favorite.idUser, kind: @favorite.kind } }
+      post favorites_url, params: { favorite: {  } }
     end
 
     assert_redirected_to favorite_url(Favorite.last)
@@ -34,7 +34,7 @@ class FavoritesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update favorite" do
-    patch favorite_url(@favorite), params: { favorite: { idApi: @favorite.idApi, idUser: @favorite.idUser, kind: @favorite.kind } }
+    patch favorite_url(@favorite), params: { favorite: {  } }
     assert_redirected_to favorite_url(@favorite)
   end
 

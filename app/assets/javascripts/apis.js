@@ -1,59 +1,105 @@
+var protocol = window.location.protocol;
+var host = window.location.host;
+
+var key_music = "4268ad0746656798a6616f4bbac67dd1"; //Last.fm
+var key_film = "22f58faad6207b2f0dcf3068cc50bb74"; //The Movie Database
+
+var response_music = null;
+var response_film = null;
+
 var collaboration = "<span class='glyphicon glyphicon-play-circle'></span>";
 var music = "<span class='glyphicon glyphicon-music'></span>";
 var film = "<span class='glyphicon glyphicon-film'></span>";
 
-$('document').ready( function() {
+var loading = "<center><img src='/img/loading.gif' alt='loading...'></center>";
+
+$( document ).on('turbolinks:load', function() {
 
 	var input = document.getElementById("q");
 
 	if (input) input.addEventListener("change", function () {
 		
-		document.getElementById("found").innerHTML = "";
-		search(input.value, 1);
-		search(input.value, 2);
-		search(input.value, 3);
-	
+		if (input.value) {
+			document.getElementById("found").innerHTML = loading;
+			search(input.value);
+		}
+		
 	});
 
 });
 
-function search(q, type) {
+function search(q) {
 
-	if (!q) return;
-
-	var k = "22f58faad6207b2f0dcf3068cc50bb74";
-
-	var protocol = window.location.protocol;
-	var host = window.location.host;
-
-	var url_osty = protocol+"//"+host+"/collaborations/search?query="+q;	
-	var url_spotify = "https://api.spotify.com/v1/search?query="+q+"&type=track";
-	var url_themoviedb = "https://api.themoviedb.org/3/search/movie?query="+q+"&api_key="+k+"";
+	var url_collaboration = protocol+"//"+host+"/collaborations/search";
+	var url_music = "https://ws.audioscrobbler.com/2.0/?method=track.search&track="+q+"&api_key="+key_music+"&format=json";
+	var url_film = "https://api.themoviedb.org/3/search/movie?query="+q+"&api_key="+key_film+"";
 	
-	var url = "...";
+	var queue_count = 0;
 
-	if (type==1) url = url_osty;
-	if (type==2) url = url_spotify;
-	if (type==3) url = url_themoviedb;
+	var response_music = null;
+	var response_film = null;
 
-	var settings = {
+	var settings_music = {
+		"url": url_music,
+		"crossDomain": true,
+		"dataType": 'json',
+		"type": 'GET',
+		"data": "",
+	}
+
+	var settings_film = {
 		"async": true,
 		"crossDomain": true,
-		"url": url,
+		"url": url_film,
 		"method": "GET",
 		"headers": {},
 		"data": ""
 	}
 
-	$.ajax(settings).done(function (response) {
-		if (type==1) populateOsty(response);
-		if (type==2) populateSpotify(response);
-		if (type==3) populateThemoviedb(response);
+	$.ajax(settings_music).done(function (response) {
+		
+		response_music = response;
+		queue_count+=1;
+		
+		if (queue_count==2) call_osty(response_music, response_film);
+
 	});
+
+	$.ajax(settings_film).done(function (response) {
+		
+		response_film = response;
+		queue_count+=1;
+
+		if (queue_count==2) call_osty(response_music, response_film);
+
+	});
+
+	function call_osty(response_music, response_film) {
+
+		var data = { "music": response_music, "film": response_film };
+		
+		var settings_collaboration = {
+			
+			"url": url_collaboration,
+			"type": 'POST',
+			"data": "",
+			"contentType": 'application/json; charset=utf-8',
+			"dataType": 'json',
+			"async": true
+		}
+
+		$.ajax(settings_collaboration).done(function (response) {
+			document.getElementById("found").innerHTML = "";
+			populateCollaboration(response);
+			populateMusic(response_music);
+			populateFilm(response_film);
+		});
+
+	}
 
 }
 
-function populateOsty(response) {
+function populateCollaboration(response) {
 
 	var content = "";
 	var array = response;
@@ -64,11 +110,16 @@ function populateOsty(response) {
 		var it = array[i];
 		
 		var info = "id="+it.id+
-		" | idUser="+it.idUser+
-		" | idImdb="+it.idImdb+
-		" | idSpotify="+it.idSpotify+
+		" | songAlbum="+it.songAlbum+
+		" | songArtist="+it.songArtist+
+		" | songName="+it.songName+
+		" | songInfo="+it.songInfo+
+		" | movieDirector="+it.movieDirector+
+		" | movieYear="+it.movieYear+
+		" | movieName="+it.movieName+
+		" | movieInfo="+it.movieInfo+
 		" | state="+it.state;
-		
+
 		var osty = "#";
 		var link = "<a target='_blank' href='"+osty+"'>"+info+"</a>";
 
@@ -80,16 +131,16 @@ function populateOsty(response) {
 
 }
 
-function populateSpotify(response) {
+function populateMusic(response) {
 
 	var content = "";
-	var array = response.tracks.items;
+	var array = response.results.trackmatches.track;
 	var l = array.length;
 
 	for (i=0; i<l; i++) {
 
 		var it = array[i];
-		var info = it.artists[0].name+" - "+it.name;
+		var info = it.artist+" - "+it.name;
 		var osty = "#";
 		var link = "<a target='_blank' href='"+osty+"'>"+info+"</a>";
 
@@ -102,7 +153,7 @@ function populateSpotify(response) {
 }
 
 
-function populateThemoviedb(response) {
+function populateFilm(response) {
 
 	var content = "";
 	var array = response.results;

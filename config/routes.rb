@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'collaborations/search'
+  resources :collaborations
+  resources :favorites
+  post 'collaborations/search'
   get 'search/index'
   get 'users/profile'
 
-  resources :favorites
-  resources :collaborations
 
 	# root to: 'pages#index'
   root "pages#show", page: "landing"
