@@ -1,11 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'song/index'
+
   resources :collaborations
-  resources :favorites
+  post 'collaborations/from_song'
+  post 'collaborations/from_movie'
   post 'collaborations/search'
+
+  resources :favorites
+
+  resources :movies  
+  resources :songs
+
   get 'search/index'
   get 'users/profile'
-
 
 	# root to: 'pages#index'
   root "pages#show", page: "landing"

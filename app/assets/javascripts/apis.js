@@ -15,13 +15,13 @@ var loading = "<center><img src='/img/loading.gif' alt='loading...'></center>";
 
 $( document ).on('turbolinks:load', function() {
 
-	var input = document.getElementById("q");
+	var input_q = document.getElementById("q");
 
-	if (input) input.addEventListener("change", function () {
+	if (input_q) input_q.addEventListener("change", function () {
 		
-		if (input.value) {
+		if (input_q.value) {
 			document.getElementById("found").innerHTML = loading;
-			search(input.value);
+			search(input_q.value);
 		}
 		
 	});
@@ -110,14 +110,6 @@ function populateCollaboration(response) {
 		var it = array[i];
 		
 		var info = "id="+it.id+
-		" | songAlbum="+it.songAlbum+
-		" | songArtist="+it.songArtist+
-		" | songName="+it.songName+
-		" | songInfo="+it.songInfo+
-		" | movieDirector="+it.movieDirector+
-		" | movieYear="+it.movieYear+
-		" | movieName="+it.movieName+
-		" | movieInfo="+it.movieInfo+
 		" | state="+it.state;
 
 		var osty = "#";
@@ -141,10 +133,14 @@ function populateMusic(response) {
 
 		var it = array[i];
 		var info = it.artist+" - "+it.name;
-		var osty = "#";
-		var link = "<a target='_blank' href='"+osty+"'>"+info+"</a>";
+		var href = "https://open.spotify.com/search/songs/"+info+"";
+		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
+		var data = JSON.stringify(it);
 
-		content += "<p>"+music+" "+link+"</p>";
+		var cooperate = "<span onclick='collaborateFromSong(this)'"+
+		"value='"+data+"' class='glyphicon glyphicon-hand-left'></span>";
+
+		content += "<p>"+music+" "+link+" "+cooperate+"</p>";
 	
 	}
 
@@ -152,6 +148,26 @@ function populateMusic(response) {
 
 }
 
+function collaborateFromSong(which) {
+
+	var data = which.getAttribute('value');
+	var url = protocol+"//"+host+"/collaborations/from_song";
+
+	var settings = {
+		"url": url,
+		"type": 'POST',
+		"data": "",
+		"contentType": 'application/json; charset=utf-8',
+		"dataType": 'json',
+		"async": true,
+		"data": data,
+	}
+
+	$.ajax(settings).done(function (response) {
+		console.log(response)
+	});
+
+}
 
 function populateFilm(response) {
 
@@ -163,8 +179,8 @@ function populateFilm(response) {
 
 		var it = array[i];
 		var info = it.original_title+" - "+it.release_date;
-		var osty = "#";
-		var link = "<a target='_blank' href='"+osty+"'>"+info+"</a>";
+		var href = "http://www.imdb.com/find?&q="+it.original_title+"&s=tt";
+		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
 
 		content += "<p>"+film+" "+link+"</p>";
 

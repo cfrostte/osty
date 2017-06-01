@@ -5,27 +5,8 @@ class CollaborationsController < ApplicationController
     
     @collaborations = Collaboration.all
 
-    # Recorrer los jsons music y film y
-    # para cada uno: checkear si el par (idImdb,idSpotify)
-    # coincide con alguna colaboracion hecha.
-
-    # Si coincide: cargarla a una coleccion.
-    
-    # Cada elemento de la coleccion, debe tener
-    # toda la informacion a procesar del lado del cliente.
-
-    # La coleccion debe ser transformada a json para enviarse.
-
     @found = @collaborations.map do |c|
       { :id => c.id,
-        :songAlbum => c.songAlbum,
-        :songArtist => c.songArtist,
-        :songName => c.songName,
-        :songInfo => c.songInfo,
-        :movieDirector => c.movieDirector,
-        :movieYear => c.movieYear,
-        :movieName => c.movieName,
-        :idSpotify => c.movieInfo,
         :state => c.state,
         # Se prueba enviar lo que llega:
         :music => params[:music], 
@@ -35,6 +16,49 @@ class CollaborationsController < ApplicationController
 
     render :json => @found.to_json
   
+  end
+
+  def from_song
+
+    @album = params[:album]
+    @artist = params[:artist]
+    @name = params[:name]
+    @info = params[:info]
+    @image = params[:image]
+
+    @img_url = @image.last['#text']
+
+    @song = Song.where(artist: @artist, name: @name).take
+
+    @found = (@song != nil)
+    @saved = false
+
+    if @song == nil
+      @song = Song.new
+      @song.album = @album
+      @song.artist = @artist
+      @song.name = @name
+      @song.info = @info
+      @saved = @song.save
+    end
+
+    @response = {
+      :found => @found,
+      :saved => @saved,
+      :id => @song.id,
+      :album => @song.album,
+      :artist => @song.artist,
+      :name => @song.name,
+      :info => @song.info,
+      :img_url => @img_url,
+      :songs => Song.all
+    }
+
+    render :json => @response.to_json
+
+  end
+
+  def from_movie
   end
 
   # GET /collaborations
@@ -71,6 +95,11 @@ class CollaborationsController < ApplicationController
         format.json { render json: @collaboration.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def create_song
+    @song = Song.new(song_params)
+    
   end
 
   # PATCH/PUT /collaborations/1
