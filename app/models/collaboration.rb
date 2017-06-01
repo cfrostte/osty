@@ -1,17 +1,10 @@
 class Collaboration < ApplicationRecord
 	
 	# belongs_to :user
+	# belongs_to :song
+	# belongs_to :movie
 
-	# validates :songAlbum, presence: true
-	# validates :songArtist, presence: true
-	# validates :songName, presence: true
-	# validates :songInfo, presence: true
-
-	# validates :movieDirector, presence: true
-	# validates :movieYear, presence: true
-	# validates :movieName, presence: true
-	# validates :movieInfo, presence: true
-
-	# validates_uniqueness_of [:songArtist, :songName], scope: [:movieYear, :movieName]
+	# validates_uniqueness_of :user, scope: [:song, :movie]
+	# validates_uniqueness_of [:song, :movie], scope: :user
 
 end
