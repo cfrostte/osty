@@ -3,14 +3,14 @@ Rails.application.routes.draw do
   get 'song/index'
 
   resources :collaborations
-  post 'collaborations/from_song'
-  post 'collaborations/from_movie'
   post 'collaborations/search'
+  post 'collaborations/from_song'
+  post 'collaborations/to_movies'
+  post 'collaborations/from_movie'
+  post 'collaborations/to_songs'
 
   resources :favorites
-
-  resources :movies  
-  resources :songs
+  post 'favorites/add'
 
   get 'search/index'
   get 'users/profile'
