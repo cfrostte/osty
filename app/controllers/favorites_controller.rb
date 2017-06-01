@@ -1,6 +1,11 @@
 class FavoritesController < ApplicationController
   before_action :set_favorite, only: [:show, :edit, :update, :destroy]
 
+  def add
+    # Recibe un json con el id y el tipo
+    # de objeto a enlazar con el usuario logueado
+  end
+
   # GET /favorites
   # GET /favorites.json
   def index

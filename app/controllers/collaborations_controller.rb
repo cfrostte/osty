@@ -58,7 +58,29 @@ class CollaborationsController < ApplicationController
 
   end
 
+  def to_movies
+
+    #... para cada pelicula (si no existe, se crea),
+    # se crea una colaboracion con esa cancion
+
+    @id_song = params[:id]
+    @movies = params[:movies] #El json con las pelis
+
+    @song = Song.find(@id_song)
+
+    @response = {
+      :song => @song,
+      :collaborations => Collaboration.all
+    }
+
+    render :json => @response.to_json
+
+  end
+
   def from_movie
+  end
+
+  def to_songs
   end
 
   # GET /collaborations

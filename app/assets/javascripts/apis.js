@@ -13,6 +13,12 @@ var film = "<span class='glyphicon glyphicon-film'></span>";
 
 var loading = "<center><img src='/img/loading.gif' alt='loading...'></center>";
 
+var sub_url_music = "https://ws.audioscrobbler.com/2.0/?method=track.search&format=json&api_key="+key_music;
+var sub_url_film = "https://api.themoviedb.org/3/search/movie?api_key="+key_film;
+
+var public_query = null;
+var public_page = null;
+
 $( document ).on('turbolinks:load', function() {
 
 	var input_q = document.getElementById("q");
@@ -20,19 +26,23 @@ $( document ).on('turbolinks:load', function() {
 	if (input_q) input_q.addEventListener("change", function () {
 		
 		if (input_q.value) {
-			document.getElementById("found").innerHTML = loading;
-			search(input_q.value);
+			search(input_q.value, 1);
 		}
 		
 	});
 
 });
 
-function search(q) {
+function search(query, page) {
+
+	document.getElementById("found").innerHTML = loading;
+
+	public_query = query;
+	public_page = page;
 
 	var url_collaboration = protocol+"//"+host+"/collaborations/search";
-	var url_music = "https://ws.audioscrobbler.com/2.0/?method=track.search&track="+q+"&api_key="+key_music+"&format=json";
-	var url_film = "https://api.themoviedb.org/3/search/movie?query="+q+"&api_key="+key_film+"";
+	var url_music = sub_url_music+"&track="+query+"&page="+page;
+	var url_film = sub_url_film+"&query="+query+"&page="+page;
 	
 	var queue_count = 0;
 
@@ -89,10 +99,16 @@ function search(q) {
 		}
 
 		$.ajax(settings_collaboration).done(function (response) {
+			
 			document.getElementById("found").innerHTML = "";
+			document.getElementById("actual").innerHTML = "Estas en la pagina "+page;
+
 			populateCollaboration(response);
 			populateMusic(response_music);
 			populateFilm(response_film);
+			
+			paginate(query, page);
+		
 		});
 
 	}
@@ -164,7 +180,35 @@ function collaborateFromSong(which) {
 	}
 
 	$.ajax(settings).done(function (response) {
-		console.log(response)
+		modalToMovies(response);
+	});
+
+}
+
+function modalToMovies(song) {
+	
+	var data = JSON.stringify(song);
+	var url = protocol+"//"+host+"/collaborations/to_movies";
+
+	/*
+	Se crea un modal que tiene la info de la cancion
+	y luego se envia un json con todas las peliculas.
+	El json debe contener 2 campos, el id de la cancion
+	y el arreglo de peliculas. Luego en el servidor...
+	*/
+
+	var settings = {
+		"url": url,
+		"type": 'POST',
+		"data": "",
+		"contentType": 'application/json; charset=utf-8',
+		"dataType": 'json',
+		"async": true,
+		"data": data,
+	}
+
+	$.ajax(settings).done(function (response) {
+		console.log(response);
 	});
 
 }
@@ -187,5 +231,41 @@ function populateFilm(response) {
 	}
 
 	document.getElementById("found").innerHTML += content;
+
+}
+
+function paginate() {
+
+	var q = document.getElementById("q");
+
+	q.value = public_query;
+
+	var	p = "<li class='col-md-4'><a href='' onclick='previous()'>Anterior</a></li>";
+	var	f = "<li class='col-md-4'><a href='' onclick='first()'>Pagina inicial</a></li>";
+	var n = "<li class='col-md-4'><a href='' onclick='next()'>Siguiente</a></li>";
+
+	document.getElementById("pages").innerHTML = p+f+n;
+
+}
+
+function previous() {
+
+	var previous_page = public_page;
+
+	if (public_page > 1) previous_page -= 1;
+	
+	return search(public_query, previous_page);
+
+}
+
+function first() {
+	return search(public_query, 1);
+}
+
+function next() {
+
+	var next_page = public_page + 1;
+
+	return search(public_query, next_page);
 
 }
