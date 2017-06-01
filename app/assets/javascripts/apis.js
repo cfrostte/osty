@@ -101,13 +101,26 @@ function search(query, page) {
 		$.ajax(settings_collaboration).done(function (response) {
 			
 			document.getElementById("found").innerHTML = "";
-			document.getElementById("actual").innerHTML = "Estas en la pagina "+page;
+			document.getElementById("actual").innerHTML = "";
+			document.getElementById("pages").innerHTML = "";
 
-			populateCollaboration(response);
-			populateMusic(response_music);
-			populateFilm(response_film);
+			var found_collaborations = populateCollaboration(response);
+			var found_music = populateMusic(response_music);
+			var found_film = populateFilm(response_film);
+
+			if (public_page>1 && (found_collaborations||found_music||found_film)) {
+				
+				document.getElementById("actual").innerHTML = "<hr>Página "+public_page+"<hr>";
 			
-			paginate(query, page);
+			} else {
+			
+				document.getElementById("actual").innerHTML = "<hr>";
+			
+			}
+
+
+
+			if (found_collaborations||found_music||found_film) paginate();
 		
 		});
 
@@ -132,10 +145,12 @@ function populateCollaboration(response) {
 		var link = "<a target='_blank' href='"+osty+"'>"+info+"</a>";
 
 		content += "<p>"+collaboration+" "+link+"</p>";
-	
+
 	}
 
 	document.getElementById("found").innerHTML += content;
+
+	return (l>0);
 
 }
 
@@ -161,6 +176,8 @@ function populateMusic(response) {
 	}
 
 	document.getElementById("found").innerHTML += content;
+
+	return (l>0);
 
 }
 
@@ -232,28 +249,28 @@ function populateFilm(response) {
 
 	document.getElementById("found").innerHTML += content;
 
+	return (l>0);
+
 }
 
 function paginate() {
 
-	var q = document.getElementById("q");
-
-	q.value = public_query;
+	document.getElementById("q").value = public_query;
 
 	var	p = "<li class='col-md-4'><a href='' onclick='previous()'>Anterior</a></li>";
 	var	f = "<li class='col-md-4'><a href='' onclick='first()'>Pagina inicial</a></li>";
 	var n = "<li class='col-md-4'><a href='' onclick='next()'>Siguiente</a></li>";
 
-	document.getElementById("pages").innerHTML = p+f+n;
+	document.getElementById("pages").innerHTML = "<hr>"+p+f+n;
 
 }
 
 function previous() {
 
 	var previous_page = public_page;
-
-	if (public_page > 1) previous_page -= 1;
 	
+	if (public_page > 1) previous_page -= 1;
+
 	return search(public_query, previous_page);
 
 }
@@ -263,9 +280,9 @@ function first() {
 }
 
 function next() {
-
+	
 	var next_page = public_page + 1;
-
+	
 	return search(public_query, next_page);
 
 }
