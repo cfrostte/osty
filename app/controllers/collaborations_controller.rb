@@ -2,59 +2,80 @@ class CollaborationsController < ApplicationController
   before_action :set_collaboration, only: [:show, :edit, :update, :destroy]
 
   def search
-    
-    @collaborations = Collaboration.all
 
-    @found = @collaborations.map do |c|
-      { :id => c.id,
+    ##########################################################
+
+    # Cada vez que se busca, se crea una colaboracion ficticia
+
+    c1 = Collaboration.new
+    s1 = Song.new
+    m1 = Movie.new
+
+    s1.artist = SecureRandom.hex(8)
+    s1.name = SecureRandom.hex(8)
+
+    s1.save
+
+    m1.year = rand(2017-1917) + 1917 # 1917 < year < 2017
+    m1.name = SecureRandom.hex(8)
+
+    m1.save
+
+    c1.user = current_user
+    c1.song = s1
+    c1.movie = m1
+
+    c1.save
+
+    ##########################################################
+    
+    collaborations = Collaboration.all # Buscar, no retornar todas
+
+    found = collaborations.map do |c|
+      {
+        :id => c.id,
         :state => c.state,
-        # Se prueba enviar lo que llega:
-        :music => params[:music], 
-        :film => params[:film]
+        :user => c.user,
+        :song => c.song,
+        :movie => c.movie,
       }
     end
 
-    render :json => @found.to_json
+    render :json => found
   
   end
 
   def from_song
 
-    @album = params[:album]
-    @artist = params[:artist]
-    @name = params[:name]
-    @info = params[:info]
-    @image = params[:image]
+    album = params[:album]
+    artist = params[:artist]
+    name = params[:name]
+    info = params[:info]
+    image = params[:image]
 
-    @img_url = @image.last['#text']
+    img_url = image.last['#text']
 
-    @song = Song.where(artist: @artist, name: @name).take
+    song = Song.where(artist: artist, name: name).take
 
-    @found = (@song != nil)
-    @saved = false
+    found = (song != nil)
+    saved = false
 
-    if @song == nil
-      @song = Song.new
-      @song.album = @album
-      @song.artist = @artist
-      @song.name = @name
-      @song.info = @info
-      @saved = @song.save
+    if song == nil
+      song = Song.new
+      song.album = album
+      song.artist = artist
+      song.name = name
+      song.info = info
+      saved = song.save
     end
 
-    @response = {
-      :found => @found,
-      :saved => @saved,
-      :id => @song.id,
-      :album => @song.album,
-      :artist => @song.artist,
-      :name => @song.name,
-      :info => @song.info,
-      :img_url => @img_url,
-      :songs => Song.all
+    response = {
+      :found => found,
+      :saved => saved,
+      :song => song,
     }
 
-    render :json => @response.to_json
+    render :json => response
 
   end
 
@@ -63,17 +84,17 @@ class CollaborationsController < ApplicationController
     #... para cada pelicula (si no existe, se crea),
     # se crea una colaboracion con esa cancion
 
-    @id_song = params[:id]
-    @movies = params[:movies] #El json con las pelis
+    id_song = params[:id]
+    movies = params[:movies] #El json con las pelis
 
-    @song = Song.find(@id_song)
+    song = Song.find_by_id(id_song)
 
-    @response = {
-      :song => @song,
-      :collaborations => Collaboration.all
+    response = {
+      :song => song,
+      :collaborations => Collaboration.all, # Se deben retornar las creadas
     }
 
-    render :json => @response.to_json
+    render :json => response
 
   end
 
@@ -86,7 +107,12 @@ class CollaborationsController < ApplicationController
   # GET /collaborations
   # GET /collaborations.json
   def index
-    @collaborations = Collaboration.all
+    # @collaborations = Collaboration.all
+    if user_signed_in?
+      @collaborations = current_user.collaborations
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   # GET /collaborations/1

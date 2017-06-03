@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :favorites
   post 'favorites/add'
+  post 'favorites/check'
 
   get 'search/index'
   get 'users/profile'

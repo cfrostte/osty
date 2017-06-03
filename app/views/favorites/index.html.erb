@@ -1,6 +1,7 @@
-<p id="notice"><%= notice %></p>
+<h1>Estos son tus favoritos</h1>
 
-<h1>Favorites</h1>
+<hr>
+<!-- <p id="notice"><%= notice %></p> -->
 
 <table>
   <thead>
@@ -10,11 +11,25 @@
   </thead>
 
   <tbody>
+
+    <% if @favorites.empty? %>
+      <td>No has agregado favoritos</td>
+    <% end %>
+
     <% @favorites.each do |favorite| %>
       <tr>
-        <td><%= link_to 'Show', favorite %></td>
-        <td><%= link_to 'Edit', edit_favorite_path(favorite) %></td>
-        <td><%= link_to 'Destroy', favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if favorite.song %>
+          <td>
+            <span class='glyphicon glyphicon-music'></span>
+            <%= favorite.song.artist %> - <%= favorite.song.name %>
+          </td>
+        <%end%>
+        <!-- <td><%= link_to 'Show', favorite %></td> -->
+        <!-- <td><%= link_to 'Edit', edit_favorite_path(favorite) %></td> -->
+        <!-- <td><%= link_to 'Destroy', favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        <td>
+          <%= link_to '', favorite, method: :delete, :class => 'icono glyphicon glyphicon-trash'%>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +37,4 @@
 
 <br>
 
-<%= link_to 'New Favorite', new_favorite_path %>
+<!-- <%= link_to 'New Favorite', new_favorite_path %> -->

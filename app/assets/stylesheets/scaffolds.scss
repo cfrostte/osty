@@ -22,15 +22,15 @@ pre {
 
 a {
 
-  color: #000;
+  color: black;
 
-  &:visited {
-    color: #666;
-  }
+  /*&:visited {
+    color: gray;
+  }*/
 
   &:hover {
-    color: white;
-    background-color: dodgerblue;
+    color: dodgerblue;
+    text-decoration: none;
   }
 
 }

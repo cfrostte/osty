@@ -43,35 +43,58 @@ function search(query, page) {
 	var url_collaboration = protocol+"//"+host+"/collaborations/search";
 	var url_music = sub_url_music+"&track="+query+"&page="+page;
 	var url_film = sub_url_film+"&query="+query+"&page="+page;
+
+	var url_check_favorites = protocol+"//"+host+"/favorites/check";
 	
 	var queue_count = 0;
 
+	var response_collaboration = null;
 	var response_music = null;
 	var response_film = null;
 
+	var total = 3;
+
+	var settings_collaboration = {
+		"async": true,
+		"contentType": 'application/json; charset=utf-8',
+		"data": "",
+		"dataType": 'json',
+		"type": 'POST',
+		"url": url_collaboration,
+	}
+
 	var settings_music = {
-		"url": url_music,
 		"crossDomain": true,
+		"data": "",
 		"dataType": 'json',
 		"type": 'GET',
-		"data": "",
+		"url": url_music,
 	}
 
 	var settings_film = {
 		"async": true,
 		"crossDomain": true,
-		"url": url_film,
-		"method": "GET",
+		"data": "",
 		"headers": {},
-		"data": ""
+		"method": "GET",
+		"url": url_film,
 	}
+
+	$.ajax(settings_collaboration).done(function (response) {
+		
+		response_collaboration = response;
+		queue_count+=1;
+		
+		if (queue_count==total) final_call();
+
+	});
 
 	$.ajax(settings_music).done(function (response) {
 		
 		response_music = response;
 		queue_count+=1;
 		
-		if (queue_count==2) call_osty(response_music, response_film);
+		if (queue_count==total) final_call();
 
 	});
 
@@ -80,33 +103,38 @@ function search(query, page) {
 		response_film = response;
 		queue_count+=1;
 
-		if (queue_count==2) call_osty(response_music, response_film);
+		if (queue_count==total) final_call();
 
 	});
 
-	function call_osty(response_music, response_film) {
+	function final_call() {
 
-		var data = { "music": response_music, "film": response_film };
+		var data = {
+			"collaboration": JSON.stringify(response_collaboration),
+			"music": JSON.stringify(response_music),
+			"film": JSON.stringify(response_film),
+		};
 		
-		var settings_collaboration = {
-			
-			"url": url_collaboration,
-			"type": 'POST',
-			"data": "",
-			"contentType": 'application/json; charset=utf-8',
+		var settings_check_favorites = {
+			"data": data,
 			"dataType": 'json',
-			"async": true
+			"type": 'POST',
+			"url": url_check_favorites,
 		}
 
-		$.ajax(settings_collaboration).done(function (response) {
+		$.ajax(settings_check_favorites).done(function (response) {
 			
 			document.getElementById("found").innerHTML = "";
 			document.getElementById("actual").innerHTML = "";
 			document.getElementById("pages").innerHTML = "";
 
-			var found_collaborations = populateCollaboration(response);
-			var found_music = populateMusic(response_music);
-			var found_film = populateFilm(response_film);
+			var found_collaborations = false;
+			var found_music = false;
+			var found_film = false;
+
+			found_collaborations = populateCollaboration(response.collaboration);
+			found_music = populateMusic(response.music);
+			found_film = populateFilm(response.film);
 
 			if (public_page>1 && (found_collaborations||found_music||found_film)) {
 				
@@ -117,8 +145,6 @@ function search(query, page) {
 				document.getElementById("actual").innerHTML = "<hr>";
 			
 			}
-
-
 
 			if (found_collaborations||found_music||found_film) paginate();
 		
@@ -138,8 +164,7 @@ function populateCollaboration(response) {
 
 		var it = array[i];
 		
-		var info = "id="+it.id+
-		" | state="+it.state;
+		var info = it.song.artist+" - "+it.song.name+" ("+it.movie.name+" "+it.movie.year+")";
 
 		var osty = "#";
 		var link = "<a target='_blank' href='"+osty+"'>"+info+"</a>";
@@ -157,7 +182,7 @@ function populateCollaboration(response) {
 function populateMusic(response) {
 
 	var content = "";
-	var array = response.results.trackmatches.track;
+	var array = response;
 	var l = array.length;
 
 	for (i=0; i<l; i++) {
@@ -171,8 +196,15 @@ function populateMusic(response) {
 		var cooperate = "<span onclick='collaborateFromSong(this)'"+
 		"value='"+data+"' class='glyphicon glyphicon-hand-left'></span>";
 
-		content += "<p>"+music+" "+link+" "+cooperate+"</p>";
-	
+		var star = "glyphicon glyphicon-star-empty";
+
+		if (it.favorited) star = "glyphicon glyphicon-star";
+
+		var add = "<span onclick='addToFavorites(this)'"+
+		"value='"+data+"' type='song' class='"+star+"'></span>";
+
+		content += "<p>"+music+" "+link+" "+cooperate+" "+add+"</p>";
+			
 	}
 
 	document.getElementById("found").innerHTML += content;
@@ -184,16 +216,16 @@ function populateMusic(response) {
 function collaborateFromSong(which) {
 
 	var data = which.getAttribute('value');
+
 	var url = protocol+"//"+host+"/collaborations/from_song";
 
 	var settings = {
-		"url": url,
-		"type": 'POST',
-		"data": "",
-		"contentType": 'application/json; charset=utf-8',
-		"dataType": 'json',
 		"async": true,
+		"contentType": 'application/json; charset=utf-8',
 		"data": data,
+		"dataType": 'json',
+		"type": 'POST',
+		"url": url,
 	}
 
 	$.ajax(settings).done(function (response) {
@@ -215,13 +247,12 @@ function modalToMovies(song) {
 	*/
 
 	var settings = {
-		"url": url,
-		"type": 'POST',
-		"data": "",
-		"contentType": 'application/json; charset=utf-8',
-		"dataType": 'json',
 		"async": true,
+		"contentType": 'application/json; charset=utf-8',
 		"data": data,
+		"dataType": 'json',
+		"type": 'POST',
+		"url": url,
 	}
 
 	$.ajax(settings).done(function (response) {
@@ -230,10 +261,38 @@ function modalToMovies(song) {
 
 }
 
+function addToFavorites(which) {
+
+	var item = which.getAttribute('value');
+	var type = which.getAttribute('type');
+	
+	var json = { "item":item, "type":type };
+	var data = JSON.stringify(json);
+
+	var url = protocol+"//"+host+"/favorites/add";
+
+	var settings = {
+		"async": true,
+		"contentType": 'application/json; charset=utf-8',
+		"data": data,
+		"dataType": 'json',
+		"type": 'POST',
+		"url": url,
+	}
+
+	$.ajax(settings).done(function (response) {
+
+		if (response.added) which.setAttribute('class','glyphicon glyphicon-star');
+		else which.setAttribute('class','glyphicon glyphicon-star-empty');
+	
+	});
+
+}
+
 function populateFilm(response) {
 
 	var content = "";
-	var array = response.results;
+	var array = response;
 	var l = array.length;
 
 	for (i=0; i<l; i++) {
