@@ -1,35 +1,201 @@
 class FavoritesController < ApplicationController
   before_action :set_favorite, only: [:show, :edit, :update, :destroy]
 
+  def check
+
+    # La informacion que se retorna no es identica a la que se recibe
+
+    collaboration = params[:collaboration]
+    music = params[:music]
+    film = params[:film]
+
+    parsed_collaboration = JSON.parse(collaboration)
+    parsed_music = JSON.parse(music)
+    parsed_film = JSON.parse(film)
+
+    checked_collaborations = map_collaboration(parsed_collaboration)
+    checked_songs = map_music(parsed_music)
+    checked_movies = map_film(parsed_film)
+
+    response = {
+      :collaboration => checked_collaborations,
+      :music => checked_songs,
+      :film => checked_movies,
+    }
+
+    render :json => response
+
+  end
+
+  def map_collaboration(parsed)
+    
+    mapped = parsed.map do |m|
+      {
+        :id => m['id'],
+        :state => m['state'],
+        :user => m['user'],
+        :song => m['song'],
+        :movie => m['movie'],
+        :favorited => false,
+      }
+    end
+    
+    return mapped
+
+  end
+
+  def map_music(parsed)
+
+    mapped = parsed['results']['trackmatches']['track'].map do |m|
+
+      img_url = m['image']
+
+      if img_url
+        img_url = m['image'].last['#text']
+      end
+
+      {
+        :album => m['album'],
+        :artist => m['artist'],
+        :name => m['name'],
+        :img_url => img_url,
+        :favorited => song_is_favorited(m),
+      }
+    
+    end
+
+    return mapped
+
+  end
+
+  def map_film(parsed)
+
+    mapped = parsed['results'].map do |m|
+
+      base = "https://image.tmdb.org/t/p/"
+      size = "original"
+      poster = m['poster_path']
+
+      img_url = nil
+
+      if poster
+        img_url = base+size+poster
+      end
+
+      year = 0
+
+      if m['release_date']
+        year = m['release_date'].split('-').first.to_i
+      end 
+      
+      {
+        :director => m['director'],
+        :year => year,
+        :name => m['original_title'],
+        :img_url => img_url,
+        :favorited => movie_is_favorited(m),
+      }
+    
+    end
+
+    return mapped
+
+  end
+
 # El simbolo "'" da problemas al hacer JSON.parse(...)
 
-  def favorited(item, type)
+  def song_is_favorited(song)
 
-    artist = item['artist']
-    name = item['name']
+    artist = song['artist']
+    name = song['name']
 
     if user_signed_in?
 
-      favorites = current_user.favorites
+      current_user.favorites.each do |f|
 
-      favorites.each do |f|
-
-        if type=='song' && f.song
+        if f.song
 
           are_equal = f.song.artist==artist && f.song.name==name
-          
+
           if are_equal
             return are_equal
           end
-        
+
         end
 
       end
-      
+
     end
 
     return false
 
+  end
+
+  def movie_is_favorited(movie)
+
+    year = 0
+
+    if movie['release_date']
+      year = movie['release_date'].split('-').first.to_i
+    end
+
+    name = movie['original_title']
+
+    if user_signed_in?
+
+      current_user.favorites.each do |f|
+
+        if f.movie
+
+          are_equal = f.movie.year==year && f.movie.name==name
+
+          if are_equal
+            return are_equal
+          end
+
+        end
+
+      end
+
+    end
+
+    return false
+
+  end
+
+  def add
+
+    item = JSON.parse(params[:item])
+    type = params[:type]
+
+    added = nil
+
+    if type=='song'
+
+      if song_is_favorited(item)
+        added = quit_song(item)
+      else
+        added = add_song(item)
+      end
+    
+    end
+
+    if type=='movie'
+    
+      if movie_is_favorited(item)
+        added = quit_movie(item)
+      else
+        added = add_movie(item)
+      end
+
+    end
+
+    response = {
+      :added => added,
+    }
+    
+    render :json =>response
+  
   end
 
   def add_song(item)
@@ -42,19 +208,22 @@ class FavoritesController < ApplicationController
     artist = item['artist']
     name = item['name']
     info = item['info']
-    image = item['image']
-
-    img_url = image.last['#text']
+    img_url = item['img_url']
 
     song = Song.where(artist: artist, name: name).take
 
     if song == nil
+
       song = Song.new
+      
       song.album = album
       song.artist = artist
       song.name = name
       song.info = info
+      song.img_url = img_url
+      
       song.save
+    
     end
     
     current_user.favorites.create(song: song)
@@ -71,11 +240,12 @@ class FavoritesController < ApplicationController
     
     artist = item['artist']
     name = item['name']
+
     song = Song.where(artist: artist, name: name).take
     
     current_user.favorites.each do |f|
     
-      if f.song.id==song.id
+      if f.song && f.song.id==song.id
         f.destroy
         return false # added = false (quitted)
       end
@@ -86,86 +256,62 @@ class FavoritesController < ApplicationController
 
   end
 
-  def check
+  def add_movie(item)
 
-    # La informacion que se retorna no es identica a la que se recibe
-
-    collaboration = params[:collaboration]
-    music = params[:music]
-    film = params[:film]
-
-    parsed_collaboration = JSON.parse(collaboration)
-    parsed_music = JSON.parse(music)
-    parsed_film = JSON.parse(film)
-
-    checked_collaborations = parsed_collaboration.map do |m|
-      {
-        :id => m['id'],
-        :state => m['state'],
-        :user => m['user'],
-        :song => m['song'],
-        :movie => m['movie'],
-        :favorited => false,
-      }
+    if !user_signed_in?
+      return false # added = false
     end
+    
+    director = item['director']
+    year = item['year']
+    name = item['name']
+    info = item['info']
+    img_url = item['img_url']
 
-    checked_songs = parsed_music['results']['trackmatches']['track'].map do |m|
-      {
-        :id => -1, 
-        :album => m['album'],
-        :artist => m['artist'],
-        :name => m['name'],
-        :image => m['image'],
-        :favorited => favorited(m, 'song'),
-      }
+    movie = Movie.where(year: year, name: name).take
+
+    if movie == nil
+      
+      movie = Movie.new
+      
+      movie.director = director
+      movie.year = year
+      movie.name = name
+      movie.info = info
+      movie.img_url = img_url
+      
+      movie.save
+    
     end
+    
+    current_user.favorites.create(movie: movie)
 
-    checked_movies = parsed_film['results'].map do |m|
-      {
-        :id => -1,
-        :release_date => m['release_date'],
-        :original_title => m['original_title'],
-        :favorited => false,
-      }
-    end
-
-    response = {
-      :collaboration => checked_collaborations,
-      :music => checked_songs,
-      :film => checked_movies,
-    }
-
-    render :json => response
+    return true # added = true
 
   end
 
-  def add
+  def quit_movie(item)
 
-    item = JSON.parse(params[:item])
-    type = params[:type]
-
-    added = nil
-
-    if favorited(item,type)
-
-      if type=='song'
-        added = quit_song(item)
-      end
+    if !user_signed_in?
+      return true # added = true (not quitted)
+    end
     
-    else
+    year = item['year']
+    name = item['name']
     
-      if type=='song'
-        added = add_song(item)
+    movie = Movie.where(year: year, name: name).take
+    
+    current_user.favorites.each do |f|
+    
+      if f.movie && f.movie.id==movie.id
+        f.destroy
+        return false # added = false (quitted)
       end
     
     end
 
-    response = {
-      :added => added,
-    }
-    
-    render :json =>response
-  
+    return true # added = true (not quitted)
+
   end
 
   # GET /favorites

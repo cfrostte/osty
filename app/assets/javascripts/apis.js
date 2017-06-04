@@ -213,6 +213,68 @@ function populateMusic(response) {
 
 }
 
+function populateFilm(response) {
+
+	var content = "";
+	var array = response;
+	var l = array.length;
+
+	for (i=0; i<l; i++) {
+
+		var it = array[i];
+		var info = it.name+" ("+it.year+")";
+		var href = "http://www.imdb.com/find?&q="+it.name+"&s=tt";
+		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
+		var data = JSON.stringify(it);
+
+		var cooperate = "<span onclick='collaborateFromMovie(this)'"+
+		"value='"+data+"' class='glyphicon glyphicon-send'></span>";
+
+		var star = "glyphicon glyphicon-star-empty";
+
+		if (it.favorited) star = "glyphicon glyphicon-star";
+
+		var add = "<span onclick='addToFavorites(this)'"+
+		"value='"+data+"' type='movie' class='"+star+"'></span>";
+
+		content += "<p>"+film+" "+link+" "+cooperate+" "+add+"</p>";
+
+	}
+
+	document.getElementById("found").innerHTML += content;
+
+	return (l>0);
+
+}
+
+function addToFavorites(which) {
+
+	var item = which.getAttribute('value');
+	var type = which.getAttribute('type');
+	
+	var json = { "item":item, "type":type };
+	var data = JSON.stringify(json);
+
+	var url = protocol+"//"+host+"/favorites/add";
+
+	var settings = {
+		"async": true,
+		"contentType": 'application/json; charset=utf-8',
+		"data": data,
+		"dataType": 'json',
+		"type": 'POST',
+		"url": url,
+	}
+
+	$.ajax(settings).done(function (response) {
+
+		if (response.added) which.setAttribute('class','glyphicon glyphicon-star');
+		else which.setAttribute('class','glyphicon glyphicon-star-empty');
+	
+	});
+
+}
+
 function collaborateFromSong(which) {
 
 	var data = which.getAttribute('value');
@@ -258,57 +320,6 @@ function modalToMovies(song) {
 	$.ajax(settings).done(function (response) {
 		console.log(response);
 	});
-
-}
-
-function addToFavorites(which) {
-
-	var item = which.getAttribute('value');
-	var type = which.getAttribute('type');
-	
-	var json = { "item":item, "type":type };
-	var data = JSON.stringify(json);
-
-	var url = protocol+"//"+host+"/favorites/add";
-
-	var settings = {
-		"async": true,
-		"contentType": 'application/json; charset=utf-8',
-		"data": data,
-		"dataType": 'json',
-		"type": 'POST',
-		"url": url,
-	}
-
-	$.ajax(settings).done(function (response) {
-
-		if (response.added) which.setAttribute('class','glyphicon glyphicon-star');
-		else which.setAttribute('class','glyphicon glyphicon-star-empty');
-	
-	});
-
-}
-
-function populateFilm(response) {
-
-	var content = "";
-	var array = response;
-	var l = array.length;
-
-	for (i=0; i<l; i++) {
-
-		var it = array[i];
-		var info = it.original_title+" - "+it.release_date;
-		var href = "http://www.imdb.com/find?&q="+it.original_title+"&s=tt";
-		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
-
-		content += "<p>"+film+" "+link+"</p>";
-
-	}
-
-	document.getElementById("found").innerHTML += content;
-
-	return (l>0);
 
 }
 

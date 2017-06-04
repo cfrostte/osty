@@ -7,31 +7,29 @@ class CollaborationsController < ApplicationController
 
     ##########################################################
 
-    # Cada vez que se busca, se crea una colaboracion ficticia
+    if query=='crear colaboracion'
 
-    # if query=='crear colaboracion'
+      c1 = Collaboration.new
+      s1 = Song.new
+      m1 = Movie.new
 
-    #   c1 = Collaboration.new
-    #   s1 = Song.new
-    #   m1 = Movie.new
+      s1.artist = SecureRandom.hex(8)
+      s1.name = SecureRandom.hex(8)
 
-    #   s1.artist = SecureRandom.hex(8)
-    #   s1.name = SecureRandom.hex(8)
+      s1.save
 
-    #   s1.save
+      m1.year = rand(2017-1917) + 1917 # 1917 < year < 2017
+      m1.name = SecureRandom.hex(8)
 
-    #   m1.year = rand(2017-1917) + 1917 # 1917 < year < 2017
-    #   m1.name = SecureRandom.hex(8)
+      m1.save
 
-    #   m1.save
+      c1.user = current_user
+      c1.song = s1
+      c1.movie = m1
 
-    #   c1.user = current_user
-    #   c1.song = s1
-    #   c1.movie = m1
+      c1.save
 
-    #   c1.save
-
-    # end
+    end
 
     ##########################################################
     
@@ -57,9 +55,7 @@ class CollaborationsController < ApplicationController
     artist = params[:artist]
     name = params[:name]
     info = params[:info]
-    image = params[:image]
-
-    img_url = image.last['#text']
+    img_url = params[:img_url]
 
     song = Song.where(artist: artist, name: name).take
 
@@ -72,6 +68,7 @@ class CollaborationsController < ApplicationController
       song.artist = artist
       song.name = name
       song.info = info
+      song.img_url = img_url
       saved = song.save
     end
 
