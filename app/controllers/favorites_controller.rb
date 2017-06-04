@@ -5,10 +5,8 @@ class FavoritesController < ApplicationController
 
   def favorited(item, type)
 
-    if type=='song'
-      artist = item['artist']
-      name = item['name']
-    end
+    artist = item['artist']
+    name = item['name']
 
     if user_signed_in?
 
@@ -17,7 +15,13 @@ class FavoritesController < ApplicationController
       favorites.each do |f|
 
         if type=='song' && f.song
-          return f.song.artist==artist && f.song.name==name
+
+          are_equal = f.song.artist==artist && f.song.name==name
+          
+          if are_equal
+            return are_equal
+          end
+        
         end
 
       end
@@ -143,13 +147,17 @@ class FavoritesController < ApplicationController
     added = nil
 
     if favorited(item,type)
+
       if type=='song'
         added = quit_song(item)
       end
+    
     else
+    
       if type=='song'
         added = add_song(item)
       end
+    
     end
 
     response = {

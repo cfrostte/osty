@@ -3,29 +3,35 @@ class CollaborationsController < ApplicationController
 
   def search
 
+    query = params['query']
+
     ##########################################################
 
     # Cada vez que se busca, se crea una colaboracion ficticia
 
-    c1 = Collaboration.new
-    s1 = Song.new
-    m1 = Movie.new
+    # if query=='crear colaboracion'
 
-    s1.artist = SecureRandom.hex(8)
-    s1.name = SecureRandom.hex(8)
+    #   c1 = Collaboration.new
+    #   s1 = Song.new
+    #   m1 = Movie.new
 
-    s1.save
+    #   s1.artist = SecureRandom.hex(8)
+    #   s1.name = SecureRandom.hex(8)
 
-    m1.year = rand(2017-1917) + 1917 # 1917 < year < 2017
-    m1.name = SecureRandom.hex(8)
+    #   s1.save
 
-    m1.save
+    #   m1.year = rand(2017-1917) + 1917 # 1917 < year < 2017
+    #   m1.name = SecureRandom.hex(8)
 
-    c1.user = current_user
-    c1.song = s1
-    c1.movie = m1
+    #   m1.save
 
-    c1.save
+    #   c1.user = current_user
+    #   c1.song = s1
+    #   c1.movie = m1
+
+    #   c1.save
+
+    # end
 
     ##########################################################
     

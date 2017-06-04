@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'favorites/check'
 
   get 'search/index'
+  get 'search/all'
   get 'users/profile'
 
 	# root to: 'pages#index'

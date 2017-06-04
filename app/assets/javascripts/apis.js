@@ -57,7 +57,7 @@ function search(query, page) {
 	var settings_collaboration = {
 		"async": true,
 		"contentType": 'application/json; charset=utf-8',
-		"data": "",
+		"data": JSON.stringify({"query":query}),
 		"dataType": 'json',
 		"type": 'POST',
 		"url": url_collaboration,
@@ -194,7 +194,7 @@ function populateMusic(response) {
 		var data = JSON.stringify(it);
 
 		var cooperate = "<span onclick='collaborateFromSong(this)'"+
-		"value='"+data+"' class='glyphicon glyphicon-hand-left'></span>";
+		"value='"+data+"' class='glyphicon glyphicon-send'></span>";
 
 		var star = "glyphicon glyphicon-star-empty";
 
@@ -345,3 +345,25 @@ function next() {
 	return search(public_query, next_page);
 
 }
+
+/*
+
+Para los casos de uso de ver cancion (9), ver pelicula (10) y ver colaboracion (11)
+se podria implementar un modal que se abra con la informacion de ese item
+justo al hacer clic en alguno de ellos de la lista de resultados de la busqueda.
+
+De esa forma, al mostrar el item en una linea sola, se veria primero el icono que lo simboliza,
+es decir un icono de music, de film o de play circular, luego se mostraria la info
+de manera resumida (un renglon) y luego el icono de la estrella (agregar/quitar favorito).
+
+Al hacer clic al medio del item (parte textual) se abriria el modal en ves de un enlace externo,
+luego dentro del modal se mostrarian mas datos (como dicho enlace),
+mas una imagen (album, poster, lo que corresponda), y si es una cancion,
+apareceria un buscador de peliculas para las cuales se pueda vincular (el usuario colabora).
+De manera similar, si se hace clic en un item que es pelicula aparecera una lista de canciones
+a para las cuales se pueda vincular dicha pelicula.
+
+Una vez se tenga la lista de items que se seleccionaron en el modal, se envia un ajax
+con el json que corresponda a la operacion que corresponda del controlador de la app.
+
+*/
