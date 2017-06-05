@@ -5,7 +5,7 @@ class CollaborationsController < ApplicationController
 
     query = params['query']
 
-    ##########################################################
+    #######################################################
 
     if query=='crear colaboracion'
 
@@ -19,6 +19,7 @@ class CollaborationsController < ApplicationController
       s1.save
 
       m1.year = rand(2017-1917) + 1917 # 1917 < year < 2017
+
       m1.name = SecureRandom.hex(8)
 
       m1.save
@@ -31,7 +32,7 @@ class CollaborationsController < ApplicationController
 
     end
 
-    ##########################################################
+    #######################################################
     
     collaborations = Collaboration.all # Buscar, no retornar todas
 

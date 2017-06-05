@@ -4,8 +4,13 @@ var host = window.location.host;
 var key_music = "4268ad0746656798a6616f4bbac67dd1"; //Last.fm
 var key_film = "22f58faad6207b2f0dcf3068cc50bb74"; //The Movie Database
 
+var response_collaboration = null;
 var response_music = null;
 var response_film = null;
+
+var array_collaboration = null;
+var array_music = null;
+var array_film = null;
 
 var collaboration = "<span class='glyphicon glyphicon-play-circle'></span>";
 var music = "<span class='glyphicon glyphicon-music'></span>";
@@ -47,10 +52,6 @@ function search(query, page) {
 	var url_check_favorites = protocol+"//"+host+"/favorites/check";
 	
 	var queue_count = 0;
-
-	var response_collaboration = null;
-	var response_music = null;
-	var response_film = null;
 
 	var total = 3;
 
@@ -156,6 +157,8 @@ function search(query, page) {
 
 function populateCollaboration(response) {
 
+	array_collaboration = response
+
 	var content = "";
 	var array = response;
 	var l = array.length;
@@ -181,6 +184,8 @@ function populateCollaboration(response) {
 
 function populateMusic(response) {
 
+	array_music = response
+
 	var content = "";
 	var array = response;
 	var l = array.length;
@@ -200,8 +205,8 @@ function populateMusic(response) {
 
 		if (it.favorited) star = "glyphicon glyphicon-star";
 
-		var add = "<span onclick='addToFavorites(this)'"+
-		"value='"+data+"' type='song' class='"+star+"'></span>";
+		var add = "<span onclick='addToFavorites(this, "+i+")'"+
+		"type='song' class='"+star+"'></span>";
 
 		content += "<p>"+music+" "+link+" "+cooperate+" "+add+"</p>";
 			
@@ -214,6 +219,8 @@ function populateMusic(response) {
 }
 
 function populateFilm(response) {
+
+	array_film = response
 
 	var content = "";
 	var array = response;
@@ -234,8 +241,8 @@ function populateFilm(response) {
 
 		if (it.favorited) star = "glyphicon glyphicon-star";
 
-		var add = "<span onclick='addToFavorites(this)'"+
-		"value='"+data+"' type='movie' class='"+star+"'></span>";
+		var add = "<span onclick='addToFavorites(this, "+i+")'"+
+		"type='movie' class='"+star+"'></span>";
 
 		content += "<p>"+film+" "+link+" "+cooperate+" "+add+"</p>";
 
@@ -247,12 +254,24 @@ function populateFilm(response) {
 
 }
 
-function addToFavorites(which) {
+function addToFavorites(which, i) {
 
-	var item = which.getAttribute('value');
+	var item = null;
 	var type = which.getAttribute('type');
 	
-	var json = { "item":item, "type":type };
+	if (type=='song') {
+		item = array_music[i];
+	}
+
+	if (type=='movie') {
+		item = array_film[i];
+	}
+
+	var json = {
+		"item" : item,
+		"type" : type,
+	};
+	
 	var data = JSON.stringify(json);
 
 	var url = protocol+"//"+host+"/favorites/add";

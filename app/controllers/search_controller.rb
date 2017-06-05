@@ -1,6 +1,8 @@
 class SearchController < ApplicationController
+
 	def index
 	end
+	
 	def all
 		@collaborations = Collaboration.all
 		@favorites = Favorite.all
@@ -8,4 +10,5 @@ class SearchController < ApplicationController
 		@songs = Song.all
 		@users = User.all
 	end
+
 end

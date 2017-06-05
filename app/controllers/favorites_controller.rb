@@ -1,9 +1,32 @@
 class FavoritesController < ApplicationController
   before_action :set_favorite, only: [:show, :edit, :update, :destroy]
 
-  def check
+  def formatted_sentence(string)
 
-    # La informacion que se retorna no es identica a la que se recibe
+    conflicted = "'"
+    unconflicted = "'"
+
+    if string
+      return string.tr(conflicted, unconflicted)
+    end
+
+    return "No"
+  
+  end
+
+  def formatted_year(string) # yyyy-xx-xx
+
+    if string
+      return string.split('-').first.to_i # yyyy
+    end
+
+    return 0
+
+  end
+
+  # Ocurren ANTES de interactuar con los resultados de la busqueda:
+
+  def check
 
     collaboration = params[:collaboration]
     music = params[:music]
@@ -48,6 +71,10 @@ class FavoritesController < ApplicationController
 
     mapped = parsed['results']['trackmatches']['track'].map do |m|
 
+      album = formatted_sentence(m['album'])
+      artist = formatted_sentence(m['artist'])
+      name = formatted_sentence(m['name'])
+
       img_url = m['image']
 
       if img_url
@@ -55,9 +82,9 @@ class FavoritesController < ApplicationController
       end
 
       {
-        :album => m['album'],
-        :artist => m['artist'],
-        :name => m['name'],
+        :album => album,
+        :artist => artist,
+        :name => name,
         :img_url => img_url,
         :favorited => song_is_favorited(m),
       }
@@ -72,6 +99,10 @@ class FavoritesController < ApplicationController
 
     mapped = parsed['results'].map do |m|
 
+      director = formatted_sentence(m['director'])
+      year = formatted_year(m['release_date'])
+      name = formatted_sentence(m['original_title'])
+
       base = "https://image.tmdb.org/t/p/"
       size = "original"
       poster = m['poster_path']
@@ -81,19 +112,13 @@ class FavoritesController < ApplicationController
       if poster
         img_url = base+size+poster
       end
-
-      year = 0
-
-      if m['release_date']
-        year = m['release_date'].split('-').first.to_i
-      end 
       
       {
-        :director => m['director'],
+        :director => director,
         :year => year,
-        :name => m['original_title'],
+        :name => name,
         :img_url => img_url,
-        :favorited => movie_is_favorited(m),
+        :favorited => movie_is_favorited(year, name),
       }
     
     end
@@ -102,12 +127,10 @@ class FavoritesController < ApplicationController
 
   end
 
-# El simbolo "'" da problemas al hacer JSON.parse(...)
-
   def song_is_favorited(song)
 
-    artist = song['artist']
-    name = song['name']
+    artist = formatted_sentence(song['artist'])
+    name = formatted_sentence(song['name'])
 
     if user_signed_in?
 
@@ -131,15 +154,7 @@ class FavoritesController < ApplicationController
 
   end
 
-  def movie_is_favorited(movie)
-
-    year = 0
-
-    if movie['release_date']
-      year = movie['release_date'].split('-').first.to_i
-    end
-
-    name = movie['original_title']
+  def movie_is_favorited(year, name)
 
     if user_signed_in?
 
@@ -163,9 +178,11 @@ class FavoritesController < ApplicationController
 
   end
 
+  # Ocurren DESPUES de interactuar con los resultados de la busqueda
+
   def add
 
-    item = JSON.parse(params[:item])
+    item = params[:item]
     type = params[:type]
 
     added = nil
@@ -181,8 +198,11 @@ class FavoritesController < ApplicationController
     end
 
     if type=='movie'
-    
-      if movie_is_favorited(item)
+
+      year = item['year']
+      name = item['name']
+
+      if movie_is_favorited(year, name)
         added = quit_movie(item)
       else
         added = add_movie(item)
