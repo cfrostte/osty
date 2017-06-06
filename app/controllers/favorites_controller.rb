@@ -1,182 +1,20 @@
 class FavoritesController < ApplicationController
   before_action :set_favorite, only: [:show, :edit, :update, :destroy]
 
-  def formatted_sentence(string)
-
-    conflicted = "'"
-    unconflicted = "'"
-
-    if string
-      return string.tr(conflicted, unconflicted)
-    end
-
-    return "No"
-  
-  end
-
-  def formatted_year(string) # yyyy-xx-xx
-
-    if string
-      return string.split('-').first.to_i # yyyy
-    end
-
-    return 0
-
-  end
-
   # Ocurren ANTES de interactuar con los resultados de la busqueda:
 
   def check
 
-    collaboration = params[:collaboration]
-    music = params[:music]
-    film = params[:film]
-
-    parsed_collaboration = JSON.parse(collaboration)
-    parsed_music = JSON.parse(music)
-    parsed_film = JSON.parse(film)
-
-    checked_collaborations = map_collaboration(parsed_collaboration)
-    checked_songs = map_music(parsed_music)
-    checked_movies = map_film(parsed_film)
-
     response = {
-      :collaboration => checked_collaborations,
-      :music => checked_songs,
-      :film => checked_movies,
+      :collaboration => Collaboration.json_map(params[:collaboration]),
+      :music => Song.json_map(params[:music], user_signed_in?, current_user),
+      :film => Movie.json_map(params[:film], user_signed_in?, current_user),
     }
 
     render :json => response
 
   end
 
-  def map_collaboration(parsed)
-    
-    mapped = parsed.map do |m|
-      {
-        :id => m['id'],
-        :state => m['state'],
-        :user => m['user'],
-        :song => m['song'],
-        :movie => m['movie'],
-        :favorited => false,
-      }
-    end
-    
-    return mapped
-
-  end
-
-  def map_music(parsed)
-
-    mapped = parsed['results']['trackmatches']['track'].map do |m|
-
-      album = formatted_sentence(m['album'])
-      artist = formatted_sentence(m['artist'])
-      name = formatted_sentence(m['name'])
-
-      img_url = m['image']
-
-      if img_url
-        img_url = m['image'].last['#text']
-      end
-
-      {
-        :album => album,
-        :artist => artist,
-        :name => name,
-        :img_url => img_url,
-        :favorited => song_is_favorited(m),
-      }
-    
-    end
-
-    return mapped
-
-  end
-
-  def map_film(parsed)
-
-    mapped = parsed['results'].map do |m|
-
-      director = formatted_sentence(m['director'])
-      year = formatted_year(m['release_date'])
-      name = formatted_sentence(m['original_title'])
-
-      base = "https://image.tmdb.org/t/p/"
-      size = "original"
-      poster = m['poster_path']
-
-      img_url = nil
-
-      if poster
-        img_url = base+size+poster
-      end
-      
-      {
-        :director => director,
-        :year => year,
-        :name => name,
-        :img_url => img_url,
-        :favorited => movie_is_favorited(year, name),
-      }
-    
-    end
-
-    return mapped
-
-  end
-
-  def song_is_favorited(song)
-
-    artist = formatted_sentence(song['artist'])
-    name = formatted_sentence(song['name'])
-
-    if user_signed_in?
-
-      current_user.favorites.each do |f|
-
-        if f.song
-
-          are_equal = f.song.artist==artist && f.song.name==name
-
-          if are_equal
-            return are_equal
-          end
-
-        end
-
-      end
-
-    end
-
-    return false
-
-  end
-
-  def movie_is_favorited(year, name)
-
-    if user_signed_in?
-
-      current_user.favorites.each do |f|
-
-        if f.movie
-
-          are_equal = f.movie.year==year && f.movie.name==name
-
-          if are_equal
-            return are_equal
-          end
-
-        end
-
-      end
-
-    end
-
-    return false
-
-  end
 
   # Ocurren DESPUES de interactuar con los resultados de la busqueda
 
@@ -189,7 +27,7 @@ class FavoritesController < ApplicationController
 
     if type=='song'
 
-      if song_is_favorited(item)
+      if Favorite.exist_song(item, user_signed_in?, current_user)
         added = quit_song(item)
       else
         added = add_song(item)
@@ -202,7 +40,7 @@ class FavoritesController < ApplicationController
       year = item['year']
       name = item['name']
 
-      if movie_is_favorited(year, name)
+      if Favorite.exist_movie(year, name, user_signed_in?, current_user)
         added = quit_movie(item)
       else
         added = add_movie(item)

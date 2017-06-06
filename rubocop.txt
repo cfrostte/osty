@@ -1,0 +1,1723 @@
+Inspecting 80 files
+CC.C...CCCC..C..CCCCCC.CCCCCCCCCCCC.......C...C..CC..CCCCCCCWCCCCCCCCWCCCCCCCC..
+
+Offenses:
+
+Rakefile:2:81: C: Line is too long. [90/80]
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+                                                                                ^^^^^^^^^^
+Gemfile:4:69: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+                                                                    ^^^
+Gemfile:39:81: C: Line is too long. [83/80]
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+                                                                                ^^^
+Gemfile:44:81: C: Line is too long. [93/80]
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+                                                                                ^^^^^^^^^^^^^
+Gemfile:46:3: C: Gems should be sorted in an alphabetical order within their section of the Gemfile. Gem listen should appear before web-console.
+  gem 'listen', '~> 3.0.5'
+  ^^^^^^^^^^^^^^^^^^^^^^^^
+Gemfile:47:81: C: Line is too long. [130/80]
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Gemfile:55:1: C: Use 2 (not 4) spaces for indentation.
+    gem 'pg', '~> 0.20.0'
+^^^^
+Gemfile:59:31: C: Use %i or %I for an array of symbols.
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/application.rb:10:3: C: Missing top-level class documentation comment.
+  class Application < Rails::Application
+  ^^^^^
+config/application.rb:11:81: C: Line is too long. [82/80]
+    # Settings in config/environments/* take precedence over those specified here.
+                                                                                ^^
+config/initializers/devise.rb:9:81: C: Line is too long. [154/80]
+  # config.secret_key = '68e492cc0ef2919f8ad209d9adfb3259561d57678a3d28a78b30d5a1b20b9bc12886b1cbb51472f5eec947199e80e4fcbcf09727f6ac3f401ca36671014f36f7'
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/initializers/devise.rb:15:81: C: Line is too long. [85/80]
+  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+                                                                                ^^^^^
+config/initializers/devise.rb:34:81: C: Line is too long. [83/80]
+  # session. If you need permissions, you should implement that in a before filter.
+                                                                                ^^^
+config/initializers/devise.rb:39:81: C: Line is too long. [84/80]
+  # Configure parameters from the request object used for authentication. Each entry
+                                                                                ^^^^
+config/initializers/devise.rb:41:81: C: Line is too long. [85/80]
+  # find_for_authentication method and considered in your model lookup. For instance,
+                                                                                ^^^^^
+config/initializers/devise.rb:42:81: C: Line is too long. [88/80]
+  # if you set :request_keys to [:subdomain], :subdomain will be used on authentication.
+                                                                                ^^^^^^^^
+config/initializers/devise.rb:43:81: C: Line is too long. [89/80]
+  # The same considerations mentioned for authentication_keys also apply to request_keys.
+                                                                                ^^^^^^^^^
+config/initializers/devise.rb:53:81: C: Line is too long. [85/80]
+  # modifying a user and when used to authenticate or find a user. Default is :email.
+                                                                                ^^^^^
+config/initializers/devise.rb:57:81: C: Line is too long. [81/80]
+  # It can be set to an array that will enable params authentication only for the
+                                                                                ^
+config/initializers/devise.rb:58:81: C: Line is too long. [85/80]
+  # given strategies, for example, `config.params_authenticatable = [:database]` will
+                                                                                ^^^^^
+config/initializers/devise.rb:64:81: C: Line is too long. [83/80]
+  # given strategies, for example, `config.http_authenticatable = [:database]` will
+                                                                                ^^^
+config/initializers/devise.rb:66:81: C: Line is too long. [84/80]
+  # :database      = Support basic authentication with authentication key + password
+                                                                                ^^^^
+config/initializers/devise.rb:101:81: C: Line is too long. [86/80]
+  # using other algorithms, it sets how many times you want the password to be hashed.
+                                                                                ^^^^^^
+config/initializers/devise.rb:103:81: C: Line is too long. [82/80]
+  # Limiting the stretches to just one in testing will increase the performance of
+                                                                                ^^
+config/initializers/devise.rb:105:81: C: Line is too long. [82/80]
+  # a value less than 10 in other environments. Note that, for bcrypt (the default
+                                                                                ^^
+config/initializers/devise.rb:106:81: C: Line is too long. [83/80]
+  # algorithm), the cost increases exponentially with the number of stretches (e.g.
+                                                                                ^^^
+config/initializers/devise.rb:107:81: C: Line is too long. [83/80]
+  # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
+                                                                                ^^^
+config/initializers/devise.rb:111:81: C: Line is too long. [150/80]
+  # config.pepper = 'f2fc4f517b77a3a51f639309a5f402692738465f7a39d03891290057ab79aed14e0efc67f0e0255e54bb4203c15c04c940c4d8dfe280ba60370d4994b4183c2e'
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/initializers/devise.rb:133:81: C: Line is too long. [86/80]
+  # initial account confirmation) to be applied. Requires additional unconfirmed_email
+                                                                                ^^^^^^
+config/initializers/devise.rb:135:81: C: Line is too long. [84/80]
+  # unconfirmed_email column, and copied to email column on successful confirmation.
+                                                                                ^^^^
+config/initializers/devise.rb:171:81: C: Line is too long. [85/80]
+  # :failed_attempts = Locks an account after a number of failed attempts to sign in.
+                                                                                ^^^^^
+config/initializers/devise.rb:180:81: C: Line is too long. [83/80]
+  # :time  = Re-enables login after a certain amount of time (see :unlock_in below)
+                                                                                ^^^
+config/initializers/devise.rb:205:81: C: Line is too long. [84/80]
+  # When set to false, does not sign a user in automatically after their password is
+                                                                                ^^^^
+config/initializers/devise.rb:210:81: C: Line is too long. [86/80]
+  # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
+                                                                                ^^^^^^
+config/initializers/devise.rb:212:81: C: Line is too long. [81/80]
+  # :clearance_sha1, :authlogic_sha512 (then you should set stretches above to 20
+                                                                                ^
+config/initializers/devise.rb:220:81: C: Line is too long. [82/80]
+  # Turn scoped views on. Before rendering "sessions/new", it will first check for
+                                                                                ^^
+config/initializers/devise.rb:254:81: C: Line is too long. [82/80]
+  # change the failure app, you can configure them inside the config.warden block.
+                                                                                ^^
+config/initializers/devise.rb:262:81: C: Line is too long. [81/80]
+  # When using Devise inside an engine, let's call it `MyEngine`, and this engine
+                                                                                ^
+config/initializers/new_framework_defaults.rb:11:81: C: Line is too long. [81/80]
+Rails.application.config.action_controller.forgery_protection_origin_check = true
+                                                                                ^
+config/initializers/new_framework_defaults.rb:20:81: C: Line is too long. [88/80]
+# Do not halt callback chains when a callback returns false. Previous versions had true.
+                                                                                ^^^^^^^^
+config/initializers/new_framework_defaults.rb:23:81: C: Line is too long. [84/80]
+# Configure SSL options to enable HSTS with subdomains. Previous versions had false.
+                                                                                ^^^^
+config/initializers/assets.rb:10:81: C: Line is too long. [93/80]
+# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+                                                                                ^^^^^^^^^^^^^
+config/initializers/assets.rb:12:47: C: %w-literals should be delimited by [ and ].
+Rails.application.config.assets.precompile += %w( views.css )
+                                              ^^^^^^^^^^^^^^^
+config/initializers/assets.rb:12:50: C: Do not use spaces inside percent literal delimiters.
+Rails.application.config.assets.precompile += %w( views.css )
+                                                 ^
+config/initializers/assets.rb:12:60: C: Do not use spaces inside percent literal delimiters.
+Rails.application.config.assets.precompile += %w( views.css )
+                                                           ^
+config/initializers/assets.rb:13:1: C: 1 trailing blank lines detected.
+config/initializers/wrap_parameters.rb:6:81: C: Line is too long. [96/80]
+# Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.
+                                                                                ^^^^^^^^^^^^^^^^
+config/initializers/backtrace_silencers.rb:3:81: C: Line is too long. [107/80]
+# You can add backtrace silencers for libraries that you're using but don't wish to see in your backtraces.
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/initializers/backtrace_silencers.rb:6:81: C: Line is too long. [112/80]
+# You can also remove all the silencers if you're trying to debug a problem that might stem from framework code.
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/environments/test.rb:2:81: C: Line is too long. [85/80]
+  # Settings specified here will take precedence over those in config/application.rb.
+                                                                                ^^^^^
+config/environments/production.rb:2:81: C: Line is too long. [85/80]
+  # Settings specified here will take precedence over those in config/application.rb.
+                                                                                ^^^^^
+config/environments/production.rb:28:81: C: Line is too long. [102/80]
+  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^
+config/environments/production.rb:40:81: C: Line is too long. [96/80]
+  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+                                                                                ^^^^^^^^^^^^^^^^
+config/environments/production.rb:42:81: C: Line is too long. [96/80]
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+                                                                                ^^^^^^^^^^^^^^^^
+config/environments/production.rb:50:22: C: Space inside square brackets detected.
+  config.log_tags = [ :request_id ]
+                     ^
+config/environments/production.rb:50:34: C: Space inside square brackets detected.
+  config.log_tags = [ :request_id ]
+                                 ^
+config/environments/production.rb:55:81: C: Line is too long. [83/80]
+  # Use a real queuing backend for Active Job (and separate queues per environment)
+                                                                                ^^^
+config/environments/production.rb:61:81: C: Line is too long. [100/80]
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+                                                                                ^^^^^^^^^^^^^^^^^^^^
+config/environments/production.rb:76:81: C: Line is too long. [83/80]
+  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
+                                                                                ^^^
+config/environments/production.rb:78:10: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+         ^^^^^^^^^^^^^^^^^^^^^
+config/environments/development.rb:2:81: C: Line is too long. [85/80]
+  # Settings specified here will take precedence over those in config/application.rb.
+                                                                                ^^^^^
+config/puma.rb:7:27: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i
+                          ^^^^^^^^^^^^^^^^^^^
+config/puma.rb:10:81: C: Line is too long. [85/80]
+# Specifies the `port` that Puma will listen on to receive requests, default is 3000.
+                                                                                ^^^^^
+config/puma.rb:12:23: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+port        ENV.fetch("PORT") { 3000 }
+                      ^^^^^^
+config/puma.rb:16:23: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+environment ENV.fetch("RAILS_ENV") { "development" }
+                      ^^^^^^^^^^^
+config/puma.rb:16:38: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+environment ENV.fetch("RAILS_ENV") { "development" }
+                                     ^^^^^^^^^^^^^
+config/routes.rb:2:1: C: Extra empty line detected at block body beginning.
+config/routes.rb:16:1: C: Tab detected.
+	# root to: 'pages#index'
+^
+config/routes.rb:16:2: C: Incorrect indentation detected (column 1 instead of 2).
+	# root to: 'pages#index'
+ ^^^^^^^^^^^^^^^^^^^^^^^^
+config/routes.rb:17:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  root "pages#show", page: "landing"
+       ^^^^^^^^^^^^
+config/routes.rb:17:28: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  root "pages#show", page: "landing"
+                           ^^^^^^^^^
+config/routes.rb:19:1: C: Tab detected.
+	devise_for :users,
+^
+config/routes.rb:19:2: C: Inconsistent indentation detected.
+	devise_for :users, ...
+ ^^^^^^^^^^^^^^^^^^
+config/routes.rb:20:1: C: Tab detected.
+config/routes.rb:20:1: C: Trailing whitespace detected.
+config/routes.rb:21:3: C: Align the parameters of a method call if they span more than one line.
+  controllers: { sessions: 'users/sessions' }, ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/routes.rb:22:1: C: Tab detected.
+config/routes.rb:22:1: C: Trailing whitespace detected.
+config/routes.rb:25:3: C: Tab detected.
+  	sign_out: 'logout', password: 'secret',
+  ^
+config/routes.rb:25:4: C: Align the elements of a hash literal if they span more than one line.
+  	sign_out: 'logout', password: 'secret',
+   ^^^^^^^^^^^^^^^^^^
+config/routes.rb:26:3: C: Tab detected.
+  	confirmation: 'verification', unlock: 'unblock',
+  ^
+config/routes.rb:26:4: C: Align the elements of a hash literal if they span more than one line.
+  	confirmation: 'verification', unlock: 'unblock',
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/routes.rb:27:3: C: Tab detected.
+  	registration: 'register', sign_up: 'cmon_let_me_in'
+  ^
+config/routes.rb:27:4: C: Align the elements of a hash literal if they span more than one line.
+  	registration: 'register', sign_up: 'cmon_let_me_in'
+   ^^^^^^^^^^^^^^^^^^^^^^^^
+config/routes.rb:31:4: C: Final newline missing.
+end
+   
+config/spring.rb:1:1: C: %w-literals should be delimited by [ and ].
+%w( ...
+^^^
+db/migrate/20170515215556_devise_create_users.rb:1:1: C: Missing top-level class documentation comment.
+class DeviseCreateUsers < ActiveRecord::Migration[5.0]
+^^^^^
+db/migrate/20170515215556_devise_create_users.rb:2:3: C: Assignment Branch Condition size for change is too high. [16/15]
+  def change
+  ^^^
+db/migrate/20170515215556_devise_create_users.rb:2:3: C: Method has too many lines. [17/10]
+  def change ...
+  ^^^^^^^^^^
+db/migrate/20170515215556_devise_create_users.rb:4:1: C: Extra empty line detected at block body beginning.
+db/migrate/20170515215556_devise_create_users.rb:5:26: C: Unnecessary spacing detected.
+      t.string :nickname,              null: false, default: ""
+                         ^^^^^^^^^^^^^
+db/migrate/20170515215556_devise_create_users.rb:5:62: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      t.string :nickname,              null: false, default: ""
+                                                             ^^
+db/migrate/20170515215556_devise_create_users.rb:9:59: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      t.string :email,              null: false, default: ""
+                                                          ^^
+db/migrate/20170515215556_devise_create_users.rb:10:59: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      t.string :encrypted_password, null: false, default: ""
+                                                          ^^
+db/migrate/20170515215556_devise_create_users.rb:33:81: C: Line is too long. [104/80]
+      # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^
+db/migrate/20170515215556_devise_create_users.rb:37:1: C: Extra blank line detected.
+db/migrate/20170530175720_create_collaborations.rb:1:1: C: Missing top-level class documentation comment.
+class CreateCollaborations < ActiveRecord::Migration[5.0]
+^^^^^
+db/migrate/20170530175720_create_collaborations.rb:2:1: C: Use 2 (not 1) spaces for indentation.
+	def change
+^
+db/migrate/20170530175720_create_collaborations.rb:2:1: C: Tab detected.
+	def change
+^
+db/migrate/20170530175720_create_collaborations.rb:3:1: C: Tab detected.
+		create_table :collaborations do |t|
+^^
+db/migrate/20170530175720_create_collaborations.rb:3:2: C: Use 2 (not 1) spaces for indentation.
+		create_table :collaborations do |t|
+ ^
+db/migrate/20170530175720_create_collaborations.rb:4:1: C: Tab detected.
+			t.integer :state
+^^^
+db/migrate/20170530175720_create_collaborations.rb:4:3: C: Use 2 (not 1) spaces for indentation.
+			t.integer :state
+  ^
+db/migrate/20170530175720_create_collaborations.rb:5:1: C: Tab detected.
+			t.references :user, index: true
+^^^
+db/migrate/20170530175720_create_collaborations.rb:6:1: C: Tab detected.
+			t.references :song, index: true
+^^^
+db/migrate/20170530175720_create_collaborations.rb:7:1: C: Tab detected.
+			t.references :movie, index: true
+^^^
+db/migrate/20170530175720_create_collaborations.rb:8:1: C: Tab detected.
+			t.timestamps
+^^^
+db/migrate/20170530175720_create_collaborations.rb:9:1: C: Tab detected.
+		end
+^^
+db/migrate/20170530175720_create_collaborations.rb:10:1: C: Tab detected.
+	end
+^
+db/migrate/20170530225259_create_movies.rb:1:1: C: Missing top-level class documentation comment.
+class CreateMovies < ActiveRecord::Migration[5.0]
+^^^^^
+db/migrate/20170530225259_create_movies.rb:2:1: C: Use 2 (not 1) spaces for indentation.
+	def change
+^
+db/migrate/20170530225259_create_movies.rb:2:1: C: Tab detected.
+	def change
+^
+db/migrate/20170530225259_create_movies.rb:3:1: C: Tab detected.
+		create_table :movies do |t|
+^^
+db/migrate/20170530225259_create_movies.rb:3:2: C: Use 2 (not 1) spaces for indentation.
+		create_table :movies do |t|
+ ^
+db/migrate/20170530225259_create_movies.rb:4:1: C: Tab detected.
+			t.string :director
+^^^
+db/migrate/20170530225259_create_movies.rb:4:3: C: Use 2 (not 1) spaces for indentation.
+			t.string :director
+  ^
+db/migrate/20170530225259_create_movies.rb:5:1: C: Tab detected.
+			t.integer :year
+^^^
+db/migrate/20170530225259_create_movies.rb:6:1: C: Tab detected.
+			t.string :name
+^^^
+db/migrate/20170530225259_create_movies.rb:7:1: C: Tab detected.
+			t.text :info
+^^^
+db/migrate/20170530225259_create_movies.rb:8:1: C: Tab detected.
+			t.text :img_url
+^^^
+db/migrate/20170530225259_create_movies.rb:9:1: C: Tab detected.
+			t.timestamps
+^^^
+db/migrate/20170530225259_create_movies.rb:10:1: C: Tab detected.
+		end
+^^
+db/migrate/20170530225259_create_movies.rb:11:1: C: Tab detected.
+	end
+^
+db/migrate/20170530225259_create_movies.rb:12:4: C: Final newline missing.
+end
+   
+db/migrate/20170530175558_create_favorites.rb:1:1: C: Missing top-level class documentation comment.
+class CreateFavorites < ActiveRecord::Migration[5.0]
+^^^^^
+db/migrate/20170530175558_create_favorites.rb:2:1: C: Use 2 (not 1) spaces for indentation.
+	def change
+^
+db/migrate/20170530175558_create_favorites.rb:2:1: C: Tab detected.
+	def change
+^
+db/migrate/20170530175558_create_favorites.rb:3:1: C: Tab detected.
+		create_table :favorites do |t|
+^^
+db/migrate/20170530175558_create_favorites.rb:3:2: C: Use 2 (not 1) spaces for indentation.
+		create_table :favorites do |t|
+ ^
+db/migrate/20170530175558_create_favorites.rb:4:1: C: Tab detected.
+			t.references :user, index: true
+^^^
+db/migrate/20170530175558_create_favorites.rb:4:3: C: Use 2 (not 1) spaces for indentation.
+			t.references :user, index: true
+  ^
+db/migrate/20170530175558_create_favorites.rb:5:1: C: Tab detected.
+			t.references :collaboration, index: true
+^^^
+db/migrate/20170530175558_create_favorites.rb:6:1: C: Tab detected.
+			t.references :song, index: true
+^^^
+db/migrate/20170530175558_create_favorites.rb:7:1: C: Tab detected.
+			t.references :movie, index: true
+^^^
+db/migrate/20170530175558_create_favorites.rb:8:1: C: Tab detected.
+			t.timestamps
+^^^
+db/migrate/20170530175558_create_favorites.rb:9:1: C: Tab detected.
+		end
+^^
+db/migrate/20170530175558_create_favorites.rb:10:1: C: Tab detected.
+	end
+^
+db/migrate/20170530225252_create_songs.rb:1:1: C: Missing top-level class documentation comment.
+class CreateSongs < ActiveRecord::Migration[5.0]
+^^^^^
+db/migrate/20170530225252_create_songs.rb:2:1: C: Use 2 (not 1) spaces for indentation.
+	def change
+^
+db/migrate/20170530225252_create_songs.rb:2:1: C: Tab detected.
+	def change
+^
+db/migrate/20170530225252_create_songs.rb:3:1: C: Tab detected.
+		create_table :songs do |t|
+^^
+db/migrate/20170530225252_create_songs.rb:3:2: C: Use 2 (not 1) spaces for indentation.
+		create_table :songs do |t|
+ ^
+db/migrate/20170530225252_create_songs.rb:4:1: C: Tab detected.
+			t.string :album
+^^^
+db/migrate/20170530225252_create_songs.rb:4:3: C: Use 2 (not 1) spaces for indentation.
+			t.string :album
+  ^
+db/migrate/20170530225252_create_songs.rb:5:1: C: Tab detected.
+			t.string :artist
+^^^
+db/migrate/20170530225252_create_songs.rb:6:1: C: Tab detected.
+			t.string :name
+^^^
+db/migrate/20170530225252_create_songs.rb:7:1: C: Tab detected.
+			t.text :info
+^^^
+db/migrate/20170530225252_create_songs.rb:8:1: C: Tab detected.
+			t.text :img_url
+^^^
+db/migrate/20170530225252_create_songs.rb:9:1: C: Tab detected.
+			t.timestamps
+^^^
+db/migrate/20170530225252_create_songs.rb:10:1: C: Tab detected.
+		end
+^^
+db/migrate/20170530225252_create_songs.rb:11:1: C: Tab detected.
+	end
+^
+db/schema.rb:3:81: C: Line is too long. [81/80]
+# incrementally modify your database, and then regenerate this schema definition.
+                                                                                ^
+db/schema.rb:8:81: C: Line is too long. [86/80]
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+                                                                                ^^^^^^
+db/schema.rb:11:81: C: Line is too long. [86/80]
+# It's strongly recommended that you check this file into your version control system.
+                                                                                ^^^^^^
+db/schema.rb:13:1: C: Block has too many lines. [59/25]
+ActiveRecord::Schema.define(version: 20170530225259) do ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:13:38: C: Use underscores(_) as decimal mark and separate every 3 digits with them.
+ActiveRecord::Schema.define(version: 20170530225259) do
+                                     ^^^^^^^^^^^^^^
+db/schema.rb:14:1: C: Extra empty line detected at block body beginning.
+db/schema.rb:15:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  create_table "collaborations", force: :cascade do |t|
+               ^^^^^^^^^^^^^^^^
+db/schema.rb:16:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "state"
+               ^^^^^^^
+db/schema.rb:17:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "user_id"
+               ^^^^^^^^^
+db/schema.rb:18:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "song_id"
+               ^^^^^^^^^
+db/schema.rb:19:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "movie_id"
+               ^^^^^^^^^^
+db/schema.rb:20:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "created_at", null: false
+               ^^^^^^^^^^^^
+db/schema.rb:21:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "updated_at", null: false
+               ^^^^^^^^^^^^
+db/schema.rb:22:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["movie_id"], name: "index_collaborations_on_movie_id"
+             ^^^^^^^^^^
+db/schema.rb:22:33: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["movie_id"], name: "index_collaborations_on_movie_id"
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:23:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["song_id"], name: "index_collaborations_on_song_id"
+             ^^^^^^^^^
+db/schema.rb:23:32: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["song_id"], name: "index_collaborations_on_song_id"
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:24:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["user_id"], name: "index_collaborations_on_user_id"
+             ^^^^^^^^^
+db/schema.rb:24:32: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["user_id"], name: "index_collaborations_on_user_id"
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:27:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  create_table "favorites", force: :cascade do |t|
+               ^^^^^^^^^^^
+db/schema.rb:28:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "user_id"
+               ^^^^^^^^^
+db/schema.rb:29:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "collaboration_id"
+               ^^^^^^^^^^^^^^^^^^
+db/schema.rb:30:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "song_id"
+               ^^^^^^^^^
+db/schema.rb:31:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "movie_id"
+               ^^^^^^^^^^
+db/schema.rb:32:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "created_at",       null: false
+               ^^^^^^^^^^^^
+db/schema.rb:33:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "updated_at",       null: false
+               ^^^^^^^^^^^^
+db/schema.rb:34:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["collaboration_id"], name: "index_favorites_on_collaboration_id"
+             ^^^^^^^^^^^^^^^^^^
+db/schema.rb:34:41: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["collaboration_id"], name: "index_favorites_on_collaboration_id"
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:35:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["movie_id"], name: "index_favorites_on_movie_id"
+             ^^^^^^^^^^
+db/schema.rb:35:33: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["movie_id"], name: "index_favorites_on_movie_id"
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:36:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["song_id"], name: "index_favorites_on_song_id"
+             ^^^^^^^^^
+db/schema.rb:36:32: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["song_id"], name: "index_favorites_on_song_id"
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:37:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+             ^^^^^^^^^
+db/schema.rb:37:32: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:40:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  create_table "movies", force: :cascade do |t|
+               ^^^^^^^^
+db/schema.rb:41:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "director"
+               ^^^^^^^^^^
+db/schema.rb:42:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "year"
+               ^^^^^^
+db/schema.rb:43:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "name"
+               ^^^^^^
+db/schema.rb:44:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.text     "info"
+               ^^^^^^
+db/schema.rb:45:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.text     "img_url"
+               ^^^^^^^^^
+db/schema.rb:46:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "created_at", null: false
+               ^^^^^^^^^^^^
+db/schema.rb:47:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "updated_at", null: false
+               ^^^^^^^^^^^^
+db/schema.rb:50:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  create_table "songs", force: :cascade do |t|
+               ^^^^^^^
+db/schema.rb:51:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "album"
+               ^^^^^^^
+db/schema.rb:52:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "artist"
+               ^^^^^^^^
+db/schema.rb:53:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "name"
+               ^^^^^^
+db/schema.rb:54:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.text     "info"
+               ^^^^^^
+db/schema.rb:55:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.text     "img_url"
+               ^^^^^^^^^
+db/schema.rb:56:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "created_at", null: false
+               ^^^^^^^^^^^^
+db/schema.rb:57:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "updated_at", null: false
+               ^^^^^^^^^^^^
+db/schema.rb:60:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  create_table "users", force: :cascade do |t|
+               ^^^^^^^
+db/schema.rb:61:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "nickname",               default: "",  null: false
+               ^^^^^^^^^^
+db/schema.rb:61:51: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "nickname",               default: "",  null: false
+                                                  ^^
+db/schema.rb:62:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "isModerator",            default: "f", null: false
+               ^^^^^^^^^^^^^
+db/schema.rb:62:51: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "isModerator",            default: "f", null: false
+                                                  ^^^
+db/schema.rb:63:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "email",                  default: "",  null: false
+               ^^^^^^^
+db/schema.rb:63:51: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "email",                  default: "",  null: false
+                                                  ^^
+db/schema.rb:64:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "encrypted_password",     default: "",  null: false
+               ^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:64:51: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "encrypted_password",     default: "",  null: false
+                                                  ^^
+db/schema.rb:65:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "reset_password_token"
+               ^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:66:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "reset_password_sent_at"
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:67:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "remember_created_at"
+               ^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:68:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "sign_in_count",          default: 0,   null: false
+               ^^^^^^^^^^^^^^^
+db/schema.rb:68:32: C: Unnecessary spacing detected.
+    t.integer  "sign_in_count",          default: 0,   null: false
+                               ^^^^^^^^^
+db/schema.rb:68:53: C: Unnecessary spacing detected.
+    t.integer  "sign_in_count",          default: 0,   null: false
+                                                    ^^
+db/schema.rb:69:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "current_sign_in_at"
+               ^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:70:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "last_sign_in_at"
+               ^^^^^^^^^^^^^^^^^
+db/schema.rb:71:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "current_sign_in_ip"
+               ^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:72:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "last_sign_in_ip"
+               ^^^^^^^^^^^^^^^^^
+db/schema.rb:73:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "created_at",                           null: false
+               ^^^^^^^^^^^^
+db/schema.rb:74:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "updated_at",                           null: false
+               ^^^^^^^^^^^^
+db/schema.rb:75:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["email"], name: "index_users_on_email", unique: true
+             ^^^^^^^
+db/schema.rb:75:30: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["email"], name: "index_users_on_email", unique: true
+                             ^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:76:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+             ^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:76:45: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:76:81: C: Line is too long. [95/80]
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+                                                                                ^^^^^^^^^^^^^^^
+db/schema.rb:78:1: C: Extra empty line detected at block body end.
+test/test_helper.rb:5:7: C: Use nested module/class definitions instead of compact style.
+class ActiveSupport::TestCase
+      ^^^^^^^^^^^^^^^^^^^^^^^
+test/test_helper.rb:6:81: C: Line is too long. [82/80]
+  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+                                                                                ^^
+test/controllers/search_controller_test.rb:4:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get index" do
+       ^^^^^^^^^^^^^^^^^^
+test/controllers/search_controller_test.rb:8:1: C: Extra empty line detected at class body end.
+test/controllers/favorites_controller_test.rb:8:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get index" do
+       ^^^^^^^^^^^^^^^^^^
+test/controllers/favorites_controller_test.rb:13:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get new" do
+       ^^^^^^^^^^^^^^^^
+test/controllers/favorites_controller_test.rb:18:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should create favorite" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/favorites_controller_test.rb:20:48: C: Unnecessary spacing detected.
+      post favorites_url, params: { favorite: {  } }
+                                               ^
+test/controllers/favorites_controller_test.rb:20:48: C: Space inside empty hash literal braces detected.
+      post favorites_url, params: { favorite: {  } }
+                                               ^^
+test/controllers/favorites_controller_test.rb:26:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should show favorite" do
+       ^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/favorites_controller_test.rb:31:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get edit" do
+       ^^^^^^^^^^^^^^^^^
+test/controllers/favorites_controller_test.rb:36:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should update favorite" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/favorites_controller_test.rb:37:57: C: Unnecessary spacing detected.
+    patch favorite_url(@favorite), params: { favorite: {  } }
+                                                        ^
+test/controllers/favorites_controller_test.rb:37:57: C: Space inside empty hash literal braces detected.
+    patch favorite_url(@favorite), params: { favorite: {  } }
+                                                        ^^
+test/controllers/favorites_controller_test.rb:41:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should destroy favorite" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/pages_controller_test.rb:4:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get index" do
+       ^^^^^^^^^^^^^^^^^^
+test/controllers/pages_controller_test.rb:8:1: C: Extra empty line detected at class body end.
+test/controllers/collaborations_controller_test.rb:8:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get index" do
+       ^^^^^^^^^^^^^^^^^^
+test/controllers/collaborations_controller_test.rb:13:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get new" do
+       ^^^^^^^^^^^^^^^^
+test/controllers/collaborations_controller_test.rb:18:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should create collaboration" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/collaborations_controller_test.rb:20:58: C: Unnecessary spacing detected.
+      post collaborations_url, params: { collaboration: {  } }
+                                                         ^
+test/controllers/collaborations_controller_test.rb:20:58: C: Space inside empty hash literal braces detected.
+      post collaborations_url, params: { collaboration: {  } }
+                                                         ^^
+test/controllers/collaborations_controller_test.rb:26:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should show collaboration" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/collaborations_controller_test.rb:31:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get edit" do
+       ^^^^^^^^^^^^^^^^^
+test/controllers/collaborations_controller_test.rb:36:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should update collaboration" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/collaborations_controller_test.rb:37:72: C: Unnecessary spacing detected.
+    patch collaboration_url(@collaboration), params: { collaboration: {  } }
+                                                                       ^
+test/controllers/collaborations_controller_test.rb:37:72: C: Space inside empty hash literal braces detected.
+    patch collaboration_url(@collaboration), params: { collaboration: {  } }
+                                                                       ^^
+test/controllers/collaborations_controller_test.rb:41:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should destroy collaboration" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/users_controller_test.rb:4:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get index" do
+       ^^^^^^^^^^^^^^^^^^
+test/controllers/users_controller_test.rb:8:1: C: Extra empty line detected at class body end.
+bin/spring:11:56: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  spring = lockfile.specs.detect { |spec| spec.name == "spring" }
+                                                       ^^^^^^^^
+app/views/favorites/show.json.jbuilder:1:15: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+json.partial! "favorites/favorite", favorite: @favorite
+              ^^^^^^^^^^^^^^^^^^^^
+app/views/collaborations/show.json.jbuilder:1:15: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+json.partial! "collaborations/collaboration", collaboration: @collaboration
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/views/collaborations/index.json.jbuilder:1:81: C: Line is too long. [88/80]
+json.array! @collaborations, partial: 'collaborations/collaboration', as: :collaboration
+                                                                                ^^^^^^^^
+app/helpers/users_helper.rb:1:1: C: Missing top-level module documentation comment.
+module UsersHelper
+^^^^^^
+app/helpers/application_helper.rb:1:1: C: Missing top-level module documentation comment.
+module ApplicationHelper
+^^^^^^
+app/helpers/favorites_helper.rb:1:1: C: Missing top-level module documentation comment.
+module FavoritesHelper
+^^^^^^
+app/helpers/pages_helper.rb:1:1: C: Missing top-level module documentation comment.
+module PagesHelper
+^^^^^^
+app/helpers/collaborations_helper.rb:1:1: C: Missing top-level module documentation comment.
+module CollaborationsHelper
+^^^^^^
+app/helpers/search_helper.rb:1:1: C: Missing top-level module documentation comment.
+module SearchHelper
+^^^^^^
+app/mailers/application_mailer.rb:1:1: C: Missing top-level class documentation comment.
+class ApplicationMailer < ActionMailer::Base
+^^^^^
+app/controllers/users_controller.rb:1:1: C: Missing top-level class documentation comment.
+class UsersController < ApplicationController
+^^^^^
+app/controllers/users_controller.rb:2:1: C: Extra empty line detected at class body beginning.
+app/controllers/users_controller.rb:3:3: C: Put empty method definitions on a single line.
+  def index ...
+  ^^^^^^^^^
+app/controllers/users_controller.rb:7:1: C: Extra empty line detected at method body beginning.
+app/controllers/users_controller.rb:9:1: C: Trailing whitespace detected.
+app/controllers/users_controller.rb:11:15: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      @tipo = "Usuario comun"
+              ^^^^^^^^^^^^^^^
+app/controllers/users_controller.rb:12:1: C: Trailing whitespace detected.
+app/controllers/users_controller.rb:12:3: C: Tab detected.
+app/controllers/users_controller.rb:13:7: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+      if @user.isModerator===true
+      ^^
+app/controllers/users_controller.rb:13:27: C: Surrounding space missing for operator ===.
+      if @user.isModerator===true
+                          ^^^
+app/controllers/users_controller.rb:13:27: C: Avoid the use of the case equality operator ===.
+      if @user.isModerator===true
+                          ^^^
+app/controllers/users_controller.rb:14:3: C: Tab detected.
+  			@tipo = "Usuario moderador"
+  ^^^
+app/controllers/users_controller.rb:14:6: C: Use 2 (not -1) spaces for indentation.
+  			@tipo = "Usuario moderador"
+     ^
+app/controllers/users_controller.rb:14:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  			@tipo = "Usuario moderador"
+             ^^^^^^^^^^^^^^^^^^^
+app/controllers/users_controller.rb:15:3: C: Tab detected.
+  		end
+  ^^
+app/controllers/users_controller.rb:15:5: W: end at 15, 4 is not aligned with if at 13, 6.
+  		end
+    ^^^
+app/controllers/users_controller.rb:16:1: C: Trailing whitespace detected.
+app/controllers/users_controller.rb:16:3: C: Tab detected.
+app/controllers/users_controller.rb:18:1: C: Trailing whitespace detected.
+app/controllers/users_controller.rb:18:3: C: Tab detected.
+app/controllers/users_controller.rb:20:1: C: Trailing whitespace detected.
+app/controllers/users_controller.rb:20:3: C: Tab detected.
+app/controllers/users_controller.rb:22:1: C: Trailing whitespace detected.
+app/controllers/users_controller.rb:24:1: C: Extra empty line detected at class body end.
+app/controllers/application_controller.rb:1:1: C: Missing top-level class documentation comment.
+class ApplicationController < ActionController::Base
+^^^^^
+app/controllers/application_controller.rb:2:1: C: Extra empty line detected at class body beginning.
+app/controllers/application_controller.rb:3:1: C: Use 2 (not 1) spaces for indentation.
+	protect_from_forgery with: :exception
+^
+app/controllers/application_controller.rb:3:1: C: Tab detected.
+	protect_from_forgery with: :exception
+^
+app/controllers/application_controller.rb:4:1: C: Tab detected.
+	before_action :configure_permitted_parameters, if: :devise_controller?
+^
+app/controllers/application_controller.rb:6:1: C: Tab detected.
+	protected
+^
+app/controllers/application_controller.rb:6:2: C: Indent access modifiers like protected.
+	protected
+ ^^^^^^^^^
+app/controllers/application_controller.rb:8:1: C: Tab detected.
+	def configure_permitted_parameters
+^
+app/controllers/application_controller.rb:9:1: C: Tab detected.
+		devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname])
+^^
+app/controllers/application_controller.rb:9:2: C: Use 2 (not 1) spaces for indentation.
+		devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname])
+ ^
+app/controllers/application_controller.rb:10:1: C: Tab detected.
+		devise_parameter_sanitizer.permit(:account_update, keys: [:nickname])
+^^
+app/controllers/application_controller.rb:11:1: C: Tab detected.
+	end
+^
+app/controllers/application_controller.rb:12:1: C: Extra empty line detected at class body end.
+app/controllers/users/passwords_controller.rb:1:7: C: Use nested module/class definitions instead of compact style.
+class Users::PasswordsController < Devise::PasswordsController
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users/registrations_controller.rb:1:7: C: Use nested module/class definitions instead of compact style.
+class Users::RegistrationsController < Devise::RegistrationsController
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users/registrations_controller.rb:3:1: C: Incorrect indentation detected (column 0 instead of 2).
+# before_action :configure_account_update_params, only: [:update]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users/omniauth_callbacks_controller.rb:1:7: C: Use nested module/class definitions instead of compact style.
+class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users/sessions_controller.rb:1:7: C: Use nested module/class definitions instead of compact style.
+class Users::SessionsController < Devise::SessionsController
+      ^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users/sessions_controller.rb:2:1: C: Incorrect indentation detected (column 0 instead of 2).
+# before_action :configure_sign_in_params, only: [:create]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users/confirmations_controller.rb:1:7: C: Use nested module/class definitions instead of compact style.
+class Users::ConfirmationsController < Devise::ConfirmationsController
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users/unlocks_controller.rb:1:7: C: Use nested module/class definitions instead of compact style.
+class Users::UnlocksController < Devise::UnlocksController
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:1:1: C: Class has too many lines. [268/100]
+class FavoritesController < ApplicationController ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:1:1: C: Missing top-level class documentation comment.
+class FavoritesController < ApplicationController
+^^^^^
+app/controllers/favorites_controller.rb:2:38: C: Use %i or %I for an array of symbols.
+  before_action :set_favorite, only: [:show, :edit, :update, :destroy]
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:5:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:9:5: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+    if string
+    ^^
+app/controllers/favorites_controller.rb:13:5: C: Redundant return detected.
+    return "No"
+    ^^^^^^
+app/controllers/favorites_controller.rb:13:12: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    return "No"
+           ^^^^
+app/controllers/favorites_controller.rb:14:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:18:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:23:5: C: Redundant return detected.
+    return 0
+    ^^^^^^
+app/controllers/favorites_controller.rb:24:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:29:3: C: Assignment Branch Condition size for check is too high. [16.4/15]
+  def check
+  ^^^
+app/controllers/favorites_controller.rb:29:3: C: Method has too many lines. [15/10]
+  def check ...
+  ^^^^^^^^^
+app/controllers/favorites_controller.rb:30:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:44:7: C: Use the new Ruby 1.9 hash syntax.
+      :collaboration => checked_collaborations,
+      ^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:45:7: C: Use the new Ruby 1.9 hash syntax.
+      :music => checked_songs,
+      ^^^^^^^^^
+app/controllers/favorites_controller.rb:46:7: C: Use the new Ruby 1.9 hash syntax.
+      :film => checked_movies,
+      ^^^^^^^^
+app/controllers/favorites_controller.rb:46:30: C: Avoid comma after the last item of a hash.
+      :film => checked_movies,
+                             ^
+app/controllers/favorites_controller.rb:49:12: C: Use the new Ruby 1.9 hash syntax.
+    render :json => response
+           ^^^^^^^^
+app/controllers/favorites_controller.rb:50:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:53:3: C: Method has too many lines. [11/10]
+  def map_collaboration(parsed) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:54:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:57:9: C: Use the new Ruby 1.9 hash syntax.
+        :id => m['id'],
+        ^^^^^^
+app/controllers/favorites_controller.rb:58:9: C: Use the new Ruby 1.9 hash syntax.
+        :state => m['state'],
+        ^^^^^^^^^
+app/controllers/favorites_controller.rb:59:9: C: Use the new Ruby 1.9 hash syntax.
+        :user => m['user'],
+        ^^^^^^^^
+app/controllers/favorites_controller.rb:60:9: C: Use the new Ruby 1.9 hash syntax.
+        :song => m['song'],
+        ^^^^^^^^
+app/controllers/favorites_controller.rb:61:9: C: Use the new Ruby 1.9 hash syntax.
+        :movie => m['movie'],
+        ^^^^^^^^^
+app/controllers/favorites_controller.rb:62:9: C: Use the new Ruby 1.9 hash syntax.
+        :favorited => false,
+        ^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:62:28: C: Avoid comma after the last item of a hash.
+        :favorited => false,
+                           ^
+app/controllers/favorites_controller.rb:65:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:66:5: C: Redundant return detected.
+    return mapped
+    ^^^^^^
+app/controllers/favorites_controller.rb:67:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:70:3: C: Assignment Branch Condition size for map_music is too high. [18.41/15]
+  def map_music(parsed)
+  ^^^
+app/controllers/favorites_controller.rb:70:3: C: Method has too many lines. [19/10]
+  def map_music(parsed) ...
+  ^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:71:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:73:1: C: Extra empty line detected at block body beginning.
+app/controllers/favorites_controller.rb:81:7: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+      if img_url
+      ^^
+app/controllers/favorites_controller.rb:86:9: C: Use the new Ruby 1.9 hash syntax.
+        :album => album,
+        ^^^^^^^^^
+app/controllers/favorites_controller.rb:87:9: C: Use the new Ruby 1.9 hash syntax.
+        :artist => artist,
+        ^^^^^^^^^^
+app/controllers/favorites_controller.rb:88:9: C: Use the new Ruby 1.9 hash syntax.
+        :name => name,
+        ^^^^^^^^
+app/controllers/favorites_controller.rb:89:9: C: Use the new Ruby 1.9 hash syntax.
+        :info => info,
+        ^^^^^^^^
+app/controllers/favorites_controller.rb:90:9: C: Use the new Ruby 1.9 hash syntax.
+        :img_url => img_url,
+        ^^^^^^^^^^^
+app/controllers/favorites_controller.rb:91:9: C: Use the new Ruby 1.9 hash syntax.
+        :favorited => song_is_favorited(m),
+        ^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:91:43: C: Avoid comma after the last item of a hash.
+        :favorited => song_is_favorited(m),
+                                          ^
+app/controllers/favorites_controller.rb:93:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:96:5: C: Redundant return detected.
+    return mapped
+    ^^^^^^
+app/controllers/favorites_controller.rb:97:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:100:3: C: Assignment Branch Condition size for map_film is too high. [17.23/15]
+  def map_film(parsed)
+  ^^^
+app/controllers/favorites_controller.rb:100:3: C: Method has too many lines. [22/10]
+  def map_film(parsed) ...
+  ^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:101:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:103:1: C: Extra empty line detected at block body beginning.
+app/controllers/favorites_controller.rb:109:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      base = "https://image.tmdb.org/t/p/"
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:110:14: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      size = "original"
+             ^^^^^^^^^^
+app/controllers/favorites_controller.rb:115:7: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+      if poster
+      ^^
+app/controllers/favorites_controller.rb:116:23: C: Surrounding space missing for operator +.
+        img_url = base+size+poster
+                      ^
+app/controllers/favorites_controller.rb:116:28: C: Surrounding space missing for operator +.
+        img_url = base+size+poster
+                           ^
+app/controllers/favorites_controller.rb:118:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:120:9: C: Use the new Ruby 1.9 hash syntax.
+        :director => director,
+        ^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:121:9: C: Use the new Ruby 1.9 hash syntax.
+        :year => year,
+        ^^^^^^^^
+app/controllers/favorites_controller.rb:122:9: C: Use the new Ruby 1.9 hash syntax.
+        :name => name,
+        ^^^^^^^^
+app/controllers/favorites_controller.rb:123:9: C: Use the new Ruby 1.9 hash syntax.
+        :info => info,
+        ^^^^^^^^
+app/controllers/favorites_controller.rb:124:9: C: Use the new Ruby 1.9 hash syntax.
+        :img_url => img_url,
+        ^^^^^^^^^^^
+app/controllers/favorites_controller.rb:125:9: C: Use the new Ruby 1.9 hash syntax.
+        :favorited => movie_is_favorited(year, name),
+        ^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:125:53: C: Avoid comma after the last item of a hash.
+        :favorited => movie_is_favorited(year, name),
+                                                    ^
+app/controllers/favorites_controller.rb:127:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:130:5: C: Redundant return detected.
+    return mapped
+    ^^^^^^
+app/controllers/favorites_controller.rb:131:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:134:3: C: Assignment Branch Condition size for song_is_favorited is too high. [15.81/15]
+  def song_is_favorited(song)
+  ^^^
+app/controllers/favorites_controller.rb:134:3: C: Method has too many lines. [13/10]
+  def song_is_favorited(song) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:135:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:142:1: C: Extra empty line detected at block body beginning.
+app/controllers/favorites_controller.rb:143:9: C: Use next to skip iteration.
+        if f.song
+        ^^^^^^^^^
+app/controllers/favorites_controller.rb:145:36: C: Surrounding space missing for operator ==.
+          are_equal = f.song.artist==artist && f.song.name==name
+                                   ^^
+app/controllers/favorites_controller.rb:145:59: C: Surrounding space missing for operator ==.
+          are_equal = f.song.artist==artist && f.song.name==name
+                                                          ^^
+app/controllers/favorites_controller.rb:147:11: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+          if are_equal
+          ^^
+app/controllers/favorites_controller.rb:152:1: C: Extra empty line detected at block body end.
+app/controllers/favorites_controller.rb:157:5: C: Redundant return detected.
+    return false
+    ^^^^^^
+app/controllers/favorites_controller.rb:158:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:161:3: C: Method has too many lines. [11/10]
+  def movie_is_favorited(year, name) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:162:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:166:1: C: Extra empty line detected at block body beginning.
+app/controllers/favorites_controller.rb:167:9: C: Use next to skip iteration.
+        if f.movie
+        ^^^^^^^^^^
+app/controllers/favorites_controller.rb:169:35: C: Surrounding space missing for operator ==.
+          are_equal = f.movie.year==year && f.movie.name==name
+                                  ^^
+app/controllers/favorites_controller.rb:169:57: C: Surrounding space missing for operator ==.
+          are_equal = f.movie.year==year && f.movie.name==name
+                                                        ^^
+app/controllers/favorites_controller.rb:171:11: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+          if are_equal
+          ^^
+app/controllers/favorites_controller.rb:176:1: C: Extra empty line detected at block body end.
+app/controllers/favorites_controller.rb:181:5: C: Redundant return detected.
+    return false
+    ^^^^^^
+app/controllers/favorites_controller.rb:182:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:187:3: C: Assignment Branch Condition size for add is too high. [18.47/15]
+  def add
+  ^^^
+app/controllers/favorites_controller.rb:187:3: C: Method has too many lines. [23/10]
+  def add ...
+  ^^^^^^^
+app/controllers/favorites_controller.rb:188:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:194:12: C: Surrounding space missing for operator ==.
+    if type=='song'
+           ^^
+app/controllers/favorites_controller.rb:196:7: C: Use the return of the conditional for variable assignment and comparison.
+      if song_is_favorited(item) ...
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:201:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:204:12: C: Surrounding space missing for operator ==.
+    if type=='movie'
+           ^^
+app/controllers/favorites_controller.rb:209:7: C: Use the return of the conditional for variable assignment and comparison.
+      if movie_is_favorited(year, name) ...
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:218:7: C: Use the new Ruby 1.9 hash syntax.
+      :added => added,
+      ^^^^^^^^^
+app/controllers/favorites_controller.rb:218:22: C: Avoid comma after the last item of a hash.
+      :added => added,
+                     ^
+app/controllers/favorites_controller.rb:220:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:221:12: C: Use the new Ruby 1.9 hash syntax.
+    render :json =>response
+           ^^^^^^^^
+app/controllers/favorites_controller.rb:221:18: C: Surrounding space missing for operator =>.
+    render :json =>response
+                 ^^
+app/controllers/favorites_controller.rb:222:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:225:3: C: Assignment Branch Condition size for add_song is too high. [19.31/15]
+  def add_song(item)
+  ^^^
+app/controllers/favorites_controller.rb:225:3: C: Method has too many lines. [20/10]
+  def add_song(item) ...
+  ^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:226:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:227:5: C: Favor unless over if for negative conditions.
+    if !user_signed_in? ...
+    ^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:230:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:239:13: C: Prefer the use of the nil? predicate.
+    if song == nil
+            ^^
+app/controllers/favorites_controller.rb:242:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:248:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:250:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:252:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:255:5: C: Redundant return detected.
+    return true # added = true
+    ^^^^^^
+app/controllers/favorites_controller.rb:256:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:259:3: C: Assignment Branch Condition size for quit_song is too high. [15.59/15]
+  def quit_song(item)
+  ^^^
+app/controllers/favorites_controller.rb:259:3: C: Method has too many lines. [13/10]
+  def quit_song(item) ...
+  ^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:260:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:261:5: C: Favor unless over if for negative conditions.
+    if !user_signed_in? ...
+    ^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:264:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:269:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:271:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:272:29: C: Surrounding space missing for operator ==.
+      if f.song && f.song.id==song.id
+                            ^^
+app/controllers/favorites_controller.rb:276:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:279:5: C: Redundant return detected.
+    return true # added = true (not quitted)
+    ^^^^^^
+app/controllers/favorites_controller.rb:280:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:283:3: C: Assignment Branch Condition size for add_movie is too high. [19.31/15]
+  def add_movie(item)
+  ^^^
+app/controllers/favorites_controller.rb:283:3: C: Method has too many lines. [20/10]
+  def add_movie(item) ...
+  ^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:284:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:285:5: C: Favor unless over if for negative conditions.
+    if !user_signed_in? ...
+    ^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:288:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:297:14: C: Prefer the use of the nil? predicate.
+    if movie == nil
+             ^^
+app/controllers/favorites_controller.rb:298:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:300:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:306:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:308:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:310:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:313:5: C: Redundant return detected.
+    return true # added = true
+    ^^^^^^
+app/controllers/favorites_controller.rb:314:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:317:3: C: Assignment Branch Condition size for quit_movie is too high. [15.59/15]
+  def quit_movie(item)
+  ^^^
+app/controllers/favorites_controller.rb:317:3: C: Method has too many lines. [13/10]
+  def quit_movie(item) ...
+  ^^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:318:1: C: Extra empty line detected at method body beginning.
+app/controllers/favorites_controller.rb:319:5: C: Favor unless over if for negative conditions.
+    if !user_signed_in? ...
+    ^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:322:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:325:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:327:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:329:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:330:31: C: Surrounding space missing for operator ==.
+      if f.movie && f.movie.id==movie.id
+                              ^^
+app/controllers/favorites_controller.rb:334:1: C: Trailing whitespace detected.
+app/controllers/favorites_controller.rb:337:5: C: Redundant return detected.
+    return true # added = true (not quitted)
+    ^^^^^^
+app/controllers/favorites_controller.rb:338:1: C: Extra empty line detected at method body end.
+app/controllers/favorites_controller.rb:354:3: C: Put empty method definitions on a single line.
+  def show ...
+  ^^^^^^^^
+app/controllers/favorites_controller.rb:363:3: C: Put empty method definitions on a single line.
+  def edit ...
+  ^^^^^^^^
+app/controllers/favorites_controller.rb:373:81: C: Line is too long. [91/80]
+        format.html { redirect_to @favorite, notice: 'Favorite was successfully created.' }
+                                                                                ^^^^^^^^^^^
+app/controllers/favorites_controller.rb:377:81: C: Line is too long. [84/80]
+        format.json { render json: @favorite.errors, status: :unprocessable_entity }
+                                                                                ^^^^
+app/controllers/favorites_controller.rb:387:81: C: Line is too long. [91/80]
+        format.html { redirect_to @favorite, notice: 'Favorite was successfully updated.' }
+                                                                                ^^^^^^^^^^^
+app/controllers/favorites_controller.rb:391:81: C: Line is too long. [84/80]
+        format.json { render json: @favorite.errors, status: :unprocessable_entity }
+                                                                                ^^^^
+app/controllers/favorites_controller.rb:406:3: C: Keep a blank line before and after private.
+  private
+  ^^^^^^^
+app/controllers/favorites_controller.rb:408:5: C: Inconsistent indentation detected.
+    def set_favorite ...
+    ^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:412:81: C: Line is too long. [88/80]
+    # Never trust parameters from the scary internet, only allow the white list through.
+                                                                                ^^^^^^^^
+app/controllers/favorites_controller.rb:413:5: C: Inconsistent indentation detected.
+    def favorite_params ...
+    ^^^^^^^^^^^^^^^^^^^
+app/controllers/favorites_controller.rb:416:4: C: Final newline missing.
+end
+   
+app/controllers/collaborations_controller.rb:1:1: C: Class has too many lines. [123/100]
+class CollaborationsController < ApplicationController ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:1:1: C: Missing top-level class documentation comment.
+class CollaborationsController < ApplicationController
+^^^^^
+app/controllers/collaborations_controller.rb:2:43: C: Use %i or %I for an array of symbols.
+  before_action :set_collaboration, only: [:show, :edit, :update, :destroy]
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:4:3: C: Assignment Branch Condition size for random_collaboration is too high. [15.62/15]
+  def random_collaboration
+  ^^^
+app/controllers/collaborations_controller.rb:4:3: C: Method has too many lines. [13/10]
+  def random_collaboration ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:5:1: C: Extra empty line detected at method body beginning.
+app/controllers/collaborations_controller.rb:15:27: C: Surrounding space missing for operator -.
+    movie.year = rand(2017-1917) + 1917 # 1917 < year < 2017
+                          ^
+app/controllers/collaborations_controller.rb:24:5: C: Redundant return detected.
+    return collaboration
+    ^^^^^^
+app/controllers/collaborations_controller.rb:25:1: C: Extra empty line detected at method body end.
+app/controllers/collaborations_controller.rb:28:3: C: Method has too many lines. [15/10]
+  def search ...
+  ^^^^^^^^^^
+app/controllers/collaborations_controller.rb:29:1: C: Extra empty line detected at method body beginning.
+app/controllers/collaborations_controller.rb:32:5: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+    if query=='randcol'
+    ^^
+app/controllers/collaborations_controller.rb:32:13: C: Surrounding space missing for operator ==.
+    if query=='randcol'
+            ^^
+app/controllers/collaborations_controller.rb:35:1: C: Trailing whitespace detected.
+app/controllers/collaborations_controller.rb:40:9: C: Use the new Ruby 1.9 hash syntax.
+        :id => c.id,
+        ^^^^^^
+app/controllers/collaborations_controller.rb:41:9: C: Use the new Ruby 1.9 hash syntax.
+        :state => c.state,
+        ^^^^^^^^^
+app/controllers/collaborations_controller.rb:42:9: C: Use the new Ruby 1.9 hash syntax.
+        :user => c.user,
+        ^^^^^^^^
+app/controllers/collaborations_controller.rb:43:9: C: Use the new Ruby 1.9 hash syntax.
+        :song => c.song,
+        ^^^^^^^^
+app/controllers/collaborations_controller.rb:44:9: C: Use the new Ruby 1.9 hash syntax.
+        :movie => c.movie,
+        ^^^^^^^^^
+app/controllers/collaborations_controller.rb:44:26: C: Avoid comma after the last item of a hash.
+        :movie => c.movie,
+                         ^
+app/controllers/collaborations_controller.rb:48:12: C: Use the new Ruby 1.9 hash syntax.
+    render :json => found
+           ^^^^^^^^
+app/controllers/collaborations_controller.rb:49:1: C: Trailing whitespace detected.
+app/controllers/collaborations_controller.rb:52:3: C: Assignment Branch Condition size for from_song is too high. [26.93/15]
+  def from_song
+  ^^^
+app/controllers/collaborations_controller.rb:52:3: C: Method has too many lines. [29/10]
+  def from_song ...
+  ^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:53:1: C: Extra empty line detected at method body beginning.
+app/controllers/collaborations_controller.rb:65:19: C: Prefer !expression.nil? over expression != nil.
+    found = (song != nil)
+                  ^^
+app/controllers/collaborations_controller.rb:68:13: C: Prefer the use of the nil? predicate.
+    if song == nil
+            ^^
+app/controllers/collaborations_controller.rb:82:7: C: Use the new Ruby 1.9 hash syntax.
+      :found => found,
+      ^^^^^^^^^
+app/controllers/collaborations_controller.rb:83:7: C: Use the new Ruby 1.9 hash syntax.
+      :saved => saved,
+      ^^^^^^^^^
+app/controllers/collaborations_controller.rb:84:7: C: Use the new Ruby 1.9 hash syntax.
+      :song => song,
+      ^^^^^^^^
+app/controllers/collaborations_controller.rb:85:7: C: Use the new Ruby 1.9 hash syntax.
+      :movies => movies,
+      ^^^^^^^^^^
+app/controllers/collaborations_controller.rb:86:7: C: Use the new Ruby 1.9 hash syntax.
+      :collaborations => collaborations,
+      ^^^^^^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:86:40: C: Avoid comma after the last item of a hash.
+      :collaborations => collaborations,
+                                       ^
+app/controllers/collaborations_controller.rb:89:12: C: Use the new Ruby 1.9 hash syntax.
+    render :json => response
+           ^^^^^^^^
+app/controllers/collaborations_controller.rb:90:1: C: Extra empty line detected at method body end.
+app/controllers/collaborations_controller.rb:93:18: W: Unused method argument - to_this_items. If it's necessary, use _ or _to_this_items as an argument name to indicate that it won't be used. You can also write as get_movies(*) if you want the method to accept any arguments but don't care about them.
+  def get_movies(to_this_items)
+                 ^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:94:1: C: Extra empty line detected at method body beginning.
+app/controllers/collaborations_controller.rb:95:1: C: Trailing whitespace detected.
+app/controllers/collaborations_controller.rb:97:5: C: Redundant return detected.
+    return movies
+    ^^^^^^
+app/controllers/collaborations_controller.rb:98:1: C: Extra empty line detected at method body end.
+app/controllers/collaborations_controller.rb:101:3: C: Put empty method definitions on a single line.
+  def do_collaborations(from_this_item, movies) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:102:1: C: Extra empty line detected at method body beginning.
+app/controllers/collaborations_controller.rb:118:3: C: Put empty method definitions on a single line.
+  def show ...
+  ^^^^^^^^
+app/controllers/collaborations_controller.rb:127:3: C: Put empty method definitions on a single line.
+  def edit ...
+  ^^^^^^^^
+app/controllers/collaborations_controller.rb:137:81: C: Line is too long. [101/80]
+        format.html { redirect_to @collaboration, notice: 'Collaboration was successfully created.' }
+                                                                                ^^^^^^^^^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:141:81: C: Line is too long. [89/80]
+        format.json { render json: @collaboration.errors, status: :unprocessable_entity }
+                                                                                ^^^^^^^^^
+app/controllers/collaborations_controller.rb:148:1: C: Trailing whitespace detected.
+app/controllers/collaborations_controller.rb:156:81: C: Line is too long. [101/80]
+        format.html { redirect_to @collaboration, notice: 'Collaboration was successfully updated.' }
+                                                                                ^^^^^^^^^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:160:81: C: Line is too long. [89/80]
+        format.json { render json: @collaboration.errors, status: :unprocessable_entity }
+                                                                                ^^^^^^^^^
+app/controllers/collaborations_controller.rb:170:81: C: Line is too long. [105/80]
+      format.html { redirect_to collaborations_url, notice: 'Collaboration was successfully destroyed.' }
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:175:3: C: Keep a blank line before and after private.
+  private
+  ^^^^^^^
+app/controllers/collaborations_controller.rb:177:5: C: Inconsistent indentation detected.
+    def set_collaboration ...
+    ^^^^^^^^^^^^^^^^^^^^^
+app/controllers/collaborations_controller.rb:181:81: C: Line is too long. [88/80]
+    # Never trust parameters from the scary internet, only allow the white list through.
+                                                                                ^^^^^^^^
+app/controllers/collaborations_controller.rb:182:5: C: Inconsistent indentation detected.
+    def collaboration_params ...
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/pages_controller.rb:1:1: C: Missing top-level class documentation comment.
+class PagesController < ApplicationController
+^^^^^
+app/controllers/pages_controller.rb:2:1: C: Tab detected.
+app/controllers/pages_controller.rb:2:1: C: Trailing whitespace detected.
+app/controllers/pages_controller.rb:3:1: C: Tab detected.
+	# layout "pages"
+^
+app/controllers/pages_controller.rb:5:1: C: Use 2 (not 1) spaces for indentation.
+	def index
+^
+app/controllers/pages_controller.rb:5:1: C: Tab detected.
+	def index
+^
+app/controllers/pages_controller.rb:5:2: C: Put empty method definitions on a single line.
+	def index ...
+ ^^^^^^^^^
+app/controllers/pages_controller.rb:6:1: C: Tab detected.
+	end
+^
+app/controllers/pages_controller.rb:8:1: C: Tab detected.
+	def show
+^
+app/controllers/pages_controller.rb:9:1: C: Tab detected.
+		render template: "pages/#{params[:page]}"
+^^
+app/controllers/pages_controller.rb:9:2: C: Use 2 (not 1) spaces for indentation.
+		render template: "pages/#{params[:page]}"
+ ^
+app/controllers/pages_controller.rb:10:1: C: Tab detected.
+	end
+^
+app/controllers/pages_controller.rb:12:1: C: Tab detected.
+	def profile
+^
+app/controllers/pages_controller.rb:13:1: C: Extra empty line detected at method body beginning.
+app/controllers/pages_controller.rb:14:1: C: Tab detected.
+		if !user_signed_in?
+^^
+app/controllers/pages_controller.rb:14:2: C: Use 2 (not 1) spaces for indentation.
+		if !user_signed_in?
+ ^
+app/controllers/pages_controller.rb:14:3: C: Use a guard clause instead of wrapping the code inside a conditional expression.
+		if !user_signed_in?
+  ^^
+app/controllers/pages_controller.rb:14:3: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+		if !user_signed_in?
+  ^^
+app/controllers/pages_controller.rb:14:3: C: Favor unless over if for negative conditions.
+		if !user_signed_in? ...
+  ^^^^^^^^^^^^^^^^^^^
+app/controllers/pages_controller.rb:15:1: C: Tab detected.
+			redirect_to new_user_session_path
+^^^
+app/controllers/pages_controller.rb:15:3: C: Use 2 (not 1) spaces for indentation.
+			redirect_to new_user_session_path
+  ^
+app/controllers/pages_controller.rb:16:1: C: Tab detected.
+		end
+^^
+app/controllers/pages_controller.rb:17:1: C: Extra empty line detected at method body end.
+app/controllers/pages_controller.rb:18:1: C: Tab detected.
+	end
+^
+app/controllers/pages_controller.rb:19:1: C: Extra empty line detected at class body end.
+app/controllers/pages_controller.rb:20:4: C: Final newline missing.
+end
+   
+app/controllers/search_controller.rb:1:1: C: Missing top-level class documentation comment.
+class SearchController < ApplicationController
+^^^^^
+app/controllers/search_controller.rb:2:1: C: Extra empty line detected at class body beginning.
+app/controllers/search_controller.rb:3:1: C: Use 2 (not 1) spaces for indentation.
+	def index
+^
+app/controllers/search_controller.rb:3:1: C: Tab detected.
+	def index
+^
+app/controllers/search_controller.rb:3:2: C: Put empty method definitions on a single line.
+	def index ...
+ ^^^^^^^^^
+app/controllers/search_controller.rb:4:1: C: Tab detected.
+	end
+^
+app/controllers/search_controller.rb:5:1: C: Tab detected.
+app/controllers/search_controller.rb:5:1: C: Trailing whitespace detected.
+app/controllers/search_controller.rb:6:1: C: Tab detected.
+	def all
+^
+app/controllers/search_controller.rb:7:1: C: Tab detected.
+		@collaborations = Collaboration.all
+^^
+app/controllers/search_controller.rb:7:2: C: Use 2 (not 1) spaces for indentation.
+		@collaborations = Collaboration.all
+ ^
+app/controllers/search_controller.rb:8:1: C: Tab detected.
+		@favorites = Favorite.all
+^^
+app/controllers/search_controller.rb:9:1: C: Tab detected.
+		@movies = Movie.all
+^^
+app/controllers/search_controller.rb:10:1: C: Tab detected.
+		@songs = Song.all
+^^
+app/controllers/search_controller.rb:11:1: C: Tab detected.
+		@users = User.all
+^^
+app/controllers/search_controller.rb:12:1: C: Tab detected.
+	end
+^
+app/controllers/search_controller.rb:13:1: C: Extra empty line detected at class body end.
+app/controllers/search_controller.rb:14:4: C: Final newline missing.
+end
+   
+app/models/user.rb:1:1: C: Missing top-level class documentation comment.
+class User < ApplicationRecord
+^^^^^
+app/models/user.rb:2:1: C: Extra empty line detected at class body beginning.
+app/models/user.rb:3:1: C: Tab detected.
+	# Include default devise modules. Others available are:
+^
+app/models/user.rb:4:1: C: Tab detected.
+	# :confirmable, :lockable, :timeoutable and :omniauthable
+^
+app/models/user.rb:5:1: C: Use 2 (not 1) spaces for indentation.
+	devise :database_authenticatable,
+^
+app/models/user.rb:5:1: C: Tab detected.
+	devise :database_authenticatable,
+^
+app/models/user.rb:6:1: C: Tab detected.
+	:registerable, :recoverable, :rememberable, :trackable, :validatable
+^
+app/models/user.rb:6:2: C: Align the parameters of a method call if they span more than one line.
+	:registerable, :recoverable, :rememberable, :trackable, :validatable
+ ^^^^^^^^^^^^^
+app/models/user.rb:8:1: C: Tab detected.
+	validates :nickname, presence: true, length: { minimum: 3, maximum: 30 }
+^
+app/models/user.rb:9:1: C: Tab detected.
+app/models/user.rb:9:1: C: Trailing whitespace detected.
+app/models/user.rb:10:1: C: Tab detected.
+	has_many :collaborations
+^
+app/models/user.rb:11:1: C: Tab detected.
+	has_many :favorites, dependent: :destroy # Si el usuario se elimina el favorito tambien
+^
+app/models/user.rb:11:81: C: Line is too long. [88/80]
+	has_many :favorites, dependent: :destroy # Si el usuario se elimina el favorito tambien
+                                                                                ^^^^^^^^
+app/models/user.rb:12:1: C: Extra empty line detected at class body end.
+app/models/collaboration.rb:1:1: C: Missing top-level class documentation comment.
+class Collaboration < ApplicationRecord
+^^^^^
+app/models/collaboration.rb:2:1: C: Tab detected.
+app/models/collaboration.rb:2:1: C: Trailing whitespace detected.
+app/models/collaboration.rb:3:1: C: Use 2 (not 1) spaces for indentation.
+	belongs_to :user
+^
+app/models/collaboration.rb:3:1: C: Tab detected.
+	belongs_to :user
+^
+app/models/collaboration.rb:4:1: C: Tab detected.
+	belongs_to :song
+^
+app/models/collaboration.rb:5:1: C: Tab detected.
+	belongs_to :movie
+^
+app/models/collaboration.rb:7:1: C: Tab detected.
+	validates_uniqueness_of :user, scope: [:song, :movie]
+^
+app/models/collaboration.rb:7:40: C: Use %i or %I for an array of symbols.
+	validates_uniqueness_of :user, scope: [:song, :movie]
+                                       ^^^^^^^^^^^^^^^
+app/models/collaboration.rb:8:1: C: Tab detected.
+	validates_uniqueness_of [:song, :movie], scope: :user
+^
+app/models/collaboration.rb:8:26: C: Use %i or %I for an array of symbols.
+	validates_uniqueness_of [:song, :movie], scope: :user
+                         ^^^^^^^^^^^^^^^
+app/models/collaboration.rb:9:1: C: Extra empty line detected at class body end.
+app/models/collaboration.rb:10:4: C: Final newline missing.
+end
+   
+app/models/favorite.rb:1:1: C: Missing top-level class documentation comment.
+class Favorite < ApplicationRecord
+^^^^^
+app/models/favorite.rb:2:1: C: Tab detected.
+app/models/favorite.rb:2:1: C: Trailing whitespace detected.
+app/models/favorite.rb:3:1: C: Use 2 (not 1) spaces for indentation.
+	belongs_to :user
+^
+app/models/favorite.rb:3:1: C: Tab detected.
+	belongs_to :user
+^
+app/models/favorite.rb:4:1: C: Tab detected.
+app/models/favorite.rb:4:1: C: Trailing whitespace detected.
+app/models/favorite.rb:5:1: C: Tab detected.
+	belongs_to :collaboration, optional: true
+^
+app/models/favorite.rb:6:1: C: Tab detected.
+	belongs_to :song, optional: true
+^
+app/models/favorite.rb:7:1: C: Tab detected.
+	belongs_to :movie, optional: true
+^
+app/models/favorite.rb:8:1: C: Extra empty line detected at class body end.
+app/models/favorite.rb:9:4: C: Final newline missing.
+end
+   
+app/models/application_record.rb:1:1: C: Missing top-level class documentation comment.
+class ApplicationRecord < ActiveRecord::Base
+^^^^^
+app/models/movie.rb:1:1: C: Missing top-level class documentation comment.
+class Movie < ApplicationRecord
+^^^^^
+app/models/movie.rb:2:1: C: Extra empty line detected at class body beginning.
+app/models/movie.rb:3:1: C: Use 2 (not 1) spaces for indentation.
+	has_many :favorites, dependent: :destroy # Si la pelicula se elimina el favorito tambien
+^
+app/models/movie.rb:3:1: C: Tab detected.
+	has_many :favorites, dependent: :destroy # Si la pelicula se elimina el favorito tambien
+^
+app/models/movie.rb:3:81: C: Line is too long. [89/80]
+	has_many :favorites, dependent: :destroy # Si la pelicula se elimina el favorito tambien
+                                                                                ^^^^^^^^^
+app/models/movie.rb:4:1: C: Tab detected.
+	has_many :collaborations, dependent: :destroy # Si la pelicula se elimina la colaboracion tambien
+^
+app/models/movie.rb:4:81: C: Line is too long. [98/80]
+	has_many :collaborations, dependent: :destroy # Si la pelicula se elimina la colaboracion tambien
+                                                                                ^^^^^^^^^^^^^^^^^^
+app/models/movie.rb:6:1: C: Tab detected.
+	validates :year, presence: true
+^
+app/models/movie.rb:7:1: C: Tab detected.
+	validates :name, presence: true
+^
+app/models/movie.rb:9:1: C: Tab detected.
+	validates :year, :uniqueness => {:scope => :name}
+^
+app/models/movie.rb:9:19: C: Use the new Ruby 1.9 hash syntax.
+	validates :year, :uniqueness => {:scope => :name}
+                  ^^^^^^^^^^^^^^
+app/models/movie.rb:9:34: C: Space inside { missing.
+	validates :year, :uniqueness => {:scope => :name}
+                                 ^
+app/models/movie.rb:9:35: C: Use the new Ruby 1.9 hash syntax.
+	validates :year, :uniqueness => {:scope => :name}
+                                  ^^^^^^^^^
+app/models/movie.rb:9:50: C: Space inside } missing.
+	validates :year, :uniqueness => {:scope => :name}
+                                                 ^
+app/models/movie.rb:10:1: C: Tab detected.
+	validates :name, :uniqueness => {:scope => :year}
+^
+app/models/movie.rb:10:19: C: Use the new Ruby 1.9 hash syntax.
+	validates :name, :uniqueness => {:scope => :year}
+                  ^^^^^^^^^^^^^^
+app/models/movie.rb:10:34: C: Space inside { missing.
+	validates :name, :uniqueness => {:scope => :year}
+                                 ^
+app/models/movie.rb:10:35: C: Use the new Ruby 1.9 hash syntax.
+	validates :name, :uniqueness => {:scope => :year}
+                                  ^^^^^^^^^
+app/models/movie.rb:10:50: C: Space inside } missing.
+	validates :name, :uniqueness => {:scope => :year}
+                                                 ^
+app/models/movie.rb:11:1: C: Extra empty line detected at class body end.
+app/models/song.rb:1:1: C: Missing top-level class documentation comment.
+class Song < ApplicationRecord
+^^^^^
+app/models/song.rb:2:1: C: Extra empty line detected at class body beginning.
+app/models/song.rb:3:1: C: Use 2 (not 1) spaces for indentation.
+	has_many :favorites, dependent: :destroy # Si la cancion se elimina el favorito tambien
+^
+app/models/song.rb:3:1: C: Tab detected.
+	has_many :favorites, dependent: :destroy # Si la cancion se elimina el favorito tambien
+^
+app/models/song.rb:3:81: C: Line is too long. [88/80]
+	has_many :favorites, dependent: :destroy # Si la cancion se elimina el favorito tambien
+                                                                                ^^^^^^^^
+app/models/song.rb:4:1: C: Tab detected.
+	has_many :collaborations, dependent: :destroy # Si la cancion se elimina la colaboracion tambien
+^
+app/models/song.rb:4:81: C: Line is too long. [97/80]
+	has_many :collaborations, dependent: :destroy # Si la cancion se elimina la colaboracion tambien
+                                                                                ^^^^^^^^^^^^^^^^^
+app/models/song.rb:6:1: C: Tab detected.
+	validates :artist, presence: true
+^
+app/models/song.rb:7:1: C: Tab detected.
+	validates :name, presence: true
+^
+app/models/song.rb:9:1: C: Tab detected.
+	validates :artist, :uniqueness => {:scope => :name}
+^
+app/models/song.rb:9:21: C: Use the new Ruby 1.9 hash syntax.
+	validates :artist, :uniqueness => {:scope => :name}
+                    ^^^^^^^^^^^^^^
+app/models/song.rb:9:36: C: Space inside { missing.
+	validates :artist, :uniqueness => {:scope => :name}
+                                   ^
+app/models/song.rb:9:37: C: Use the new Ruby 1.9 hash syntax.
+	validates :artist, :uniqueness => {:scope => :name}
+                                    ^^^^^^^^^
+app/models/song.rb:9:52: C: Space inside } missing.
+	validates :artist, :uniqueness => {:scope => :name}
+                                                   ^
+app/models/song.rb:10:1: C: Tab detected.
+	validates :name, :uniqueness => {:scope => :artist}
+^
+app/models/song.rb:10:19: C: Use the new Ruby 1.9 hash syntax.
+	validates :name, :uniqueness => {:scope => :artist}
+                  ^^^^^^^^^^^^^^
+app/models/song.rb:10:34: C: Space inside { missing.
+	validates :name, :uniqueness => {:scope => :artist}
+                                 ^
+app/models/song.rb:10:35: C: Use the new Ruby 1.9 hash syntax.
+	validates :name, :uniqueness => {:scope => :artist}
+                                  ^^^^^^^^^
+app/models/song.rb:10:52: C: Space inside } missing.
+	validates :name, :uniqueness => {:scope => :artist}
+                                                   ^
+app/models/song.rb:11:1: C: Extra empty line detected at class body end.
+
+80 files inspected, 654 offenses detected

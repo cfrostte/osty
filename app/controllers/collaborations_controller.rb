@@ -5,46 +5,11 @@ class CollaborationsController < ApplicationController
 
     query = params['query']
 
-    #######################################################
-
-    if query=='crear colaboracion'
-
-      c1 = Collaboration.new
-      s1 = Song.new
-      m1 = Movie.new
-
-      s1.artist = SecureRandom.hex(8)
-      s1.name = SecureRandom.hex(8)
-
-      s1.save
-
-      m1.year = rand(2017-1917) + 1917 # 1917 < year < 2017
-
-      m1.name = SecureRandom.hex(8)
-
-      m1.save
-
-      c1.user = current_user
-      c1.song = s1
-      c1.movie = m1
-
-      c1.save
-
+    if query=='randcol'
+      Collaboration.random(current_user).save
     end
-
-    #######################################################
     
-    collaborations = Collaboration.all # Buscar, no retornar todas
-
-    found = collaborations.map do |c|
-      {
-        :id => c.id,
-        :state => c.state,
-        :user => c.user,
-        :song => c.song,
-        :movie => c.movie,
-      }
-    end
+    found = Collaboration.ruby_map(Collaboration.all) # Buscar, no retornar todas
 
     render :json => found
   
@@ -52,11 +17,14 @@ class CollaborationsController < ApplicationController
 
   def from_song
 
-    album = params[:album]
-    artist = params[:artist]
-    name = params[:name]
-    info = params[:info]
-    img_url = params[:img_url]
+    from_this_item = params[:from_this_item]
+    to_this_items = params[:to_this_items]
+
+    album = from_this_item['album']
+    artist = from_this_item['artist']
+    name = from_this_item['name']
+    info = from_this_item['info']
+    img_url = from_this_item['img_url']
 
     song = Song.where(artist: artist, name: name).take
 
@@ -73,39 +41,54 @@ class CollaborationsController < ApplicationController
       saved = song.save
     end
 
+    movies = get_movies(to_this_items)
+    collaborations = do_collaborations(from_this_item, movies)
+
     response = {
       :found => found,
       :saved => saved,
       :song => song,
+      :movies => movies,
+      :collaborations => collaborations,
     }
 
     render :json => response
 
   end
 
-  def to_movies
+  def get_movies(to_this_items)
 
-    #... para cada pelicula (si no existe, se crea),
-    # se crea una colaboracion con esa cancion
+    parsed = JSON.parse(to_this_items)
 
-    id_song = params[:id]
-    movies = params[:movies] #El json con las pelis
 
-    song = Song.find_by_id(id_song)
 
-    response = {
-      :song => song,
-      :collaborations => Collaboration.all, # Se deben retornar las creadas
-    }
+    album = from_this_item['album']
+    artist = from_this_item['artist']
+    name = from_this_item['name']
+    info = from_this_item['info']
+    img_url = from_this_item['img_url']
 
-    render :json => response
+    song = Song.where(artist: artist, name: name).take
+
+    found = (song != nil)
+    saved = false
+
+    if song == nil
+      song = Song.new
+      song.album = album
+      song.artist = artist
+      song.name = name
+      song.info = info
+      song.img_url = img_url
+      saved = song.save
+    end
+
+    return movies
 
   end
 
-  def from_movie
-  end
+  def do_collaborations(from_this_item, movies)
 
-  def to_songs
   end
 
   # GET /collaborations

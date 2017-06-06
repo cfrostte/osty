@@ -4,10 +4,6 @@ var host = window.location.host;
 var key_music = "4268ad0746656798a6616f4bbac67dd1"; //Last.fm
 var key_film = "22f58faad6207b2f0dcf3068cc50bb74"; //The Movie Database
 
-var response_collaboration = null;
-var response_music = null;
-var response_film = null;
-
 var array_collaboration = null;
 var array_music = null;
 var array_film = null;
@@ -51,6 +47,10 @@ function search(query, page) {
 
 	var url_check_favorites = protocol+"//"+host+"/favorites/check";
 	
+	var response_collaboration = null;
+	var response_music = null;
+	var response_film = null;
+
 	var queue_count = 0;
 
 	var total = 3;
@@ -196,10 +196,9 @@ function populateMusic(response) {
 		var info = it.artist+" - "+it.name;
 		var href = "https://open.spotify.com/search/songs/"+info+"";
 		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
-		var data = JSON.stringify(it);
 
-		var cooperate = "<span onclick='collaborateFromSong(this)'"+
-		"value='"+data+"' class='glyphicon glyphicon-send'></span>";
+		var cooperate = "<span onclick='collaborateFrom(this, "+i+")'"+
+		"type='song' class='glyphicon glyphicon-send'></span>";
 
 		var star = "glyphicon glyphicon-star-empty";
 
@@ -232,10 +231,9 @@ function populateFilm(response) {
 		var info = it.name+" ("+it.year+")";
 		var href = "http://www.imdb.com/find?&q="+it.name+"&s=tt";
 		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
-		var data = JSON.stringify(it);
 
-		var cooperate = "<span onclick='collaborateFromMovie(this)'"+
-		"value='"+data+"' class='glyphicon glyphicon-send'></span>";
+		var cooperate = "<span onclick='collaborateFrom(this, "+i+")'"+
+		"type='movie' class='glyphicon glyphicon-send'></span>";
 
 		var star = "glyphicon glyphicon-star-empty";
 
@@ -294,38 +292,32 @@ function addToFavorites(which, i) {
 
 }
 
-function collaborateFromSong(which) {
+function collaborateFrom(which, i) {
+	
+	var type = which.getAttribute('type');
 
-	var data = which.getAttribute('value');
+	var url = null;
 
-	var url = protocol+"//"+host+"/collaborations/from_song";
-
-	var settings = {
-		"async": true,
-		"contentType": 'application/json; charset=utf-8',
-		"data": data,
-		"dataType": 'json',
-		"type": 'POST',
-		"url": url,
+	var from_this_item = null;
+	
+	if (type=='song') {
+		url = protocol+"//"+host+"/collaborations/from_song";
+		from_this_item = array_music[i];
 	}
 
-	$.ajax(settings).done(function (response) {
-		modalToMovies(response);
-	});
+	if (type=='movie') {
+		url = protocol+"//"+host+"/collaborations/from_movie";
+		from_this_item = array_film[i];
+	}
 
-}
+	var to_this_items = getChosenItems(from_this_item);
 
-function modalToMovies(song) {
-	
-	var data = JSON.stringify(song);
-	var url = protocol+"//"+host+"/collaborations/to_movies";
+	var json = {
+		"from_this_item" : from_this_item,
+		"to_this_items" : to_this_items,
+	};
 
-	/*
-	Se crea un modal que tiene la info de la cancion
-	y luego se envia un json con todas las peliculas.
-	El json debe contener 2 campos, el id de la cancion
-	y el arreglo de peliculas. Luego en el servidor...
-	*/
+	var data = JSON.stringify(json);
 
 	var settings = {
 		"async": true,
@@ -339,6 +331,25 @@ function modalToMovies(song) {
 	$.ajax(settings).done(function (response) {
 		console.log(response);
 	});
+
+}
+
+function getChosenItems(from) {
+	
+	var to = { "items_ids" : [ 1, 2, 3, ]};
+
+	/*
+
+	Se abre un modal con la informacion del item.
+	
+	Si es una cancion, aparecera abajo un cuadro de busqueda de peliculas,
+	si es una pelicula, aparecera abajo un cuadro de busqueda de canciones.
+
+	Se retorna un json con el conjunto de elementos elegidos segun corresponda.
+
+	*/
+
+	return JSON.stringify(to);
 
 }
 
@@ -397,3 +408,4 @@ Una vez se tenga la lista de items que se seleccionaron en el modal, se envia un
 con el json que corresponda a la operacion que corresponda del controlador de la app.
 
 */
+  
