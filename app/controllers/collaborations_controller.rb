@@ -6,10 +6,12 @@ class CollaborationsController < ApplicationController
     query = params['query']
 
     if query=='randcol'
-      Collaboration.random(current_user).save
+      Collaboration.random(current_user)
     end
+
+    collaborations = Collaboration.all # Buscar, no retornar todas
     
-    found = Collaboration.ruby_map(Collaboration.all) # Buscar, no retornar todas
+    found = Collaboration.ruby_map(collaborations)
 
     render :json => found
   
@@ -20,35 +22,13 @@ class CollaborationsController < ApplicationController
     from_this_item = params[:from_this_item]
     to_this_items = params[:to_this_items]
 
-    album = from_this_item['album']
-    artist = from_this_item['artist']
-    name = from_this_item['name']
-    info = from_this_item['info']
-    img_url = from_this_item['img_url']
-
-    song = Song.where(artist: artist, name: name).take
-
-    found = (song != nil)
-    saved = false
-
-    if song == nil
-      song = Song.new
-      song.album = album
-      song.artist = artist
-      song.name = name
-      song.info = info
-      song.img_url = img_url
-      saved = song.save
-    end
-
-    movies = get_movies(to_this_items)
-    collaborations = do_collaborations(from_this_item, movies)
+    song = Song.for_collaboration(from_this_item)
+    movie_ids = Movie.id_hash(to_this_items)
+    collaborations = Collaboration.from_song(song, movie_ids, current_user)
 
     response = {
-      :found => found,
-      :saved => saved,
       :song => song,
-      :movies => movies,
+      :movie_ids => movie_ids,
       :collaborations => collaborations,
     }
 
@@ -56,39 +36,7 @@ class CollaborationsController < ApplicationController
 
   end
 
-  def get_movies(to_this_items)
-
-    parsed = JSON.parse(to_this_items)
-
-
-
-    album = from_this_item['album']
-    artist = from_this_item['artist']
-    name = from_this_item['name']
-    info = from_this_item['info']
-    img_url = from_this_item['img_url']
-
-    song = Song.where(artist: artist, name: name).take
-
-    found = (song != nil)
-    saved = false
-
-    if song == nil
-      song = Song.new
-      song.album = album
-      song.artist = artist
-      song.name = name
-      song.info = info
-      song.img_url = img_url
-      saved = song.save
-    end
-
-    return movies
-
-  end
-
-  def do_collaborations(from_this_item, movies)
-
+  def from_movie
   end
 
   # GET /collaborations

@@ -334,9 +334,30 @@ function collaborateFrom(which, i) {
 
 }
 
+function random_movies(n) {
+
+	movies = [];
+
+	for (i=1; i<=n; i++) {
+
+		movies.push({
+			"director" : "Director "+Math.random(),
+			"year" : Math.floor((Math.random()*117)+1900),
+			"name" : "Nombre "+Math.random(),
+			"info" : "Info "+Math.random(),
+			"img_url" : protocol+"//"+Math.random()+".com",
+			"favorited" : false,
+		});
+
+	}
+
+	return movies;
+
+}
+
 function getChosenItems(from) {
-	
-	var to = { "items_ids" : [ 1, 2, 3, ]};
+
+	var to = random_movies(5);
 
 	/*
 
