@@ -1,0 +1,37 @@
+<h1>Colaboraciones en el sistema: <%=@collaborations.count%></h1>
+
+<% @collaborations.each do |c| %>
+	<p><%= c.inspect %></p>
+<% end %>
+
+<hr>
+
+<h1>Favoritos en el sistema: <%=@favorites.count%></h1>
+
+<% @favorites.each do |f| %>
+	<p><%= f.inspect %></p>
+<% end %>
+
+<hr>
+
+<h1>Peliculas en el sistema: <%=@movies.count%></h1>
+
+<% @movies.each do |m| %>
+	<p><%= m.inspect %></p>
+<% end %>
+
+<hr>
+
+<h1>Canciones en el sistema: <%=@songs.count%></h1>
+
+<% @songs.each do |s| %>
+	<p><%= s.inspect %></p>
+<% end %>
+
+<hr>
+
+<h1>Usuarios en el sistema: <%=@users.count%></h1>
+
+<% @users.each do |u| %>
+	<p><%= u.inspect %></p>
+<% end %>

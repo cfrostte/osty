@@ -13,27 +13,27 @@
 ActiveRecord::Schema.define(version: 20170530225259) do
 
   create_table "collaborations", force: :cascade do |t|
-    t.string   "songAlbum"
-    t.string   "songArtist"
-    t.string   "songName"
-    t.text     "songInfo"
-    t.string   "movieDirector"
-    t.integer  "movieYear"
-    t.string   "movieName"
-    t.text     "movieInfo"
     t.integer  "state"
     t.integer  "user_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "song_id"
+    t.integer  "movie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_collaborations_on_movie_id"
+    t.index ["song_id"], name: "index_collaborations_on_song_id"
     t.index ["user_id"], name: "index_collaborations_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "collaboration_id"
+    t.integer  "song_id"
+    t.integer  "movie_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.index ["collaboration_id"], name: "index_favorites_on_collaboration_id"
+    t.index ["movie_id"], name: "index_favorites_on_movie_id"
+    t.index ["song_id"], name: "index_favorites_on_song_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170530225259) do
     t.integer  "year"
     t.string   "name"
     t.text     "info"
+    t.text     "img_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170530225259) do
     t.string   "artist"
     t.string   "name"
     t.text     "info"
+    t.text     "img_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

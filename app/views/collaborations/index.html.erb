@@ -1,6 +1,7 @@
-<p id="notice"><%= notice %></p>
+<h1>Estas son tus colaboraciones</h1>
 
-<h1>Collaborations</h1>
+<hr>
+<!-- <p id="notice"><%= notice %></p> -->
 
 <table>
   <thead>
@@ -10,11 +11,25 @@
   </thead>
 
   <tbody>
+
+    <% if @collaborations.empty? %>
+      <td>No has hecho colaboraciones</td>
+    <% end %>
+
     <% @collaborations.each do |collaboration| %>
       <tr>
-        <td><%= link_to 'Show', collaboration %></td>
-        <td><%= link_to 'Edit', edit_collaboration_path(collaboration) %></td>
-        <td><%= link_to 'Destroy', collaboration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <span class='glyphicon glyphicon-play-circle'></span>
+          <%= collaboration.song.artist %> - <%= collaboration.song.name %>
+        </td>
+        <td> : </td>
+        <td>
+          <%= collaboration.movie.name %> (<%= collaboration.movie.year %>)
+        </td>
+        <!-- <td><%= link_to 'Show', collaboration %></td> -->
+        <!-- <td><%= link_to 'Edit', edit_collaboration_path(collaboration) %></td> -->
+        <!-- <td><%= link_to 'Destroy', collaboration, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        <td><%= link_to '', collaboration, method: :delete, :class => 'icono glyphicon glyphicon-trash' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +37,4 @@
 
 <br>
 
-<%= link_to 'New Collaboration', new_collaboration_path %>
+<!-- <%= link_to 'New Collaboration', new_collaboration_path %> -->

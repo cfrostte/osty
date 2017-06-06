@@ -11,3 +11,4 @@ class User < ApplicationRecord
 	has_many :favorites, dependent: :destroy # Si el usuario se elimina el favorito tambien
 
 end
+
