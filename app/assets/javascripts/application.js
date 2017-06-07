@@ -12,6 +12,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap/js/bootstrap.min
+//= require awesomplete
 //= require turbolinks
 //= require views
 //= require apis
+//= require js.cookie

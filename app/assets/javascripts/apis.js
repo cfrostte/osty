@@ -19,17 +19,73 @@ var sub_url_film = "https://api.themoviedb.org/3/search/movie?api_key="+key_film
 var public_query = null;
 var public_page = null;
 
+
+var AWlist = ["123124", "1231221Java", "656J65av6aScript", "65646Brainfuck", "qwertLOLCODE", "treNode.js", "zzzRuby on Rails"];
+
+
+var check = function(needle) {
+    // Per spec, the way to identify NaN is that it is not equal to itself
+    var findNaN = needle !== needle;
+    var indexOf;
+
+    if(!findNaN && typeof Array.prototype.indexOf === 'function') {
+        indexOf = Array.prototype.indexOf;
+    } else {
+        indexOf = function(needle) {
+            var i = -1, index = -1;
+
+            for(i = 0; i < this.length; i++) {
+                var item = this[i];
+
+                if((findNaN && item !== item) || item === needle) {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        };
+    }
+
+    return indexOf.call(this, needle) > -1;
+};
+
+
 $( document ).on('turbolinks:load', function() {
 
-	var input_q = document.getElementById("q");
+	var $input_q = document.getElementById("q");
+	var doneTypingInterval = 2000;
+	var typingTimer;
 
-	if (input_q) input_q.addEventListener("change", function () {
-		
-		if (input_q.value) {
-			search(input_q.value, 1);
+
+	$input_q.addEventListener("keyup",function(evt){
+		evt = evt || window.event;
+		if (evt.keyCode != 37 && evt.keyCode != 39) { // evt.keyCode es para IE
+								// evt.key es para Netscape/firefox/opera
+			clearTimeout(typingTimer);
+			typingTimer=setTimeout(doneTyping, 333);		
 		}
-		
+		else{
+			console.log("Es flecha");
+		}
 	});
+
+	$input_q.addEventListener("keydown",function(){
+		clearTimeout(typingTimer);
+	});
+
+	
+	function doneTyping(){
+		console.log("entro en el search");
+		console.log($input_q.value + "valor");
+		if ($input_q.value) {
+			search($input_q.value, 1);
+			if(!check.call(AWlist, $input_q.value)){				
+				AWlist.push($input_q.value);
+				console.log("se agrega");
+			}
+		}
+	};
 
 });
 
@@ -286,3 +342,10 @@ function next() {
 	return search(public_query, next_page);
 
 }
+
+
+// var input = document.getElementById("myinput");
+//   console.log(input);
+//   new Awesomplete(input, {
+//   list: ["Ada", "Java", "JavaScript", "Brainfuck", "LOLCODE", "Node.js", "Ruby on Rails"]
+//   });

@@ -3,6 +3,8 @@ class CollaborationsController < ApplicationController
 
   def search
 
+
+
     query = params['query']
 
     #######################################################
