@@ -5,7 +5,7 @@ class CollaborationsController < ApplicationController
 
     query = params['query']
 
-    if query=='randcol'
+    if query=='random'
       Collaboration.random(current_user)
     end
 
@@ -22,14 +22,21 @@ class CollaborationsController < ApplicationController
     from_this_item = params[:from_this_item]
     to_this_items = params[:to_this_items]
 
-    song = Song.for_collaboration(from_this_item)
-    movie_ids = Movie.id_hash(to_this_items)
-    collaborations = Collaboration.from_song(song, movie_ids, current_user)
+    song = nil
+    movie_ids = nil
+    collaboration = nil
+
+    if current_user
+      song = Song.for_collaboration(from_this_item)
+      movie_ids = Movie.id_hash(to_this_items)
+      collaborations = Collaboration.from_song(song, movie_ids, current_user)
+    end
 
     response = {
       :song => song,
       :movie_ids => movie_ids,
       :collaborations => collaborations,
+      :current_user => current_user,
     }
 
     render :json => response

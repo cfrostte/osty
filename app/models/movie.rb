@@ -1,5 +1,7 @@
 class Movie < ApplicationRecord
 
+	require 'utilities'
+
 	# Si la pelicula se elimina el favorito tambien:
 	has_many :favorites, dependent: :destroy
 	# Si la pelicula se elimina la colaboracion tambien:
@@ -30,7 +32,7 @@ class Movie < ApplicationRecord
 		year = rand(2017-1917) + 1917 # 1917 < year < 2017
 		name = SecureRandom.hex(8)
 
-		movie = Movie.construct(nil, year, name, nil)
+		movie = Movie.construct(nil, year, name, nil, nil)
 		movie.save
 
 		return movie
@@ -43,10 +45,10 @@ class Movie < ApplicationRecord
 
 		mapped = parsed['results'].map do |m|
 
-			director = Utility.formatted_sentence(m['director'])
-			year = Utility.formatted_year(m['release_date'])
-			name = Utility.formatted_sentence(m['original_title'])
-			info = Utility.formatted_sentence(m['info'])
+			director = Utilities.formatted_sentence(m['director'])
+			year = Utilities.formatted_year(m['release_date'])
+			name = Utilities.formatted_sentence(m['original_title'])
+			info = Utilities.formatted_sentence(m['info'])
 
 			base = "https://image.tmdb.org/t/p/"
 			size = "original"

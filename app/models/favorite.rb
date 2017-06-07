@@ -1,5 +1,7 @@
 class Favorite < ApplicationRecord
-	
+
+	require 'utilities'
+
 	belongs_to :user
 	
 	belongs_to :collaboration, optional: true
@@ -8,8 +10,8 @@ class Favorite < ApplicationRecord
 
 	def self.exist_song(song, user_signed_in, current_user)
 
-		artist = Utility.formatted_sentence(song['artist'])
-		name = Utility.formatted_sentence(song['name'])
+		artist = Utilities.formatted_sentence(song['artist'])
+		name = Utilities.formatted_sentence(song['name'])
 
 		if user_signed_in
 

@@ -6,10 +6,6 @@ class Collaboration < ApplicationRecord
 
 	validates_uniqueness_of :user, scope: [:song, :movie]
 
-	# Si activo esta validacion, el usuario puede colaborar una sola vez:
-	# validates_uniqueness_of [:song, :movie], scope: :user
-	# Porque pasa eso?
-
 	def self.random(current_user)
 
 		collaboration = Collaboration.new

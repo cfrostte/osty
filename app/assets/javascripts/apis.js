@@ -357,7 +357,16 @@ function random_movies(n) {
 
 function getChosenItems(from) {
 
-	var to = random_movies(5);
+	//var to = random_movies(5);
+
+	var to = [{
+			"director" : "Director d",
+			"year" : 1958,
+			"name" : "Nombre n",
+			"info" : "Info i",
+			"img_url" : protocol+"//www.img_url.com",
+			"favorited" : false,
+		}];
 
 	/*
 

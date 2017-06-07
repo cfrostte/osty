@@ -1,5 +1,7 @@
 class Song < ApplicationRecord
 
+	require 'utilities'
+
 	# Si la cancion se elimina el favorito tambien:
 	has_many :favorites, dependent: :destroy
 	# Si la cancion se elimina la colaboracion tambien:
@@ -30,7 +32,7 @@ class Song < ApplicationRecord
 		artist = SecureRandom.hex(8)
 		name = SecureRandom.hex(8)
 
-		song = Song.construct(nil, artist, name, nil)
+		song = Song.construct(nil, artist, name, nil, nil)
 		song.save
 
 		return song
@@ -43,10 +45,10 @@ class Song < ApplicationRecord
 
 		mapped = parsed['results']['trackmatches']['track'].map do |m|
 
-			album = Utility.formatted_sentence(m['album'])
-			artist = Utility.formatted_sentence(m['artist'])
-			name = Utility.formatted_sentence(m['name'])
-			info = Utility.formatted_sentence(m['info'])
+			album = Utilities.formatted_sentence(m['album'])
+			artist = Utilities.formatted_sentence(m['artist'])
+			name = Utilities.formatted_sentence(m['name'])
+			info = Utilities.formatted_sentence(m['info'])
 
 			img_url = m['image']
 

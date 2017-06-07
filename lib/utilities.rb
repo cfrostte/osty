@@ -1,4 +1,6 @@
-class Utility
+class Utilities
+
+  # Reiniciar el servidor luego de modificar este archivo
 
   def self.formatted_sentence(string)
 
