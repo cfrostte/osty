@@ -3,7 +3,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
     create_table :users do |t|
 
       t.string :nickname,              null: false, default: ""
-      t.string :isModerator,              null: false, default: false
+      t.boolean :isModerator,              null: false, default: false
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""

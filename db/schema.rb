@@ -13,12 +13,12 @@
 ActiveRecord::Schema.define(version: 20170530225259) do
 
   create_table "collaborations", force: :cascade do |t|
-    t.integer  "state"
+    t.integer  "state",      default: 0
     t.integer  "user_id"
     t.integer  "song_id"
     t.integer  "movie_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.index ["movie_id"], name: "index_collaborations_on_movie_id"
     t.index ["song_id"], name: "index_collaborations_on_song_id"
     t.index ["user_id"], name: "index_collaborations_on_user_id"
@@ -58,20 +58,20 @@ ActiveRecord::Schema.define(version: 20170530225259) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "nickname",               default: "",  null: false
-    t.string   "isModerator",            default: "f", null: false
-    t.string   "email",                  default: "",  null: false
-    t.string   "encrypted_password",     default: "",  null: false
+    t.string   "nickname",               default: "",    null: false
+    t.boolean  "isModerator",            default: false, null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,   null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

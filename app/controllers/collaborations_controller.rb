@@ -9,11 +9,16 @@ class CollaborationsController < ApplicationController
       Collaboration.random(current_user)
     end
 
-    collaborations = Collaboration.all # Buscar, no retornar todas
+    ########################################
+    # Cito: "Esto funciona" - Nicolas Zuasti
+    collaborations = Collaboration.joins(:song).where("songs.name LIKE ?", "#{params[:query]}%").where(state: 1)
+    collaborations2 =  Collaboration.joins(:movie).where("movies.name LIKE ?", "#{params[:query]}%").where(state: 1)
     
     found = Collaboration.ruby_map(collaborations)
+    found2 = found + Collaboration.ruby_map(collaborations)
 
-    render :json => found
+    render :json => found2.uniq
+    ########################################
   
   end
 
@@ -49,9 +54,12 @@ class CollaborationsController < ApplicationController
   # GET /collaborations
   # GET /collaborations.json
   def index
-    # @collaborations = Collaboration.all
     if user_signed_in?
       @collaborations = current_user.collaborations
+      @allColaborations =nil
+      if current_user.isModerator
+      @allColaborations =Collaboration.where(state: 0)
+      end 
     else
       redirect_to new_user_session_path
     end

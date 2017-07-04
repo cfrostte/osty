@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post 'collaborations/from_movie'
   post 'collaborations/from_song'
   post 'collaborations/search'
+  get 'collaborations/changeState'
 
   resources :favorites
   post 'favorites/add'
@@ -12,11 +13,13 @@ Rails.application.routes.draw do
   get 'search/all'
   get 'search/index'
   get 'users/profile'
+  get 'users/hacerAdmin'
+  get 'users/changeState'
 
 	# root to: 'pages#index'
   root "pages#show", page: "landing"
 
-	devise_for :users,
+  devise_for :users,
 	
   controllers: { sessions: 'users/sessions' },
 	
