@@ -8,6 +8,9 @@ var array_collaboration = null;
 var array_music = null;
 var array_film = null;
 
+var array_to_songs = null;
+var array_to_movies = null;
+
 var collaboration = "<span class='glyphicon glyphicon-play-circle'></span>";
 var music = "<span class='glyphicon glyphicon-music'></span>";
 var film = "<span class='glyphicon glyphicon-film'></span>";
@@ -157,7 +160,7 @@ function search(query, page) {
 
 function populateCollaboration(response) {
 
-	array_collaboration = response
+	array_collaboration = response;
 
 	var content = "";
 	var array = response;
@@ -184,7 +187,7 @@ function populateCollaboration(response) {
 
 function populateMusic(response) {
 
-	array_music = response
+	array_music = response;
 
 	var content = "";
 	var array = response;
@@ -197,8 +200,8 @@ function populateMusic(response) {
 		var href = "https://open.spotify.com/search/songs/"+info+"";
 		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
 
-		var cooperate = "<span onclick='collaborateFrom(this, "+i+")'"+
-		"type='song' class='glyphicon glyphicon-send'></span>";
+		var cooperate = "<span onclick='chooseFrom(this, "+i+")'"+
+		"type='song' class='modal_song glyphicon glyphicon-send'></span>";
 
 		var star = "glyphicon glyphicon-star-empty";
 
@@ -219,7 +222,7 @@ function populateMusic(response) {
 
 function populateFilm(response) {
 
-	array_film = response
+	array_film = response;
 
 	var content = "";
 	var array = response;
@@ -232,7 +235,7 @@ function populateFilm(response) {
 		var href = "http://www.imdb.com/find?&q="+it.name+"&s=tt";
 		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
 
-		var cooperate = "<span onclick='collaborateFrom(this, "+i+")'"+
+		var cooperate = "<span onclick='chooseFrom(this, "+i+")'"+
 		"type='movie' class='glyphicon glyphicon-send'></span>";
 
 		var star = "glyphicon glyphicon-star-empty";
@@ -292,25 +295,166 @@ function addToFavorites(which, i) {
 
 }
 
-function collaborateFrom(which, i) {
+function chooseFrom(which, i) {
 	
 	var type = which.getAttribute('type');
 
-	var url = null;
+	// Get the modal
+	var modal = document.getElementById('myModal');
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	
+	}
+
+	modal_q = document.getElementById('modal_q');
+
+	modal_q.addEventListener("change", function () {
+	
+		if (modal_q.value) {
+			modalSearch(modal_q.value, i, type);
+		}
+	
+	});
+
+	modal.style.display = "block";
+
+}
+
+function modalSearch(query, i, type) {
+
+	document.getElementById("modal_found").innerHTML = loading;
 
 	var from_this_item = null;
+	var url_music = sub_url_music+"&track="+query;
+	var url_film = sub_url_film+"&query="+query;
+	var settings = null;
+
+	var settings_music = {
+		"crossDomain": true,
+		"data": "",
+		"dataType": 'json',
+		"type": 'GET',
+		"url": url_music,
+	}
+
+	var settings_film = {
+		"async": true,
+		"crossDomain": true,
+		"data": "",
+		"headers": {},
+		"method": "GET",
+		"url": url_film,
+	}
+
+	if (type=='song') {
+		from_this_item = array_music[i];
+		settings = settings_film; //Desde una cancion a varias pelis
+	}
+
+	if (type=='movie') {
+		from_this_item = array_film[i];
+		settings = settings_music; //Desde una peli a varias canciones
+	}
+
+	$.ajax(settings).done(function (response) {
+		
+		if (type=='song') {
+			modalPopulateFilm(response, from_this_item);
+		} else {
+			modalPopulateMusic(response, from_this_item);
+		}
+
+	});
+
+}
+
+function modalPopulateFilm(response, this_song) {
+
+	var collaborate = document.getElementById("collaborate");
+	var content = "";
+	var array = response.results;
+	var l = array.length;
+
+	for (i=0; i<l; i++) {
+
+		var it = array[i];
+		var info = it.original_title+" ("+it.release_date+")";
+		var href = "http://www.imdb.com/find?&q="+it.original_title+"&s=tt";
+		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
+
+		content += "<p><input value='"+i+"' class='to_check_movie' type='checkbox'> "+link+"</input></p>";
+
+	}
+
+	document.getElementById("modal_found").innerHTML = content;
+	
+	collaborate.innerHTML = "Colaborar con las peliculas seleccionadas";
+	
+	collaborate.addEventListener("click", function() {
+    	
+    	var to_check_movies = document.getElementsByClassName('to_check_movie');
+    	var checked_movies = [];
+
+    	for (var i=0; i<to_check_movies.length; i++) {
+    		
+    		var t_c_m = to_check_movies[i];
+	    		
+	    	if (t_c_m.checked) {
+
+	    		var item = array[t_c_m.value];
+	    		var base = "https://image.tmdb.org/t/p/";
+				var size = "original";
+				var poster = item.poster_path;
+				var img_url = null;
+
+				if (poster) img_url = base+size+poster;
+
+    			checked_movies.push({
+					"director" : "Desconocido",
+					"year" : item.release_date.split('-')[0],
+					"name" : item.title,
+					"info" : "Sin info",
+					"img_url" : img_url,
+				});
+
+    		}
+    	
+    	}
+
+		collaborateFrom(this_song, 'song', JSON.stringify(checked_movies));
+	
+	});
+
+}
+
+function modalPopulateMusic() {
+
+}
+
+function collaborateFrom(from_this_item, type, to_this_items) {
+	
+	var url = null;
 	
 	if (type=='song') {
 		url = protocol+"//"+host+"/collaborations/from_song";
-		from_this_item = array_music[i];
 	}
 
 	if (type=='movie') {
 		url = protocol+"//"+host+"/collaborations/from_movie";
-		from_this_item = array_film[i];
 	}
-
-	var to_this_items = getChosenItems(from_this_item);
 
 	var json = {
 		"from_this_item" : from_this_item,
@@ -355,11 +499,13 @@ function random_movies(n) {
 
 }
 
-function getChosenItems(from) {
+function getMovies() {
 
-	//var to = random_movies(5);
+	/* Para enviar varios items */
+	//var items = random_movies(5);
 
-	var to = [{
+	/* Para enviar un solo item */
+	var items = [{
 			"director" : "Director d",
 			"year" : 1958,
 			"name" : "Nombre n",
@@ -368,18 +514,7 @@ function getChosenItems(from) {
 			"favorited" : false,
 		}];
 
-	/*
-
-	Se abre un modal con la informacion del item.
-	
-	Si es una cancion, aparecera abajo un cuadro de busqueda de peliculas,
-	si es una pelicula, aparecera abajo un cuadro de busqueda de canciones.
-
-	Se retorna un json con el conjunto de elementos elegidos segun corresponda.
-
-	*/
-
-	return JSON.stringify(to);
+	JSON.stringify(items);
 
 }
 
@@ -438,4 +573,3 @@ Una vez se tenga la lista de items que se seleccionaron en el modal, se envia un
 con el json que corresponda a la operacion que corresponda del controlador de la app.
 
 */
-  
