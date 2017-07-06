@@ -34,14 +34,12 @@ class CollaborationsController < ApplicationController
     if current_user
       song = Song.for_collaboration(from_this_item)
       movie_ids = Movie.id_hash(to_this_items)
-      collaborations = Collaboration.from_song(song, movie_ids, current_user)
+      collaboration_ids = Collaboration.from_song(song, movie_ids, current_user)
     end
 
     response = {
-      :song => song,
-      :movie_ids => movie_ids,
-      :collaborations => collaborations,
-      :current_user => current_user,
+      :movie_ids_length => movie_ids.length,
+      :collaboration_ids_length => collaboration_ids.length,
     }
 
     render :json => response

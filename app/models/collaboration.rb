@@ -53,12 +53,13 @@ class Collaboration < ApplicationRecord
 
 		collaborations = current_user.collaborations
 
-		movie_ids.map do |m|
+		collaboration_ids = movie_ids.map do |m|
 			movie = Movie.find_by(id: m[:id])
-			collaborations.create(song: song, movie: movie)
+			c = collaborations.create(song: song, movie: movie)
+			{ :id => c.id }
 		end
 		
-		return collaborations		
+		return collaboration_ids		
 	
 	end
 

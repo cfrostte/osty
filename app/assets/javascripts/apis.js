@@ -383,6 +383,16 @@ function modalSearch(query, i, type) {
 
 function modalPopulateFilm(response, this_song) {
 
+	/*
+
+	Al seleccionar elementos y luego enviar
+	si se hace otra busqueda y luego se envia,
+	se envia un elemento de la busqueda anterior.
+
+	(Quedan restos)
+	
+	*/
+
 	var collaborate = document.getElementById("collaborate");
 	var content = "";
 	var array = response.results;
@@ -391,7 +401,7 @@ function modalPopulateFilm(response, this_song) {
 	for (i=0; i<l; i++) {
 
 		var it = array[i];
-		var info = it.original_title+" ("+it.release_date+")";
+		var info = it.title+" ("+it.release_date+")";
 		var href = "http://www.imdb.com/find?&q="+it.original_title+"&s=tt";
 		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
 
@@ -434,6 +444,7 @@ function modalPopulateFilm(response, this_song) {
     	
     	}
 
+    	console.log(JSON.stringify(checked_movies));
 		collaborateFrom(this_song, 'song', JSON.stringify(checked_movies));
 	
 	});
@@ -473,7 +484,15 @@ function collaborateFrom(from_this_item, type, to_this_items) {
 	}
 
 	$.ajax(settings).done(function (response) {
-		console.log(response);
+		
+		if (response.movie_ids_length==response.collaboration_ids_length) {
+			var resultado = "Todas las colaboraciones fueron creadas";
+		} else {
+			var resultado = "No se pudieron crear todas las colaboraciones";
+		}
+		
+		// alert(resultado);
+
 	});
 
 }
@@ -551,25 +570,3 @@ function next() {
 	return search(public_query, next_page);
 
 }
-
-/*
-
-Para los casos de uso de ver cancion (9), ver pelicula (10) y ver colaboracion (11)
-se podria implementar un modal que se abra con la informacion de ese item
-justo al hacer clic en alguno de ellos de la lista de resultados de la busqueda.
-
-De esa forma, al mostrar el item en una linea sola, se veria primero el icono que lo simboliza,
-es decir un icono de music, de film o de play circular, luego se mostraria la info
-de manera resumida (un renglon) y luego el icono de la estrella (agregar/quitar favorito).
-
-Al hacer clic al medio del item (parte textual) se abriria el modal en ves de un enlace externo,
-luego dentro del modal se mostrarian mas datos (como dicho enlace),
-mas una imagen (album, poster, lo que corresponda), y si es una cancion,
-apareceria un buscador de peliculas para las cuales se pueda vincular (el usuario colabora).
-De manera similar, si se hace clic en un item que es pelicula aparecera una lista de canciones
-a para las cuales se pueda vincular dicha pelicula.
-
-Una vez se tenga la lista de items que se seleccionaron en el modal, se envia un ajax
-con el json que corresponda a la operacion que corresponda del controlador de la app.
-
-*/
