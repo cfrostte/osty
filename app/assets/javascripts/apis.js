@@ -19,8 +19,18 @@ var sub_url_film = "https://api.themoviedb.org/3/search/movie?api_key="+key_film
 var public_query = null;
 var public_page = null;
 
-
-var AWlist = ["123124", "1231221Java", "656J65av6aScript", "65646Brainfuck", "qwertLOLCODE", "treNode.js", "zzzRuby on Rails"];
+// var AWlist = ["123124", "1231221Java", "656J65av6aScript", "65646Brainfuck", "qwertLOLCODE", "treNode.js", "zzzRuby on Rails",];
+var AWlist = [];
+// var AWlist2 = ["123124", "1231221Java", "656J65av6aScript", "65646Brainfuck", "qwertLOLCODE", "treNode.js", "zzzRuby on Rails",];
+var busqueda = [];
+if(!!localStorage.getItem('busqueda')){
+	console.log("existe local");
+	AWlist = localStorage.getItem('busqueda').split(",");
+}
+else{
+	console.log("no existe");
+	localStorage.setItem('busqueda',AWlist);
+}
 
 
 var check = function(needle) {
@@ -81,9 +91,26 @@ $( document ).on('turbolinks:load', function() {
 		if ($input_q.value) {
 			search($input_q.value, 1);
 			if(!check.call(AWlist, $input_q.value)){				
-				AWlist.push($input_q.value);
-				console.log("se agrega");
+				// AWlist.push($input_q.value);
+				let agregar = true;
+				for (var i = 0; i < AWlist.length; i++) {
+					if(AWlist[i] == $input_q.value){
+						agregar = false;
+						break;
+					}
+				}
+
+				if(AWlist.length<100 && agregar){
+					AWlist.unshift($input_q.value);
+					console.log("se agrega");
+				}
+				if(AWlist.length==100 && agregar){
+					AWlist.pop();
+					AWlist.unshift($input_q.value);
+				}
 			}
+		localStorage.setItem('busqueda', AWlist);	
+
 		}
 	};
 
