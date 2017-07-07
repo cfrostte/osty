@@ -162,4 +162,23 @@ class Movie < ApplicationRecord
 	
 	end
 
+	def self.for_collaboration(from_this_item)
+
+		director = from_this_item['director']
+		year = from_this_item['year']
+		name = from_this_item['name']
+		info = from_this_item['info']
+		img_url = from_this_item['img_url']
+
+		movie = Movie.where(year: year, name: name).take
+
+		if movie == nil
+			movie = Movie.construct(director, year, name, info, img_url)
+			saved = movie.save
+		end
+
+		return movie
+
+	end
+
 end

@@ -150,4 +150,31 @@ class Song < ApplicationRecord
 
 	end
 
+	def self.id_hash(to_this_items)
+
+		parsed = JSON.parse(to_this_items)
+		
+		processed = parsed.map do |m|
+
+		    album = m['album']
+		    artist = m['artist']
+		    name = m['name']
+		    info = m['info']
+		    img_url = m['img_url']
+
+		    song = Song.where(artist: artist, name: name).take
+
+		    if song == nil
+		    	song = Song.construct(album, artist, name, info, img_url)
+		    	song.save
+		    end
+
+			{ :id => song.id }
+
+		end
+
+		return processed
+	
+	end
+
 end

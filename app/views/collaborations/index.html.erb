@@ -16,7 +16,7 @@
           <span class='glyphicon glyphicon-play-circle'></span>
           <%= collaboration.song.artist %> - <%= collaboration.song.name %>
         </td>
-        <td> : </td>
+        <td><strong> es OST de </strong></td>
         <td>
           <%= collaboration.movie.name %> (<%= collaboration.movie.year %>)
           <%if (collaboration.state==0)%>
@@ -55,7 +55,7 @@
           <span class='glyphicon glyphicon-play-circle'></span>
           <%= collaboration.song.artist %> - <%= collaboration.song.name %>
         </td>
-        <td> : </td>
+        <td><strong> es OST de </strong></td>
         <td><%= collaboration.movie.name %> (<%= collaboration.movie.year %>)</td>
         <td><a href=""><strong>@<%= collaboration.user.nickname %></strong></a></td>
          <td><a href="users/changeState?id=<%=collaboration.id%>&state=1">

@@ -22,8 +22,9 @@ var public_page = null;
 
 var type_from_to_modal = null;
 var item_from_to_modal = null;
+var array_to_songs = null;
+var array_to_movies = null;
 var checked_items = null;
-
 var listener_atached_for_modal = false;
 
 $( document ).on('turbolinks:load', function() {
@@ -93,8 +94,6 @@ function search(query, page) {
 		queue_count+=1;
 		
 		if (queue_count==total) final_call();
-
-		console.log(response);
 
 	});
 
@@ -417,7 +416,12 @@ function modalSearch(query) {
 
 		if (type_from_to_modal=='movie') { //Desde una peli a varias canciones
 		
+			array_to_songs = response.results.trackmatches.track;
+
 			modalPopulateMusic(response, item_from_to_modal);
+						
+			collaborate.innerHTML = "Todas esas canciones son OST de <i>"+
+			item_from_to_modal.name+"("+item_from_to_modal.year+")</i>";
 		
 		}
 
@@ -429,8 +433,6 @@ function getSelectedMovies() {
 
 	var to_check_movies = document.getElementsByClassName('to_check_movie');
 
-	// console.log(to_check_movies);
-
 	var checked_movies = [];
 
 	for (var i=0; i<to_check_movies.length; i++) {
@@ -440,6 +442,7 @@ function getSelectedMovies() {
 		if (t_c_m.checked) {
 
 			var item = array_to_movies[t_c_m.value];
+
 			var base = "https://image.tmdb.org/t/p/";
 			var size = "original";
 			var poster = item.poster_path;
@@ -459,23 +462,45 @@ function getSelectedMovies() {
 
 	}
 
-	// console.log(checked_movies);
-
 	return checked_movies;
 
 }
 
 function getSelectedSongs() {
 
+	var to_check_songs = document.getElementsByClassName('to_check_song');
+
+	var checked_songs = [];
+
+	for (var i=0; i<to_check_songs.length; i++) {
+
+		var t_c_s = to_check_songs[i];
+
+		if (t_c_s.checked) {
+
+			var item = array_to_songs[t_c_s.value];
+
+			var img_url = item.image;
+
+			if (img_url) img_url = item.image[item.image.length-1]['#text']
+
+			checked_songs.push({
+				"album" : "Desconocido",
+				"artist" : item.artist,
+				"name" : item.name,
+				"info" : "Sin info",
+				"img_url" : img_url,
+			});
+
+		}
+
+	}
+
+	return checked_songs;
+
 }
 
 function modalPopulateFilm(response, this_song) {
-
-	/*
-
-	Al hacer una segunda busqueda quedan restos de la anterior
-	
-	*/
 
 	var content = "";
 	var array = response.results;
@@ -496,7 +521,24 @@ function modalPopulateFilm(response, this_song) {
 
 }
 
-function modalPopulateMusic() {
+function modalPopulateMusic(response, this_movie) {
+
+	var content = "";
+	var array = response.results.trackmatches.track;
+	var l = array.length;
+
+	for (i=0; i<l; i++) {
+
+		var it = array[i];
+		var info = it.artist+" - "+it.name;
+		var href = "https://open.spotify.com/search/songs/"+info+"";
+		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
+
+		content += "<p><input value='"+i+"' class='to_check_song' type='checkbox'> "+link+"</input></p>";
+
+	}
+
+	document.getElementById("modal_found").innerHTML = content;
 
 }
 
@@ -530,25 +572,29 @@ function collaborateFrom(from_this_item, type, to_this_items) {
 
 	$.ajax(settings).done(function (response) {
 
-		var resultado = "Error desconocido";
+		var message = "Error desconocido";
 
-		if (!response.movie_ids_length || !response.collaboration_ids_length) {
-			
-			if (response.error==1) {
-				window.location.replace(protocol+"//"+host+"/auth/login");
-			}
+		if (response.all_were_made) {
 		
-		} else {
-
-			if (response.movie_ids_length==response.collaboration_ids_length) {
-				resultado = "Todas las colaboraciones fueron realizadas";
+			message = "Todas las colaboraciones fueron realizadas";
+		
+		} else if (response.not_logged) {
+		
+			message = "Necesitamos llevarte a la página de login";
+		
+			if (confirm(message)) {
+				return window.location.replace(protocol+"//"+host+"/auth/login");
 			} else {
-				resultado = "No se pudieron realizar todas las colaboraciones";
+				return "El usuario no desea loguearse";
 			}
-
-			alert(resultado);
-
+			
+		} else {
+		
+			message = "No se pudieron realizar todas las colaboraciones";
+		
 		}
+
+		alert(message);
 
 	});
 

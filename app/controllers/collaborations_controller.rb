@@ -10,7 +10,7 @@ class CollaborationsController < ApplicationController
     end
 
     collaborations1 = Collaboration.joins(:song).
-    where("songs.artist LIKE ? OR songs.name LIKE ?","%#{query}%", "%#{query}%").
+    where("songs.artist LIKE ? OR songs.name LIKE ?", "%#{query}%", "%#{query}%").
     where("collaborations.state = ?", 1).
     group(["collaborations.song_id", "collaborations.movie_id"])
     
@@ -28,35 +28,38 @@ class CollaborationsController < ApplicationController
 
   def from_song
 
-    from_this_item = params[:from_this_item]
-    to_this_items = params[:to_this_items]
+  	from_this_item = params[:from_this_item]
+  	to_this_items = params[:to_this_items]
 
-    song = nil
-    movie_ids = nil
-    collaboration = nil
+  	if current_user
+  		song = Song.for_collaboration(from_this_item)
+  		movie_ids = Movie.id_hash(to_this_items)
+  		collaboration_ids = Collaboration.from_song(song, movie_ids, current_user)
+  		response = {:all_were_made => movie_ids.length==collaboration_ids.length}
+  	else
+  		response = {:not_logged => true}
+  	end
 
-    if current_user
-
-      song = Song.for_collaboration(from_this_item)
-      movie_ids = Movie.id_hash(to_this_items)
-      collaboration_ids = Collaboration.from_song(song, movie_ids, current_user)
-	
-	  response = {
-	  	:movie_ids_length => movie_ids.length,
-	  	:collaboration_ids_length => collaboration_ids.length,
-	  }
-    
-    else
-
-      response = {:error => 1} # El usuario no esta logueado
-    
-    end
-
-    render :json => response
+  	render :json => response
 
   end
 
   def from_movie
+
+  	from_this_item = params[:from_this_item]
+  	to_this_items = params[:to_this_items]
+
+  	if current_user
+  		movie = Movie.for_collaboration(from_this_item)
+  		song_ids = Song.id_hash(to_this_items)
+  		collaboration_ids = Collaboration.from_movie(movie, song_ids, current_user)
+  		response = {:all_were_made => song_ids.length==collaboration_ids.length}
+  	else
+  		response = {:not_logged => true}
+  	end
+
+  	render :json => response
+
   end
 
   # GET /collaborations

@@ -63,4 +63,18 @@ class Collaboration < ApplicationRecord
 	
 	end
 
+	def self.from_movie(movie, song_ids, current_user)
+
+		collaborations = current_user.collaborations
+
+		collaboration_ids = song_ids.map do |m|
+			song = Song.find_by(id: m[:id])
+			c = collaborations.create(song: song, movie: movie)
+			{ :id => c.id }
+		end
+		
+		return collaboration_ids		
+	
+	end
+
 end
