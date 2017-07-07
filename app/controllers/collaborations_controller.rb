@@ -14,13 +14,13 @@ class CollaborationsController < ApplicationController
     select('*, collaborations.id, collaborations.song_id, collaborations.movie_id').
     where("songs.artist LIKE ? OR songs.name LIKE ?", "%#{query}%", "%#{query}%").
     where("collaborations.state = ?", 1)
-    .group(["collaborations.song_id", "collaborations.movie_id"])
+    .group(["collaborations.id", "collaborations.song_id", "collaborations.movie_id"])
     
     collaborations2 = Collaboration.joins(:movie).
     select('*, collaborations.id, collaborations.song_id, collaborations.movie_id').
     where("movies.name LIKE ? OR movies.year = ?", "%#{query}%", "#{movie_year}").
     where("collaborations.state = ?", 1)
-    .group(["collaborations.song_id", "collaborations.movie_id"])
+    .group(["collaborations.id", "collaborations.song_id", "collaborations.movie_id"])
 
     found1 = Collaboration.ruby_map(collaborations1)
     found2 = Collaboration.ruby_map(collaborations2)
