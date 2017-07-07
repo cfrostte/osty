@@ -11,19 +11,21 @@ class CollaborationsController < ApplicationController
     end
 
     collaborations1 = Collaboration.joins(:song).
+    select('*, collaborations.song_id, collaborations.movie_id').
     where("songs.artist LIKE ? OR songs.name LIKE ?", "%#{query}%", "%#{query}%").
-    where("collaborations.state = ?", 1).
-    group(["collaborations.song_id", "collaborations.movie_id"])
+    where("collaborations.state = ?", 1)
+    .group(["collaborations.song_id", "collaborations.movie_id"])
     
     collaborations2 = Collaboration.joins(:movie).
+    select('*, collaborations.song_id, collaborations.movie_id').
     where("movies.name LIKE ? OR movies.year = ?", "%#{query}%", "#{movie_year}").
-    where("collaborations.state = ?", 1).
-    group(["collaborations.song_id", "collaborations.movie_id"])
+    where("collaborations.state = ?", 1)
+    .group(["collaborations.song_id", "collaborations.movie_id"])
 
     found1 = Collaboration.ruby_map(collaborations1)
     found2 = Collaboration.ruby_map(collaborations2)
 
-    render :json => found1+found2
+    render :json => (found1+found2).uniq
   
   end
 
