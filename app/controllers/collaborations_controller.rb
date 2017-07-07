@@ -4,20 +4,20 @@ class CollaborationsController < ApplicationController
   def search
 
     query = params['query']
-    movie_year = params['query'].to_i # Para PostgreSQL
+    movie_year = params['query'].to_i
 
     if query=='random'
       Collaboration.random(current_user)
     end
 
     collaborations1 = Collaboration.joins(:song).
-    select('*, collaborations.song_id, collaborations.movie_id').
+    select('*, collaborations.id, collaborations.song_id, collaborations.movie_id').
     where("songs.artist LIKE ? OR songs.name LIKE ?", "%#{query}%", "%#{query}%").
     where("collaborations.state = ?", 1)
     .group(["collaborations.song_id", "collaborations.movie_id"])
     
     collaborations2 = Collaboration.joins(:movie).
-    select('*, collaborations.song_id, collaborations.movie_id').
+    select('*, collaborations.id, collaborations.song_id, collaborations.movie_id').
     where("movies.name LIKE ? OR movies.year = ?", "%#{query}%", "#{movie_year}").
     where("collaborations.state = ?", 1)
     .group(["collaborations.song_id", "collaborations.movie_id"])
