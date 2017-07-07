@@ -9,16 +9,20 @@ class CollaborationsController < ApplicationController
       Collaboration.random(current_user)
     end
 
-    ########################################
-    # Cito: "Esto funciona" - Nicolas Zuasti
-    collaborations = Collaboration.joins(:song).where("songs.name LIKE ?", "#{params[:query]}%").where(state: 1)
-    collaborations2 =  Collaboration.joins(:movie).where("movies.name LIKE ?", "#{params[:query]}%").where(state: 1)
+    collaborations1 = Collaboration.joins(:song).
+    where("songs.artist LIKE ? OR songs.name LIKE ?","%#{query}%", "%#{query}%").
+    where("collaborations.state = ?", 1).
+    group(["collaborations.song_id", "collaborations.movie_id"])
     
-    found = Collaboration.ruby_map(collaborations)
-    found2 = found + Collaboration.ruby_map(collaborations)
+    collaborations2 = Collaboration.joins(:movie).
+    where("movies.name LIKE ? OR movies.year LIKE ?", "%#{query}%", "%#{query}%").
+    where("collaborations.state = ?", 1).
+    group(["collaborations.song_id", "collaborations.movie_id"])
 
-    render :json => found2.uniq
-    ########################################
+    found1 = Collaboration.ruby_map(collaborations1)
+    found2 = Collaboration.ruby_map(collaborations2)
+
+    render :json => found1+found2
   
   end
 
@@ -32,15 +36,21 @@ class CollaborationsController < ApplicationController
     collaboration = nil
 
     if current_user
+
       song = Song.for_collaboration(from_this_item)
       movie_ids = Movie.id_hash(to_this_items)
       collaboration_ids = Collaboration.from_song(song, movie_ids, current_user)
-    end
+	
+	  response = {
+	  	:movie_ids_length => movie_ids.length,
+	  	:collaboration_ids_length => collaboration_ids.length,
+	  }
+    
+    else
 
-    response = {
-      :movie_ids_length => movie_ids.length,
-      :collaboration_ids_length => collaboration_ids.length,
-    }
+      response = {:error => 1} # El usuario no esta logueado
+    
+    end
 
     render :json => response
 

@@ -19,12 +19,25 @@
         <td> : </td>
         <td>
           <%= collaboration.movie.name %> (<%= collaboration.movie.year %>)
+          <%if (collaboration.state==0)%>
+          	<span style="color: dimgray;" class='glyphicon glyphicon-cog'></span>
+          <%end%>
+          <%if (collaboration.state==1)%>
+          	<span style="color: lime;" class='glyphicon glyphicon-ok'></span>
+          <%end%>
+          <%if (collaboration.state==2)%>
+          	<span style="color: tomato;" class='glyphicon glyphicon-remove'></span>
+          <%end%>
         </td>
         <td><%= link_to '', collaboration, method: :delete, :class => 'icono glyphicon glyphicon-trash' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<hr>
+<p><span style="color: dimgray;" class='glyphicon glyphicon-cog'></span> Revisando colaboración</p>
+<p><span style="color: lime;" class='glyphicon glyphicon-ok'></span> Colaboración aceptada</p>
+<p><span style="color: tomato;" class='glyphicon glyphicon-remove'></span> Colaboración rechazada</p>
 <hr>
 <% if @allColaborations!=nil %>
 <h1>Todas las colaboraciones</h1>

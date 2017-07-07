@@ -8,9 +8,6 @@ var array_collaboration = null;
 var array_music = null;
 var array_film = null;
 
-var array_to_songs = null;
-var array_to_movies = null;
-
 var collaboration = "<span class='glyphicon glyphicon-play-circle'></span>";
 var music = "<span class='glyphicon glyphicon-music'></span>";
 var film = "<span class='glyphicon glyphicon-film'></span>";
@@ -22,6 +19,12 @@ var sub_url_film = "https://api.themoviedb.org/3/search/movie?api_key="+key_film
 
 var public_query = null;
 var public_page = null;
+
+var type_from_to_modal = null;
+var item_from_to_modal = null;
+var checked_items = null;
+
+var listener_atached_for_modal = false;
 
 $( document ).on('turbolinks:load', function() {
 
@@ -90,6 +93,8 @@ function search(query, page) {
 		queue_count+=1;
 		
 		if (queue_count==total) final_call();
+
+		console.log(response);
 
 	});
 
@@ -297,7 +302,16 @@ function addToFavorites(which, i) {
 
 function chooseFrom(which, i) {
 	
-	var type = which.getAttribute('type');
+	type_from_to_modal = which.getAttribute('type');
+
+	if (type_from_to_modal=='song') {
+		item_from_to_modal = array_music[i];
+
+	}
+
+	if (type_from_to_modal=='movie') {
+		item_from_to_modal = array_film[i];
+	}
 
 	// Get the modal
 	var modal = document.getElementById('myModal');
@@ -319,25 +333,46 @@ function chooseFrom(which, i) {
 	
 	}
 
-	modal_q = document.getElementById('modal_q');
+	var modal_q = document.getElementById('modal_q');
 
 	modal_q.addEventListener("change", function () {
-	
+
 		if (modal_q.value) {
-			modalSearch(modal_q.value, i, type);
+			modalSearch(modal_q.value);
 		}
-	
+
 	});
+
+	var collaborate = document.getElementById("collaborate");
+
+	if (!listener_atached_for_modal) {
+		
+		collaborate.addEventListener("click", function() {
+			
+			if (type_from_to_modal=='song') checked_items = getSelectedMovies();
+			if (type_from_to_modal=='movie') checked_items = getSelectedSongs();
+
+			if (checked_items.length>0) {
+				collaborateFrom(item_from_to_modal, type_from_to_modal,
+					JSON.stringify(checked_items));
+			} else {
+				alert('Elige al menos un item con el cual relacionar');
+			}
+
+			listener_atached_for_modal = true;
+
+		});
+	
+	}
 
 	modal.style.display = "block";
 
 }
 
-function modalSearch(query, i, type) {
+function modalSearch(query) {
 
 	document.getElementById("modal_found").innerHTML = loading;
 
-	var from_this_item = null;
 	var url_music = sub_url_music+"&track="+query;
 	var url_film = sub_url_film+"&query="+query;
 	var settings = null;
@@ -359,25 +394,78 @@ function modalSearch(query, i, type) {
 		"url": url_film,
 	}
 
-	if (type=='song') {
-		from_this_item = array_music[i];
+	if (type_from_to_modal=='song') {
 		settings = settings_film; //Desde una cancion a varias pelis
 	}
 
-	if (type=='movie') {
-		from_this_item = array_film[i];
+	if (type_from_to_modal=='movie') {
 		settings = settings_music; //Desde una peli a varias canciones
 	}
 
 	$.ajax(settings).done(function (response) {
 		
-		if (type=='song') {
-			modalPopulateFilm(response, from_this_item);
-		} else {
-			modalPopulateMusic(response, from_this_item);
+		if (type_from_to_modal=='song') { //Desde una cancion a varias pelis
+
+			array_to_movies = response.results;
+
+			modalPopulateFilm(response, item_from_to_modal);
+						
+			collaborate.innerHTML = "<i>"+item_from_to_modal.artist+" - "
+			+item_from_to_modal.name+"</i> es OST de todas esas películas";
+
+		} 
+
+		if (type_from_to_modal=='movie') { //Desde una peli a varias canciones
+		
+			modalPopulateMusic(response, item_from_to_modal);
+		
 		}
 
 	});
+
+}
+
+function getSelectedMovies() {
+
+	var to_check_movies = document.getElementsByClassName('to_check_movie');
+
+	// console.log(to_check_movies);
+
+	var checked_movies = [];
+
+	for (var i=0; i<to_check_movies.length; i++) {
+
+		var t_c_m = to_check_movies[i];
+
+		if (t_c_m.checked) {
+
+			var item = array_to_movies[t_c_m.value];
+			var base = "https://image.tmdb.org/t/p/";
+			var size = "original";
+			var poster = item.poster_path;
+			var img_url = null;
+
+			if (poster) img_url = base+size+poster;
+
+			checked_movies.push({
+				"director" : "Desconocido",
+				"year" : item.release_date.split('-')[0],
+				"name" : item.title,
+				"info" : "Sin info",
+				"img_url" : img_url,
+			});
+
+		}
+
+	}
+
+	// console.log(checked_movies);
+
+	return checked_movies;
+
+}
+
+function getSelectedSongs() {
 
 }
 
@@ -385,15 +473,10 @@ function modalPopulateFilm(response, this_song) {
 
 	/*
 
-	Al seleccionar elementos y luego enviar
-	si se hace otra busqueda y luego se envia,
-	se envia un elemento de la busqueda anterior.
-
-	(Quedan restos)
+	Al hacer una segunda busqueda quedan restos de la anterior
 	
 	*/
 
-	var collaborate = document.getElementById("collaborate");
 	var content = "";
 	var array = response.results;
 	var l = array.length;
@@ -410,44 +493,6 @@ function modalPopulateFilm(response, this_song) {
 	}
 
 	document.getElementById("modal_found").innerHTML = content;
-	
-	collaborate.innerHTML = "Colaborar con las peliculas seleccionadas";
-	
-	collaborate.addEventListener("click", function() {
-    	
-    	var to_check_movies = document.getElementsByClassName('to_check_movie');
-    	var checked_movies = [];
-
-    	for (var i=0; i<to_check_movies.length; i++) {
-    		
-    		var t_c_m = to_check_movies[i];
-	    		
-	    	if (t_c_m.checked) {
-
-	    		var item = array[t_c_m.value];
-	    		var base = "https://image.tmdb.org/t/p/";
-				var size = "original";
-				var poster = item.poster_path;
-				var img_url = null;
-
-				if (poster) img_url = base+size+poster;
-
-    			checked_movies.push({
-					"director" : "Desconocido",
-					"year" : item.release_date.split('-')[0],
-					"name" : item.title,
-					"info" : "Sin info",
-					"img_url" : img_url,
-				});
-
-    		}
-    	
-    	}
-
-    	console.log(JSON.stringify(checked_movies));
-		collaborateFrom(this_song, 'song', JSON.stringify(checked_movies));
-	
-	});
 
 }
 
@@ -484,14 +529,26 @@ function collaborateFrom(from_this_item, type, to_this_items) {
 	}
 
 	$.ajax(settings).done(function (response) {
+
+		var resultado = "Error desconocido";
+
+		if (!response.movie_ids_length || !response.collaboration_ids_length) {
+			
+			if (response.error==1) {
+				window.location.replace(protocol+"//"+host+"/auth/login");
+			}
 		
-		if (response.movie_ids_length==response.collaboration_ids_length) {
-			var resultado = "Todas las colaboraciones fueron creadas";
 		} else {
-			var resultado = "No se pudieron crear todas las colaboraciones";
+
+			if (response.movie_ids_length==response.collaboration_ids_length) {
+				resultado = "Todas las colaboraciones fueron realizadas";
+			} else {
+				resultado = "No se pudieron realizar todas las colaboraciones";
+			}
+
+			alert(resultado);
+
 		}
-		
-		// alert(resultado);
 
 	});
 
