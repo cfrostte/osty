@@ -46,7 +46,7 @@ class CollaborationsController < ApplicationController
     
     ).
 
-    joins('INNER JOIN collaborations a').where('a.song_id=g.song_id').where('a.movie_id=g.movie_id')
+    joins('INNER JOIN collaborations a ON a.song_id=g.song_id AND a.movie_id=g.movie_id')
 
     render :json => Collaboration.ruby_map(collaborations)
   
