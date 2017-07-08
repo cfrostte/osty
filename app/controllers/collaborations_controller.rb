@@ -29,8 +29,12 @@ class CollaborationsController < ApplicationController
 	
 	# )
 
-	# g INNER JOIN collaborations a WHERE (a.song_id=g.song_id) AND (a.movie_id=g.movie_id)
-    
+	# g INNER JOIN collaborations a ON a.song_id=g.song_id AND a.movie_id=g.movie_id
+
+	############################################################################
+	# Nota: SQLite no es case sensitive, mientras que PostgreSQL si lo es.
+	############################################################################
+
 	collaborations = Collaboration.select('a.id, a.state, a.user_id, a.song_id, a.movie_id').
 	
 	from(
