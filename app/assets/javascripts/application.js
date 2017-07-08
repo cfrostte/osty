@@ -13,5 +13,6 @@
 //= require jquery_ujs
 //= require bootstrap/js/bootstrap.min
 //= require turbolinks
+//= require awesomplete
 //= require views
 //= require apis
