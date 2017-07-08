@@ -1,4 +1,4 @@
-<input required autofocus id="q" class="search-input" type="text">
+<input required autofocus id="q" class="search-input awesomplete" list="mylist" type="text">
 <center>
 	<strong>
 		<p id="actual"></p>
@@ -25,16 +25,15 @@
 		height: 100%; /* Full height */
 		overflow: auto; /* Enable scroll if needed */
 		background-color: rgb(0,0,0); /* Fallback color */
-		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
 	}
 
 	/* Modal Content */
 	.modal-content {
 		border-radius: 0%;
-		background-color: #fefefe;
+		background-color: white;
 		margin: auto;
 		padding: 20px;
-		border: 1px solid #888;
 		width: 90%;
 		height: 480px;
 	}
@@ -48,7 +47,7 @@
 
 	/* The Close Button */
 	.close {
-		color: #aaaaaa;
+		color: black;
 		float: right;
 		font-size: 28px;
 		font-weight: bold;
@@ -56,7 +55,7 @@
 
 	.close:hover,
 	.close:focus {
-		color: #000;
+		color: dodgerblue;
 		text-decoration: none;
 		cursor: pointer;
 	}

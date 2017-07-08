@@ -27,9 +27,60 @@ var array_to_movies = null;
 var checked_items = null;
 var listener_atached_for_modal = false;
 
+// var AWlist = ["123124", "1231221Java", "656J65av6aScript", "65646Brainfuck", "qwertLOLCODE", "treNode.js", "zzzRuby on Rails",];
+var AWlist = [];
+// var AWlist2 = ["123124", "1231221Java", "656J65av6aScript", "65646Brainfuck", "qwertLOLCODE", "treNode.js", "zzzRuby on Rails",];
+var busqueda = [];
+
+if (!!localStorage.getItem('busqueda')) {
+	console.log("Existe local");
+	AWlist = localStorage.getItem('busqueda').split(",");
+} else {
+	console.log("No existe local");
+	localStorage.setItem('busqueda',AWlist);
+}
+
+var check = function(needle) {
+    
+    // Per spec, the way to identify NaN is that it is not equal to itself
+    var findNaN = needle !== needle;
+    var indexOf;
+
+    if (!findNaN && typeof Array.prototype.indexOf === 'function') {
+    
+        indexOf = Array.prototype.indexOf;
+    
+    } else {
+    
+        indexOf = function(needle) {
+    
+            var i = -1, index = -1;
+    
+            for (i = 0; i < this.length; i++) {
+                
+                var item = this[i];
+
+                if ((findNaN && item !== item) || item === needle) {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        
+        };
+    
+    }
+
+    return indexOf.call(this, needle) > -1;
+
+};
+
 $( document ).on('turbolinks:load', function() {
 
 	var input_q = document.getElementById("q");
+	var doneTypingInterval = 1000;
+	var typingTimer;
 
 	if (input_q) input_q.addEventListener("change", function () {
 		
@@ -38,6 +89,67 @@ $( document ).on('turbolinks:load', function() {
 		}
 		
 	});
+
+	input_q.addEventListener("keyup", function(evt) {
+		
+		evt = evt || window.event;
+		
+		if (evt.keyCode != 37 && evt.keyCode != 39) {
+			// evt.keyCode es para IE
+			// evt.key es para Netscape/Firefox/Opera
+			clearTimeout(typingTimer);
+			typingTimer=setTimeout(doneTyping, doneTypingInterval);		
+		} else {
+			console.log("Es flecha");
+		}
+	
+	});
+
+	input_q.addEventListener("keydown", function() {
+		clearTimeout(typingTimer);
+	});
+
+	function doneTyping() {
+		
+		console.log("Entro en el search");
+		console.log("valor="+input_q.value);
+		
+		if (input_q.value) {
+
+			search(input_q.value, 1);
+			
+			if (!check.call(AWlist, input_q.value)) {				
+				
+				// AWlist.push(input_q.value);
+				
+				let agregar = true;
+				
+				for (var i = 0; i < AWlist.length; i++) {
+				
+					if(AWlist[i] == input_q.value){
+						agregar = false;
+						break;
+					}
+				
+				}
+
+				if (AWlist.length<100 && agregar) {
+					AWlist.unshift(input_q.value);
+					console.log("Se agrega");
+				}
+
+				if (AWlist.length==100 && agregar){
+					AWlist.pop();
+					AWlist.unshift(input_q.value);
+				}
+			
+			}
+
+			localStorage.setItem('busqueda', AWlist);	
+
+		}
+	
+	};
 
 });
 
