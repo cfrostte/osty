@@ -60,7 +60,7 @@ var check = function(needle) {
                 
                 var item = this[i];
 
-                if ((findNaN && item !== item) || item === needle) {
+                if ((findNaN && item!==item) || item===needle) {
                     index = i;
                     break;
                 }
@@ -94,11 +94,11 @@ $( document ).on('turbolinks:load', function() {
 		
 		evt = evt || window.event;
 		
-		if (evt.keyCode != 37 && evt.keyCode != 39) {
+		if (evt.keyCode!=37 && evt.keyCode!=39) {
 			// evt.keyCode es para IE
 			// evt.key es para Netscape/Firefox/Opera
 			clearTimeout(typingTimer);
-			typingTimer=setTimeout(doneTyping, doneTypingInterval);		
+			typingTimer = setTimeout(doneTyping, doneTypingInterval);		
 		} else {
 			console.log("Es flecha");
 		}
@@ -122,11 +122,11 @@ $( document ).on('turbolinks:load', function() {
 				
 				// AWlist.push(input_q.value);
 				
-				let agregar = true;
+				var agregar = true;
 				
 				for (var i = 0; i < AWlist.length; i++) {
 				
-					if(AWlist[i] == input_q.value){
+					if (AWlist[i] == input_q.value) {
 						agregar = false;
 						break;
 					}
