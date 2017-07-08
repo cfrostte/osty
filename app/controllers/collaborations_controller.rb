@@ -9,23 +9,46 @@ class CollaborationsController < ApplicationController
     if query=='random'
       Collaboration.random(current_user)
     end
+	
+	# SELECT a.id, a.state, a.user_id, a.song_id, a.movie_id
+	
+	# FROM (
+		
+	# 	SELECT song_id, movie_id FROM "collaborations"
+	# 	INNER JOIN "songs" ON "songs"."id" = "collaborations"."song_id"
+	# 	INNER JOIN "movies" ON "movies"."id" = "collaborations"."movie_id"
+		
+	# 	WHERE (
+	# 		songs.artist LIKE ?
+	# 		OR songs.name LIKE ?
+	# 		OR movies.name LIKE ?
+	# 		OR movies.year = ?
+	# 	)
+		
+	# 	AND (state = 1) GROUP BY song_id, movie_id
+	
+	# )
 
-    collaborations1 = Collaboration.joins(:song).
-    select('*, collaborations.id, collaborations.song_id, collaborations.movie_id').
-    where("songs.artist LIKE ? OR songs.name LIKE ?", "%#{query}%", "%#{query}%").
-    where("collaborations.state = ?", 1)
-    .group(["collaborations.id", "collaborations.song_id", "collaborations.movie_id"])
+	# g INNER JOIN collaborations a WHERE (a.song_id=g.song_id) AND (a.movie_id=g.movie_id)
     
-    collaborations2 = Collaboration.joins(:movie).
-    select('*, collaborations.id, collaborations.song_id, collaborations.movie_id').
-    where("movies.name LIKE ? OR movies.year = ?", "%#{query}%", "#{movie_year}").
-    where("collaborations.state = ?", 1)
-    .group(["collaborations.id", "collaborations.song_id", "collaborations.movie_id"])
+	collaborations = Collaboration.select('a.id, a.state, a.user_id, a.song_id, a.movie_id').
+	
+	from(
+		
+		Collaboration.joins(:song, :movie).select('song_id, movie_id').
+    	
+    	where(
+    		"songs.artist LIKE ? OR songs.name LIKE ? OR movies.name LIKE ? OR movies.year = ?",
+    		"%#{query}%", "%#{query}%", "%#{query}%", "#{movie_year}"
+    	).
 
-    found1 = Collaboration.ruby_map(collaborations1)
-    found2 = Collaboration.ruby_map(collaborations2)
+    	where("state = ?", 1).group("song_id, movie_id"), :g
+    
+    ).
 
-    render :json => (found1+found2).uniq
+    joins('INNER JOIN collaborations a').where('a.song_id=g.song_id').where('a.movie_id=g.movie_id')
+
+    render :json => Collaboration.ruby_map(collaborations)
   
   end
 
