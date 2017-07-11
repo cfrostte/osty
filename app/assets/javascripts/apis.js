@@ -291,7 +291,7 @@ function search(query, page) {
 			if (public_page>1 && (found_collaborations||found_music||found_film)) {
 				document.getElementById("actual").innerHTML = "<hr>Página "+public_page+"<hr>";
 			} else {
-				document.getElementById("actual").innerHTML = "<hr>";
+				// document.getElementById("actual").innerHTML = "<hr>";
 			}
 
 			/* REALIZA LA PAGINACION, SOLAMENTE SI EXISTEN RESULTADOS */
@@ -331,7 +331,21 @@ function populateCollaboration(response) {
 		var osty = "#";
 		var link = "<a target='_blank' href='"+osty+"'>"+info+"</a>";
 
-		content += "<p>"+collaboration+" "+link+"</p>";
+		// content += "<p>"+collaboration+" "+link+"</p>";
+
+		content += "<div class = 'musicContainer' style = 'width: 100%; height : 250px'>" + 
+						"<img src = '" + it.song.img_url + "' style = 'width: 130px; height: 130px; margin: 50px 0; display: inline-block'/>" + 
+						"<div style = 'width: 50%; display: inline-block; top: 30px; left: 20px; position: relative;'>" +
+							"<p style = 'font-size: 22px; color: #A4A4A4'>" + it.song.artist + " - " +it.song.name + "</p><p style = 'font-size: 17px; color: white'>" + it.movie.name + " (" + it.movie.year + ")</p>" +
+							"<img src = '/img/iconoMusica.png' style = 'width: 50px; height: 50px; margin-top: 9px'/>" +
+							"<img src = '/img/iconoPelicula.png' style = 'width: 50px; height: 50px; margin-top: 9px; margin-left: 18px'/>" +
+						"</div>" +
+						"<div style = 'font-size: 17.5px; color: white; width: 50%; position: relative; top: -139px; left: 579px'>" +
+							"Ver y Escuchar:<br>" +
+							"<a href = '#' class = 'linkSpotify' target = '_blank'><span class = 'fa fa-spotify' style = 'font-size: 45px; margin-top: 15px'></span></a>&nbsp;&nbsp;<a href = '#' class = 'linkLastFM' target = '_blank'><span class = 'fa fa-lastfm-square' style = 'font-size: 45px; margin-top: 15px'></span></a>"+
+							"&nbsp;&nbsp;<a href = '#' class = 'linkIMDB' target = '_blank'><span class = 'fa fa-imdb' style = 'font-size: 45px; margin-top: 15px'></span></a>"+
+						"</div>" +
+					"</div>";
 
 	}
 
@@ -385,9 +399,14 @@ function populateMusic(response) {
 		+" type='song' class='"+star+"' style='margin-left: 10px'></span>";
 
 		// content += "<p>"+music+" "+link+" "+cooperate+" "+add+"</p>";
+
+		// var imagen = it.img_url == null ? '/img/imagenNoDisponible.gif' : it.img_url;
+		var imagen = it.img_url;
+
+		if (!!imagen || imagen=='unknown') imagen = '/img/imagenNoDisponible.gif';
 		
 		content += "<div class = 'musicContainer' style = 'width: 100%; height : 250px'>" + 
-						"<img src = '" + it.img_url + "' style = 'width: 130px; height: 130px; margin: 50px 0; display: inline-block'/>" + 
+						"<img src = '" + imagen + "' style = 'width: 130px; height: 130px; margin: 50px 0; display: inline-block'/>" + 
 						"<div style = 'width: 50%; display: inline-block; top: 30px; left: 20px; position: relative;'>" +
 							"<p style = 'font-size: 22px; color: #A4A4A4'>" + it.name + add + "</p><p style = 'font-size: 17px; color: white'>" + it.artist + "</p>" +
 							"<img src = '/img/iconoMusica.png' style = 'width: 50px; height: 50px; margin-top: 9px'/>" +
@@ -427,23 +446,45 @@ function populateFilm(response) {
 		SE PASA EL NODO HTML Y SE PASA EL INDICE DEL OBJETO DEL array_film
 		QUE CONTIENE LA INFORMACION YA PROCESADA POR EL SERVIDOR
 		*/
-		var cooperate = "<span onclick='chooseFrom(this, "+i+")'"+
-		"type='movie' class='glyphicon glyphicon-send'></span>";
+		// var cooperate = "<span onclick='chooseFrom(this, "+i+")'"+
+		// "type='movie' class='glyphicon glyphicon-send'></span>";
 
-		var star = "glyphicon glyphicon-star-empty"; // Estrella vacia
+		var collaborate = "<span onclick='chooseFrom(this, "+i+")'"
+		+" type='movie' class='modal_song fa fa-handshake-o spanCollaboration'"
+		+" style = 'font-size: 45px; margin-top: 15px; margin-left: 200px'></span>";
+
+		var star = "fa fa-star spanFavourite"; // Estrella vacia
 
 		/* SI ESTA EN FAVORITOS, ENTONCES LA ESTRELLA SE CAMBIA A LLENA */
-		if (it.favorited) star = "glyphicon glyphicon-star";
+		if (it.favorited) star += " estrellaFavorito";
 
 		/*
 		CUANDO SE HACE CLIC EN AGREGAR ESTA PELICULA A FAVORITOS,
 		SE PASA EL NODO HTML Y SE PASA EL INDICE DEL OBJETO DEL array_film
 		QUE CONTIENE LA INFORMACION YA PROCESADA POR EL SERVIDOR
 		*/
-		var add = "<span onclick='addToFavorites(this, "+i+")'"+
-		"type='movie' class='"+star+"'></span>";
+		// var add = "<span onclick='addToFavorites(this, "+i+")'"+
+		// "type='movie' class='"+star+"'></span>";
 
-		content += "<p>"+film+" "+link+" "+cooperate+" "+add+"</p>";
+		var add = "<span onclick='addToFavorites(this, "+i+")'"
+		+" type='song' class='"+star+"' style='margin-left: 10px'></span>";
+
+		var imagen = it.img_url == null ? '/img/imagenNoDisponible.gif' : it.img_url;
+
+		content += "<div class = 'movieContainer' style = 'width: 100%; height : 319px; border-bottom: 2px solid #A4A4A4;'>" + 
+						"<img src = '" + imagen + "' style = 'width: 130px; height: 200px; margin: 50px 0; display: inline-block'/>" + 
+						"<div style = 'width: 50%; display: inline-block; top: 0px; left: 20px; position: relative;'>" +
+							"<p style = 'font-size: 22px; color: #A4A4A4'>" + it.name + add + "</p><p style = 'font-size: 17px; color: white'>" + it.year + "</p>" +
+							"<img src = '/img/iconoPelicula.png' style = 'width: 50px; height: 50px; position: relative; top: 70px'/>" +
+						"</div>" +
+						"<div style = 'font-size: 17.5px; color: white; width: 50%; position: relative; top: -139px; left: 579px'>" +
+							"Ver:<br>" +
+							"<a href = 'http://www.imdb.com/find?&q=" + it.name + "&s=tt' class = 'linkIMDB' target = '_blank'><span class = 'fa fa-imdb' style = 'font-size: 45px; margin-top: 15px'></span></a>" +
+							collaborate + 
+						"</div>" +
+					"</div>";
+
+		// content += "<p>"+film+" "+link+" "+cooperate+" "+add+"</p>";
 
 	}
 
@@ -750,9 +791,9 @@ function modalPopulateFilm(response, this_song) {
 		var it = array[i];
 		var info = it.title+" ("+it.release_date+")";
 		var href = "http://www.imdb.com/find?&q="+it.original_title+"&s=tt";
-		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
+		var link = "<a style='color: black;' target='_blank' href='"+href+"'>"+info+" "+film+"</a>";
 
-		content += "<p><input value='"+i+"' class='to_check_movie' type='checkbox'> "+link+"</input></p>";
+		content += "<p><input value='"+i+"' class='to_check_movie' type='checkbox'> "+film+link+"</input></p>";
 
 	}
 
@@ -771,9 +812,13 @@ function modalPopulateMusic(response, this_movie) {
 		var it = array[i];
 		var info = it.artist+" - "+it.name;
 		var href = "https://open.spotify.com/search/songs/"+info+"";
-		var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
+		// var link = "<a target='_blank' href='"+href+"'>"+info+"</a>";
 
-		content += "<p><input value='"+i+"' class='to_check_song' type='checkbox'> "+link+"</input></p>";
+		// content += "<p><input value='"+i+"' class='to_check_song' type='checkbox'> "+link+"</input></p>";
+
+		var link = "<a style='color: black;' target='_blank' href='"+href+"'>"+info+" "+music+"</a>";
+
+		content += "<p><input value='"+i+"' class='to_check_song' type='checkbox'> "+music+link+"</input></p>";
 
 	}
 
@@ -852,7 +897,8 @@ function paginate() {
 	var	f = "<li class='col-md-4'><a href='' onclick='first()'>Pagina inicial</a></li>";
 	var n = "<li class='col-md-4'><a href='' onclick='next()'>Siguiente</a></li>";
 
-	document.getElementById("pages").innerHTML = "<hr>"+p+f+n;
+	// document.getElementById("pages").innerHTML = "<hr>"+p+f+n;
+	document.getElementById("pages").innerHTML = p+f+n;
 
 }
 

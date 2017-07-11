@@ -22,11 +22,11 @@ pre {
 
 a {
 
-  color: black;
+  color: white;
 
-  /*&:visited {
-    color: gray;
-  }*/
+  &:visited {
+    color: white;
+  }
 
   &:hover {
     color: dodgerblue;
