@@ -1,0 +1,81 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: url('/img/fondoPrincipal.png');
+  font-family: sans-serif;
+  overflow-x: hidden;
+}
+
+.divResultado{
+	width: 100%;
+	height: 200px;
+}
+
+.musicContainer{
+	border-bottom: 2px solid #A4A4A4;
+}
+
+.movieContainer{
+	border-bottom: 2px solid #A4A4A4;
+}
+
+.panel-heading{
+	font-size: 19px;
+	font-weight: bold;
+	background: black;
+	color: white;
+
+}
+
+.spanFavourite{
+	cursor: pointer;
+	color: transparent;
+	-webkit-text-stroke: 1px #EECA18;
+}
+
+.estrellaFavorito{
+	color: #EECA18;
+}
+
+.linkSpotify{
+	color: #A4A4A4;
+}
+
+.linkLastFM{
+	color: #A4A4A4;
+}
+
+.linkIMDB{
+	color: #A4A4A4;
+}
+
+.spanFavourite:hover{
+	color: #EECA18;
+}
+
+.linkSpotify:hover{
+	color: green;
+	cursor: pointer;
+}
+
+.linkLastFM:hover{
+	color: red;
+	cursor: pointer;
+}
+
+.linkIMDB:hover{
+	color: #EFC62E;
+	cursor: pointer;
+}
+
+.spanCollaboration{
+	color: #A4A4A4;;
+}
+
+.spanCollaboration:hover{
+	color: #009CFD;
+	cursor: pointer;
+}

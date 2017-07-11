@@ -1,59 +1,48 @@
 <!DOCTYPE html>
 <html>
- 
-  <head>
- 
-    <title>OSTy</title>
-
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag "views" %>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
- 
- </head>
- 
-  <body>
-
-    <div class="super-conteiner">
-
-      <center><%= image_tag "osty.png", :class => "logo-search img-responsive" %></center>
-
-        <div class="container">
-
-          <div class="search col-md-8 col-md-offset-2">
-
-            <ul class="nav">
-              <li class="col-md-3"><a href="/collaborations">Colaboraciones</a></li>
-              <li class="col-md-3"><a href="/favorites">Favoritos</a></li>
-              <li class="col-md-3"><a href="/users/profile">Perfil</a></li>
-              <li class="col-md-3"><a href="/search/index">Buscar</a></li>
-            </ul>
-
-            <!--
-            Mediante jquery se podria dejar pintado el li
-            en color dodgerblue, en funcion del path actual
-            Por ejemplo: Si esta en colaboraciones, este aparecera seleccionado 
-            -->
-
-          </div>
-
-        </div>
-
-    </div>
-
-      <div class="container search col-md-8 col-md-offset-2"><%= yield %></div>
-
-      <script type="text/javascript">
-      	var input = document.getElementById("q");
+<head>
+	<title>OSTy</title>
+	<meta name="viewport" conent="width=device-width, initial-scale=1">
+	<%= csrf_meta_tags %>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	<!-- Esta en /public -->
+	<%= stylesheet_link_tag "/font-awesome/css/font-awesome.min" %>
+	<!-- Esta en /public/stylesheets/ -->
+	<%= stylesheet_link_tag "landing" %>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<header class = "header">
+		<div class = "datosHeader">
+			<div class = "divImagen">
+				<img src = "/img/osty.png" class = "logo"/>      
+			</div>
+			<div class = "menu">      
+				<div class = "divMenu">
+					<ul class = "lstMenu">
+						<li><a href = "/search/index"><span class = "fa fa-search"></span>BUSCAR</a></li>
+						<li><a href = "/collaborations"><span class = "fa fa-handshake-o" style = "clear: both"></span>COLABORACIONES</a></li>
+						<li><a href = "/favorites"><span class = "fa fa-star"></span>FAVORITOS</a></li>
+						<li><a href = "/users/profile"><span class = "fa fa-user"></span>MI PERFIL</a></li>
+					</ul>
+				</div>      
+				<div class = "divBarras">
+					<span class = "fa fa-bars" id = "barrasMenuVertical"></span>
+				</div>    
+			</div>
+		</div>
+	</header>
+	<div class="container" style = "margin-top: 105px; max-width: 1150px; box-sizing: border-box;">
+		<div class="container search" style = "width: 100%"><%= yield %></div>
+	</div>
+	<script type="text/javascript">
+		var input = document.getElementById("q");
 		// console.log(input);
 		var awesomplete = new Awesomplete(input);
 		awesomplete.list = ["Ada", "Java", "JavaScript", "Brainfuck", "LOLCODE", "Node.js", "Ruby on Rails"];
 		// awesomplete.list = busqueda;
 		awesomplete.list = AWlist;
-      </script>
-
-  </body>
-
+	</script>
+</body>
 </html>

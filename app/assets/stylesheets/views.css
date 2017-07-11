@@ -32,13 +32,13 @@ body {
 
 .search-input {
 	padding: 10px;
-	border: 1px solid transparent;
-	border-radius: 2px 0 0 2px;
+	/*border: 1px solid transparent;*/
+	border-radius: 2px;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	height: 50px;
 	outline: none;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 4px 5px #A4A4A4;
 	width: 100%;
 }
 
@@ -46,12 +46,12 @@ body {
 	font-size: 15px;
 	font-weight: 300;
 	padding: 0 11px 0 13px;
-	text-overflow: ellipsis;
+	/*text-overflow: ellipsis;*/
 }
 
 #query:focus {
 	border-color: none;
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 8px 24px #A4A4A4;
 }
 
 @media screen and (max-device-width: 600px) {
